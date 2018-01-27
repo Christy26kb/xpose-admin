@@ -11,7 +11,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import Tile from '../components/Tile';
+import Grid from '../components/Grid';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -24,13 +24,9 @@ export default class HomeScreen extends React.Component {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
           <View style={styles.getStartedContainer}>
-            
-            <Tile text={'Gallery'}/>
-            <Tile text={'Search'}/>
-            <Tile text={'Orders'}/>
-            <Tile text={'Cart'}/>
-            <Tile text={'Users'}/>
 
+          <Grid />
+            
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
             </View>
@@ -118,7 +114,7 @@ const styles = StyleSheet.create({
   },
   getStartedContainer: {
     alignItems: 'center',
-    marginHorizontal: 50,
+    marginHorizontal: 10,
   },
   homeScreenFilename: {
     marginVertical: 7,
