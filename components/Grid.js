@@ -1,5 +1,4 @@
 import React from 'react';
-import GridView from 'react-native-super-grid';
 import Tile from '../components/Tile';
 
 import imageGallery from '../assets/images/gallery.png';
@@ -7,6 +6,7 @@ import imageSearch from '../assets/images/search.png';
 import imageOrders from '../assets/images/orders.png';
 import imageCart from '../assets/images/cart.png';
 import imageUsers from '../assets/images/users.png';
+import imageSearch2 from '../assets/images/search2.png';
 
 import {
     StyleSheet,
@@ -36,6 +36,7 @@ export default class Grid extends React.Component {
         { name: 'Orders', image: imageOrders },
         { name: 'Cart', image: imageCart },
         { name: 'Users', image: imageUsers },
+        { name: 'Search2', image: imageSearch2 }
     ];
     return(
         <View style={styles.gridView}>

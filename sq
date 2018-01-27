@@ -1,0 +1,183 @@
+[33mcommit e50886eb628aab4a42d4aa5c82ee0d41d1db6222[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Ivin Jose <ivinjose@gmail.com>
+Date:   Sat Jan 27 17:23:29 2018 +0530
+
+    Added Grid.js to showcase the tiles, Added images
+
+[1mdiff --git a/.DS_Store b/.DS_Store[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e568da2[m
+Binary files /dev/null and b/.DS_Store differ
+[1mdiff --git a/assets/.DS_Store b/assets/.DS_Store[m
+[1mnew file mode 100644[m
+[1mindex 0000000..89e719e[m
+Binary files /dev/null and b/assets/.DS_Store differ
+[1mdiff --git a/assets/images/.DS_Store b/assets/images/.DS_Store[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0028121[m
+Binary files /dev/null and b/assets/images/.DS_Store differ
+[1mdiff --git a/assets/images/cart.png b/assets/images/cart.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3da6027[m
+Binary files /dev/null and b/assets/images/cart.png differ
+[1mdiff --git a/assets/images/gallery.png b/assets/images/gallery.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6b7cd78[m
+Binary files /dev/null and b/assets/images/gallery.png differ
+[1mdiff --git a/assets/images/orders.png b/assets/images/orders.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3deba55[m
+Binary files /dev/null and b/assets/images/orders.png differ
+[1mdiff --git a/assets/images/search.png b/assets/images/search.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6381902[m
+Binary files /dev/null and b/assets/images/search.png differ
+[1mdiff --git a/assets/images/search2.png b/assets/images/search2.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9040bf9[m
+Binary files /dev/null and b/assets/images/search2.png differ
+[1mdiff --git a/assets/images/users.png b/assets/images/users.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a52e531[m
+Binary files /dev/null and b/assets/images/users.png differ
+[1mdiff --git a/components/Grid.js b/components/Grid.js[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c16bc39[m
+[1m--- /dev/null[m
+[1m+++ b/components/Grid.js[m
+[36m@@ -0,0 +1,50 @@[m
+[32m+[m[32mimport React from 'react';[m
+[32m+[m[32mimport GridView from 'react-native-super-grid';[m
+[32m+[m[32mimport Tile from '../components/Tile';[m
+[32m+[m
+[32m+[m[32mimport imageGallery from '../assets/images/gallery.png';[m
+[32m+[m[32mimport imageSearch from '../assets/images/search.png';[m
+[32m+[m[32mimport imageOrders from '../assets/images/orders.png';[m
+[32m+[m[32mimport imageCart from '../assets/images/cart.png';[m
+[32m+[m[32mimport imageUsers from '../assets/images/users.png';[m
+[32m+[m
+[32m+[m[32mimport {[m
+[32m+[m[32m    StyleSheet,[m
+[32m+[m[32m    Text,[m
+[32m+[m[32m    View,[m
+[32m+[m[32m} from 'react-native';[m
+[32m+[m
+[32m+[m[32mconst styles = StyleSheet.create({[m
+[32m+[m[32m    gridView: {[m
+[32m+[m[32m        justifyContent: 'space-around',[m
+[32m+[m[32m        alignItems: 'center',[m
+[32m+[m[32m        flexDirection: 'row',[m
+[32m+[m[32m        flexWrap: 'wrap',[m
+[32m+[m[32m        paddingTop: 0,[m
+[32m+[m[32m        flex: 1,[m
+[32m+[m[32m    },[m
+[32m+[m[32m    tileView: {[m
+[32m+[m[32m        margin: 15[m
+[32m+[m[32m    }[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mexport default class Grid extends React.Component {[m
+[32m+[m[32m  render() {[m
+[32m+[m[32m    const items = [[m
+[32m+[m[32m        { name: 'Gallery', image: imageGallery },[m
+[32m+[m[32m        { name: 'Search', image: imageSearch },[m
+[32m+[m[32m        { name: 'Orders', image: imageOrders },[m
+[32m+[m[32m        { name: 'Cart', image: imageCart },[m
+[32m+[m[32m        { name: 'Users', image: imageUsers },[m
+[32m+[m[32m    ];[m
+[32m+[m[32m    return([m
+[32m+[m[32m        <View style={styles.gridView}>[m
+[32m+[m[32m            {[m
+[32m+[m[32m                items.map( (item, index) => {[m
+[32m+[m[32m                    return <Tile style={styles.tileView} key={index} item={item} />;[m
+[32m+[m[32m                })[m
+[32m+[m[32m            }[m
+[32m+[m[32m        </View>[m
+[32m+[m[32m    );[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[1mdiff --git a/components/Tile.js b/components/Tile.js[m
+[1mindex 5061423..7d51e82 100644[m
+[1m--- a/components/Tile.js[m
+[1m+++ b/components/Tile.js[m
+[36m@@ -3,31 +3,33 @@[m [mimport {[m
+   Image, [m
+   View, [m
+   Text,[m
+[31m-  StyleSheet [m
+[32m+[m[32m  StyleSheet[m
+ } from 'react-native';[m
+ [m
+ const styles = StyleSheet.create({[m
+   view: {[m
+     alignItems: 'center',[m
+     borderColor: '#F38231',[m
+[31m-    borderRadius: 2,[m
+[32m+[m[32m    borderRadius: 4,[m
+     borderWidth: 2,[m
+     justifyContent: 'space-between',[m
+[32m+[m[32m    minWidth: 100,[m
+     padding: 8,[m
+   },[m
+   text:{[m
+[31m-    fontWeight: 'bold'[m
+[32m+[m[32m    fontWeight: 'bold',[m
+[32m+[m[32m    marginTop: 10,[m
+   }[m
+ });[m
+ [m
+ export default class Tile extends React.Component {[m
+   render() {[m
+[32m+[m[32m    let image = this.props.item.image;[m
+     return([m
+[31m-        <View style={styles.view}>[m
+[31m-            <Image source={require('../assets/images/robot-dev.png')} />[m
+[31m-            <Text style={styles.text}>{this.props.text}</Text>[m
+[32m+[m[32m        <View style={[styles.view,this.props.style]}>[m
+[32m+[m[32m            <Image source={this.props.item.image} />[m
+[32m+[m[32m            <Text style={styles.text}>{this.props.item.name}</Text>[m
+         </View>[m
+     );[m
+   }[m
+[31m-}[m
+[31m-[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/screens/HomeScreen.js b/screens/HomeScreen.js[m
+[1mindex 30681a4..65754e9 100644[m
+[1m--- a/screens/HomeScreen.js[m
+[1m+++ b/screens/HomeScreen.js[m
+[36m@@ -11,7 +11,7 @@[m [mimport {[m
+ import { WebBrowser } from 'expo';[m
+ [m
+ import { MonoText } from '../components/StyledText';[m
+[31m-import Tile from '../components/Tile';[m
+[32m+[m[32mimport Grid from '../components/Grid';[m
+ [m
+ export default class HomeScreen extends React.Component {[m
+   static navigationOptions = {[m
+[36m@@ -24,13 +24,9 @@[m [mexport default class HomeScreen extends React.Component {[m
+         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>[m
+ [m
+           <View style={styles.getStartedContainer}>[m
+[31m-            [m
+[31m-            <Tile text={'Gallery'}/>[m
+[31m-            <Tile text={'Search'}/>[m
+[31m-            <Tile text={'Orders'}/>[m
+[31m-            <Tile text={'Cart'}/>[m
+[31m-            <Tile text={'Users'}/>[m
+ [m
+[32m+[m[32m          <Grid />[m
+[32m+[m[41m            [m
+             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>[m
+               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>[m
+             </View>[m
+[36m@@ -118,7 +114,7 @@[m [mconst styles = StyleSheet.create({[m
+   },[m
+   getStartedContainer: {[m
+     alignItems: 'center',[m
+[31m-    marginHorizontal: 50,[m
+[32m+[m[32m    marginHorizontal: 10,[m
+   },[m
+   homeScreenFilename: {[m
+     marginVertical: 7,[m
