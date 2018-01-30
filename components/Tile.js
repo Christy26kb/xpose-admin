@@ -11,8 +11,8 @@ import {
 const styles = StyleSheet.create({
   view: {
     alignItems: 'center',
-    borderColor: 'grey',
-    borderRadius: 4,
+    borderColor: '#BDBDBD',
+    borderRadius: 6,
     borderWidth: 2,
     justifyContent: 'space-between',
     minWidth: 120,
