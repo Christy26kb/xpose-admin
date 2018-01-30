@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 
 export default class Tile extends React.Component {
   _handleTap = () =>{
-    this.props._handleTileNavigation('Gallery', {});
+    this.props._handleTileNavigation(this.props.item.name, {});
   }
   render() {
     return(

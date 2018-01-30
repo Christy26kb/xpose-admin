@@ -13,15 +13,15 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import Grid from '../components/Grid';
 
-export default class GalleryScreen extends React.Component {
+export default class SearchScreen extends React.Component {
   static navigationOptions = {
-    title: 'Gallery'
+    title: 'Search'
   };
 
   render() {
     return (
       <View>
-        <Text>And THIS IS THE Gallery BODY!!</Text>
+        <Text>And THIS IS THE Search BODY!!</Text>
       </View>
     );
   }

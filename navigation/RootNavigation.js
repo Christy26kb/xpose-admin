@@ -4,7 +4,12 @@ import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
+
 import GalleryScreen from '../screens/GalleryScreen';
+import SearchScreen from '../screens/SearchScreen';
+import OrdersScreen from '../screens/OrdersScreen';
+import CartScreen from '../screens/CartScreen';
+import UsersScreen from '../screens/UsersScreen';
 
 const RootStackNavigator = StackNavigator(
   /**
@@ -16,6 +21,18 @@ const RootStackNavigator = StackNavigator(
     },
     Gallery: {
       screen: GalleryScreen,
+    },
+    Search: {
+      screen: SearchScreen,
+    },
+    Orders: {
+      screen: OrdersScreen,
+    },
+    Cart: {
+      screen: CartScreen,
+    },
+    Users: {
+      screen: UsersScreen,
     },
   },
   {

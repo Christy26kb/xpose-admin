@@ -13,15 +13,15 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import Grid from '../components/Grid';
 
-export default class GalleryScreen extends React.Component {
+export default class UsersScreen extends React.Component {
   static navigationOptions = {
-    title: 'Gallery'
+    title: 'Users'
   };
 
   render() {
     return (
       <View>
-        <Text>And THIS IS THE Gallery BODY!!</Text>
+        <Text>And THIS IS THE Users BODY!!</Text>
       </View>
     );
   }

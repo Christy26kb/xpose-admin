@@ -15,7 +15,7 @@ import Grid from '../components/Grid';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Home',
   };
 
   render() {
