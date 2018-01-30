@@ -22,7 +22,8 @@ Follow these methods one by one:
 
 1. Refer to this URL: https://github.com/Homebrew/brew/issues/476
 2. If method 1 doesnt work, try this url: https://stackoverflow.com/a/47335586 -- This will definitely work since it completely reinstalls homebrew.
-3. Beware, method 2 deletes and installs your homebrew and will take plenty of time and bandwidth. So be cautious.
+
+* Note: Beware, method 2 deletes and installs your homebrew and will take plenty of time and bandwidth. So be cautious.
 
 Now run this command > brew update && brew cask install react-native-debugger
 
