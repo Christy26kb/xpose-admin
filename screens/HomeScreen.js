@@ -19,13 +19,13 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    this.navigate = this.props.navigation.navigate;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
           <View style={styles.getStartedContainer}>
 
-          <Grid />
+          <Grid _handleTileNavigation={this._handleTileNavigation.bind(this)}/>
             
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
@@ -40,13 +40,13 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
+        {/* <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
 
           <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
             <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
           </View>
-        </View>
+        </View> */}
       </View>
     );
   }
@@ -72,6 +72,10 @@ export default class HomeScreen extends React.Component {
         </Text>
       );
     }
+  }
+
+  _handleTileNavigation = (pageName, propsObject) =>{
+    this.navigate( pageName, propsObject );
   }
 
   _handleLearnMorePress = () => {

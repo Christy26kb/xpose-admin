@@ -27,17 +27,16 @@ const styles = StyleSheet.create({
 
 export default class Tile extends React.Component {
   _handleTap = () =>{
-    Alert.alert('Tap catched!');
+    this.props._handleTileNavigation('Gallery', {});
   }
   render() {
-    let image = this.props.item.image;
     return(
+      <TouchableOpacity onPress={this._handleTap} >
         <View style={[styles.view,this.props.style]}>
-        <TouchableOpacity onPress={this._handleTap} >
             <Image source={this.props.item.image} />
             <Text style={styles.text}>{this.props.item.name}</Text>
-        </TouchableOpacity>
         </View>
+      </TouchableOpacity>
     );
   }
 }

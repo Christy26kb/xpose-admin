@@ -4,11 +4,18 @@ import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
+import GalleryScreen from '../screens/GalleryScreen';
 
 const RootStackNavigator = StackNavigator(
+  /**
+   * Note to Christy: Any new page you need to add, import on top and then specify it in this below list like I have specified Gallery.
+   */
   {
     Main: {
       screen: MainTabNavigator,
+    },
+    Gallery: {
+      screen: GalleryScreen,
     },
   },
   {

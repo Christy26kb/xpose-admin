@@ -42,7 +42,7 @@ export default class Grid extends React.Component {
         <View style={styles.gridView}>
             {
                 items.map( (item, index) => {
-                    return <Tile style={styles.tileView} key={index} item={item} />;
+                    return <Tile style={styles.tileView} key={index} item={item} _handleTileNavigation={this.props._handleTileNavigation}/>;
                 })
             }
         </View>
