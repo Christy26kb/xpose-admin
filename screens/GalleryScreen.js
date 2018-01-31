@@ -4,14 +4,22 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
+
+import {
+  Container,
+  Header,
+  Content,
+  Right,
+  Left,
+  Body,
+} from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import { MonoText } from '../components/StyledText';
-import Grid from '../components/Grid';
+import Gridi from '../components/Gridi';
 
 export default class GalleryScreen extends React.Component {
   static navigationOptions = {
@@ -20,19 +28,22 @@ export default class GalleryScreen extends React.Component {
 
   render() {
     return (
-      <View>
-        <Text>And THIS IS THE Gallery BODY!!</Text>
-      </View>
-    );
+        <Container>
+          <Content>
+          <Grid>
+            <Col style={{ backgroundColor: '#635DB7', height: 200 }}></Col>
+            <Col style={{ backgroundColor: '#00CE9F', height: 200 }}></Col>
+          </Grid>
+          </Content>
+        </Container>
+
+        );
   }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
+
+const sty = StyleSheet.create({
+  basecont: {
+    paddingTop: 30,
+    flex: 1,
+  },
+});

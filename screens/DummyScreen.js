@@ -11,7 +11,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import Grid from '../components/Grid';
+import Gridi from '../components/Gridi';
 
 export default class DummyScreen extends React.Component {
   static navigationOptions = {

@@ -11,7 +11,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import Grid from '../components/Grid';
+import Gridi from '../components/Gridi';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -21,22 +21,11 @@ export default class HomeScreen extends React.Component {
   render() {
     this.navigate = this.props.navigation.navigate;
     return (
+
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-
-          <Grid _handleTileNavigation={this._handleTileNavigation.bind(this)}/>
-            
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
+          <Gridi _handleTileNavigation={this._handleTileNavigation.bind(this)}/>
           </View>
         </ScrollView>
 

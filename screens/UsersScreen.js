@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Container, Header, Content, Form, Item, Input, Label , Icon } from 'native-base';
 import { WebBrowser } from 'expo';
 
-import { MonoText } from '../components/StyledText';
-import Grid from '../components/Grid';
+import Gridi from '../components/Gridi';
 
 export default class UsersScreen extends React.Component {
   static navigationOptions = {
@@ -19,20 +19,37 @@ export default class UsersScreen extends React.Component {
   };
 
   render() {
+    const pass = {
+      hidden: true,
+    };
+
     return (
-      <View>
-        <Text>And THIS IS THE Users BODY!!</Text>
-      </View>
+      <Container>
+        <Content>
+          <Form >
+            <Item stackedLabel>
+              <Label>Username</Label>
+              <Input />
+              <Icon active name='person' />
+            </Item>
+            <Item stackedLabel>
+              <Label>Password</Label>
+              <Input />
+              <Icon active name='lock' />
+            </Item>
+            <Item stackedLabel>
+              <Label>Email</Label>
+              <Input />
+              <Icon active name='mail' />
+            </Item>
+            <Item stackedLabel >
+              <Label>Mobile No</Label>
+              <Input />
+              <Icon active name='logo-whatsapp' />
+            </Item>
+          </Form>
+        </Content>
+      </Container>
     );
   }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }

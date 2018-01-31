@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default class Grid extends React.Component {
+export default class Gridi extends React.Component {
   render() {
     const items = [
         { name: 'Gallery', image: imageGallery },
