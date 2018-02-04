@@ -24,18 +24,9 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import { MonoText } from '../components/StyledText';
 import Gridi from '../components/Gridi';
+import ProTile from '../components/ProTile';
 
 export default class GalleryScreen extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.state={
-      data:{
-        email:'christybabu26@gmail.com',
-        name:'Christy',
-      },
-    };
-  }
   static navigationOptions = {
     title: 'Gallery'
   };
@@ -47,15 +38,13 @@ export default class GalleryScreen extends React.Component {
         <View style={styles.getStartedContainer}>
 
           <List>
-            <FlatList data={this.state.data} 
-             keyExtractor={item=>item.email}
+            <FlatList data={[{email: 'christybabu26@gmail.com'}]} 
              renderItem={({ item }) =>(
-                <ListItem
-                  title={item.name}
-                  subtitle={item.email}
-                  
-                />
+                <ListItem>
+                  <ProTile item={item}/>
+                </ListItem>
             ) }
+            keyExtractor={item=>item.email}
             />
           </List>
 

@@ -2,11 +2,12 @@ import React from 'react';
 import { 
   Image, 
   View, 
-  Text,
   TouchableOpacity,
   Alert,
   StyleSheet
 } from 'react-native';
+import { Container, Header, Content, Card, CardItem, Text, Body } from 'native-base';
+
 
 const styles = StyleSheet.create({
   view: {
@@ -25,16 +26,31 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Tile extends React.Component {
+
+export default class ProTile extends React.Component {
   /*_handleTap = () =>{
     this.props._handleTileNavigation(this.props.item.name, {});
   }*/
   render() {
     return(
       <TouchableOpacity>
-        <View style={[styles.view,this.props.style]}>
-            <Image source={this.props.item.image} />
-            <Text style={styles.text}>{this.props.item.name}</Text>
+        <View>
+          <Card>
+              <CardItem header>
+                <Text>{this.props.item.email}</Text>
+              </CardItem>
+              <CardItem>
+                <Body>
+                  <Text>
+                    By binding the onPressItem handler, the props will remain === and PureComponent will prevent wasteful re-renders unless the actual id, selected, or title props change, even if the components rendered in MyListItem did not have such optimizations.
+                    By passing extraData to FlatList we make sure.
+                  </Text>
+                </Body>
+              </CardItem>
+              <CardItem footer>
+                <Text>Price:$645</Text>
+              </CardItem>
+          </Card>
         </View>
       </TouchableOpacity>
     );
