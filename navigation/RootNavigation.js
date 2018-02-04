@@ -11,6 +11,7 @@ import SearchScreen from '../screens/SearchScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import CartScreen from '../screens/CartScreen';
 import UsersScreen from '../screens/UsersScreen';
+import UserauthScreen from '../screens/UserauthScreen'
 
 const RootStackNavigator = StackNavigator(
   /**
@@ -35,11 +36,18 @@ const RootStackNavigator = StackNavigator(
     Users: {
       screen: UsersScreen,
     },
+    Log:{
+      screen: UserauthScreen,
+    },
   },
   {
     navigationOptions: () => ({
       headerTitleStyle: {
         fontWeight: 'normal',
+        paddingBottom: 10,
+      },
+      headerStyle: {
+        height: 30,
       },
     }),
   }

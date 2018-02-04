@@ -13,20 +13,20 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import Gridi from '../components/Gridi';
 
-export default class SearchScreen extends React.Component {
+export default class UserauthSreen extends React.Component {
   static navigationOptions = {
-    title: 'Search'
+    title: 'Log',
   };
 
   render() {
     return (
       <View>
-        <Text>And THIS IS THE Search BODY!!</Text>
+        <Text>And THIS IS THE Login BODY!!</Text>
       </View>
     );
   }
 
- /* _handleLearnMorePress = () => {
+  /*_handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
   };
 
@@ -35,4 +35,5 @@ export default class SearchScreen extends React.Component {
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
   };*/
+
 }

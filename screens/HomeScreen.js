@@ -67,7 +67,7 @@ export default class HomeScreen extends React.Component {
     this.navigate( pageName, propsObject );
   }
 
-  _handleLearnMorePress = () => {
+ /* _handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
   };
 
@@ -75,7 +75,7 @@ export default class HomeScreen extends React.Component {
     WebBrowser.openBrowserAsync(
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
-  };
+  };*/
 }
 
 const styles = StyleSheet.create({

@@ -36,7 +36,7 @@ export default class Gridi extends React.Component {
         { name: 'Orders', image: imageOrders },
         { name: 'Cart', image: imageCart },
         { name: 'Users', image: imageUsers },
-        { name: 'Search2', image: imageSearch2 }
+        { name: 'Log', image: imageSearch2 }
     ];
     return(
         <View style={styles.gridView}>
