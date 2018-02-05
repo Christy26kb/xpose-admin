@@ -34,21 +34,41 @@ export default class GalleryScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.getStartedContainer}>
-
+      <ScrollView contentContainerStyle={styles.contentContainer}>
           <List>
-            <FlatList data={[{email: 'christybabu26@gmail.com'}]} 
+            <FlatList 
+            data={[
+              {
+              product:{
+              name:'Adidas',
+              price:345,
+              pid:'#1',
+                      }
+            },
+              {
+              product:{
+              name:'FILA',
+              price:545,
+              pid:'#2',
+            }
+            },
+              {
+              product:{
+              name:'Nike',
+              price:645,
+              pid:'#3',
+            }
+            },
+            
+          ]}
              renderItem={({ item }) =>(
                 <ListItem>
                   <ProTile item={item}/>
                 </ListItem>
             ) }
-            keyExtractor={item=>item.email}
+            keyExtractor={item=>item.product.pid}
             />
           </List>
-
-        </View>
       </ScrollView>
       </View>
         );
@@ -69,7 +89,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 20,
+    flex: 1,
+    alignItems:'center',
+    paddingRight:18,
   },
   welcomeContainer: {
     alignItems: 'center',
