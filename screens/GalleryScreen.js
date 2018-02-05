@@ -34,7 +34,7 @@ export default class GalleryScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           <List>
             <FlatList 
             data={[
