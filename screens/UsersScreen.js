@@ -21,13 +21,13 @@ export default class UsersScreen extends React.Component {
   render() {
 
     return (
-      <Container style={{paddingTop: 30}}>
-         <Content>
-           <ScrollView>
+      <Container>
+          <ScrollView>
+         <Content style={{paddingTop: 30,backgroundColor:'white'}}>
           <Form>
             <Item stackedLabel>
               <Label>Username</Label>
-              <Input autoCorrect={false}
+              <Input disabled autoCorrect={false}
               autoCapitalize="none"
               />
               <Icon active name='person' />
@@ -35,7 +35,7 @@ export default class UsersScreen extends React.Component {
 
             <Item stackedLabel>
               <Label>Password</Label>
-              <Input secureTextEntry = {true}
+              <Input disabled secureTextEntry = {true}
               autoCorrect = {false}
               autoCapitalize = "none"
                />
@@ -44,29 +44,28 @@ export default class UsersScreen extends React.Component {
 
             <Item stackedLabel>
               <Label>Email</Label>
-              <Input />
+              <Input disabled  />
               <Icon active name='mail' />
             </Item>
 
             <Item stackedLabel >
               <Label>Mobile No</Label>
-              <Input />
+              <Input disabled  />
               <Icon active name='logo-whatsapp' />
             </Item>
 
             <Item stackedLabel >
               <Label>Address</Label>
-              <Input />
+              <Input/>
               <Icon active name='logo-whatsapp' />
             </Item>
-
-            <Button rounded success style={{marginTop: 20}}>
-                <Text>Submit</Text>
+            
+            <Button style={{marginTop:30,marginLeft:20,marginRight:20,marginBottom:20}} full rounded success>
+            <Text>Edit info</Text>
             </Button>
-
           </Form>
-          </ScrollView>
           </Content>
+          </ScrollView>
       </Container>
     );
   }

@@ -26,7 +26,7 @@ export default class OrdersScreen extends React.Component {
     );
   }
 
-  _handleLearnMorePress = () => {
+  _/*handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
   };
 
@@ -34,5 +34,5 @@ export default class OrdersScreen extends React.Component {
     WebBrowser.openBrowserAsync(
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
-  };
+  };*/
 }

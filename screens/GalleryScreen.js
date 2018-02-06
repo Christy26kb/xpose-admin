@@ -23,7 +23,6 @@ import {
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import { MonoText } from '../components/StyledText';
-import Gridi from '../components/Gridi';
 import ProTile from '../components/ProTile';
 
 export default class GalleryScreen extends React.Component {
