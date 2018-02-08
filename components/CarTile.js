@@ -9,29 +9,30 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Body, Icon } from 'native-base';
+import {   Icon, Button } from 'native-base';
 
 
-export default class ProTile extends React.Component {
+export default class CarTile extends React.Component {
   /*_handleTap = () =>{
     this.props._handleTileNavigation(this.props.item.name, {});
   }*/
   render() {
     return(
-    <View>
-      <TouchableOpacity>
-          <View style={{flex:1,alignItems:'stretch'}}>
+    <View style={{width:300,height:150}}>
+        <TouchableOpacity>
+          <View>
           <Image source={{uri:this.props.item.product.imguri}}
-                  style={{flex:1,width: 125, height: 125}} />
+                  style={{width: 70, height: 70}} />
           </View>
-       </TouchableOpacity>
             <View>
-              <Text style={styles.proinfo}>{this.props.item.product.name}</Text>
-                <Text style={styles.priinfo}>${this.props.item.product.price}</Text>
+                <Text style={styles.text}>PRODUCT-ID: {this.props.item.product.pid}</Text>
+                <Text style={styles.text}>NAME: {this.props.item.product.name}</Text>
+                <Text style={styles.text}>PRICE: ${this.props.item.product.price}</Text>
                 <TouchableWithoutFeedback>
                 <Icon active name='hand' style={styles.iconpos}/>
                 </TouchableWithoutFeedback>
             </View>
+      </TouchableOpacity>
     </View>
    
     );
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: 3,
   },
   base:{
     flex:1,

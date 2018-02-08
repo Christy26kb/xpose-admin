@@ -18,20 +18,21 @@ export default class ProTile extends React.Component {
   }*/
   render() {
     return(
-    <View>
-      <TouchableOpacity>
-          <View style={{flex:1,alignItems:'stretch'}}>
-          <Image source={{uri:this.props.item.product.imguri}}
-                  style={{flex:1,width: 125, height: 125}} />
+    <View style={{width:300,height:150}}>
+     <TouchableOpacity>
+          <View>
+          <Image source={{uri: 'https://slimages.macysassets.com/is/image/MCY/products/8/optimized/8976488_fpx.tif?bgc=255,255,255&wid=224&qlt=90,0&layer=comp&op_sharpen=0&resMode=bicub&op_usm=0.7,1.0,0.5,0&fmt=jpeg'}}
+                  style={{width: 60, height: 60}} />
           </View>
-       </TouchableOpacity>
             <View>
-              <Text style={styles.proinfo}>{this.props.item.product.name}</Text>
-                <Text style={styles.priinfo}>${this.props.item.product.price}</Text>
+                <Text style={styles.text}>ORDER-ID: {this.props.item.order.oid}</Text>
+                <Text style={styles.text}>STATUS: {this.props.item.order.status}</Text>
+                <Text style={styles.text}>TOTAL AMOUT: ${this.props.item.order.totalp}</Text>
                 <TouchableWithoutFeedback>
                 <Icon active name='hand' style={styles.iconpos}/>
                 </TouchableWithoutFeedback>
             </View>
+      </TouchableOpacity>
     </View>
    
     );
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: 3,
   },
   base:{
     flex:1,

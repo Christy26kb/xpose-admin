@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
+ /* _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
       const learnMoreButton = (
         <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
@@ -61,7 +61,7 @@ export default class HomeScreen extends React.Component {
         </Text>
       );
     }
-  }
+  }*/
 
   _handleTileNavigation = (pageName, propsObject) =>{
     this.navigate( pageName, propsObject );
