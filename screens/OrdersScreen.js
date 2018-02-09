@@ -20,17 +20,36 @@ import {
   List,
 } from 'native-base';
 
+import {NavigationActions} from 'react-navigation';
+import navback from '../assets/images/navback.png';
+
 import { MonoText } from '../components/StyledText';
 import OrdTile from '../components/OrdTile';
+import Home from '../screens/HomeScreen';
 
 export default class OrdersScreen extends React.Component {
   static navigationOptions = {
     title: 'Orders'
   };
 
+  navigateToScreen = (route) => () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
+
+      <Header style={styles.headeri}>
+      <TouchableOpacity onPress={this.navigateToScreen('Home')}>
+      <Image source={navback}/>
+      </TouchableOpacity>
+      </Header>
+
       <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           <List>
             <FlatList 
@@ -78,6 +97,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  headeri:{
+    backgroundColor:'#0097A7',
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'center',
   },
   developmentModeText: {
     marginBottom: 20,

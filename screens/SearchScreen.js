@@ -9,6 +9,20 @@ import {
   View,
 } from 'react-native';
 
+import {
+  Container,
+  Header,
+  Content,
+  Right,
+  Left,
+  Body,
+  ListItem,
+  List,
+} from 'native-base';
+
+import {NavigationActions} from 'react-navigation';
+import navback from '../assets/images/navback.png';
+import Home from '../screens/HomeScreen';
 
 import { MonoText } from '../components/StyledText';
 
@@ -16,6 +30,14 @@ export default class SearchScreen extends React.Component {
   static navigationOptions = {
     title: 'Search'
   };
+
+  navigateToScreen = (route) => () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
+
 
   render() {
     return (
@@ -32,6 +54,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  headeri:{
+    backgroundColor:'#0097A7',
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'center',
   },
   developmentModeText: {
     marginBottom: 20,

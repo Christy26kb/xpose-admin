@@ -1,7 +1,8 @@
 import { Notifications } from 'expo';
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { DrawerNavigator } from 'react-navigation';
 
+import Sidebar from '../components/Sidebar.js';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
@@ -13,7 +14,7 @@ import CartScreen from '../screens/CartScreen';
 import UsersScreen from '../screens/UsersScreen';
 import UserauthScreen from '../screens/UserauthScreen'
 
-const RootStackNavigator = StackNavigator(
+const RootStackNavigator = DrawerNavigator(
   /**
    * Note to Christy: Any new page you need to add, import on top and then specify it in this below list like I have specified Gallery.
    */
@@ -39,17 +40,11 @@ const RootStackNavigator = StackNavigator(
     Log:{
       screen: UserauthScreen,
     },
+    
   },
   {
-    navigationOptions: () => ({
-      headerTitleStyle: {
-        fontWeight: 'normal',
-        paddingBottom: 10,
-      },
-      headerStyle: {
-        height: 30,
-      },
-    }),
+    contentComponent: Sidebar,
+    drawerWidth: 280
   }
 );
 

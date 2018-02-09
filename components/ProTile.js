@@ -22,7 +22,7 @@ export default class ProTile extends React.Component {
       <TouchableOpacity>
           <View style={{flex:1,alignItems:'stretch'}}>
           <Image source={{uri:this.props.item.product.imguri}}
-                  style={{flex:1,width: 125, height: 125}} />
+                  style={{flex:1,width: 125, height: 125, resizeMode:'cover'}} />
           </View>
        </TouchableOpacity>
             <View>

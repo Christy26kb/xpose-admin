@@ -19,21 +19,41 @@ import {
   Body,
   ListItem,
   List,
+  Icon,
 } from 'native-base';
 //library for creating grid layouts..
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import {NavigationActions} from 'react-navigation';
+import navback from '../assets/images/navback.png';
 
 import { MonoText } from '../components/StyledText';
 import ProTile from '../components/ProTile';
+import Home from '../screens/HomeScreen';
 
 export default class GalleryScreen extends React.Component {
   static navigationOptions = {
     title: 'Gallery'
   };
 
+  navigateToScreen = (route) => () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
+
+
+
   render() {
     return (
       <View style={styles.container}>
+
+      <Header style={styles.headeri}>
+      <TouchableOpacity onPress={this.navigateToScreen('Home')}>
+      <Image source={navback}/>
+      </TouchableOpacity>
+      </Header>
+
       <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           <List>
             <FlatList 
@@ -108,6 +128,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  headeri:{
+    backgroundColor:'#0097A7',
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'center',
   },
   developmentModeText: {
     marginBottom: 20,

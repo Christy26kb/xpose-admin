@@ -47,15 +47,21 @@ class LoginScreen extends Component{
               
             </Item>
 
-            <Button style={{marginTop:30,marginLeft:20,marginRight:20}} full rounded success>
-            <Text>Sign in</Text>
+            <Button style={{marginTop:50,marginLeft:20,marginRight:20,backgroundColor:'#0097A7'}} full rounded success>
+            <Text style={{color:'white'}}>Sign in</Text>
             </Button>
 
-            <Text style={{textAlign:'center',marginTop:15}}>OR</Text>
+            <Text style={{textAlign:'center',marginTop:40}}>OR</Text>
 
-            <View style={{flex:1,flexDirection:'row',justifyContent:'center',marginTop:30}}>
-            <Icon name='logo-facebook' style={{position:'absolute',left:70}} />
-            <Icon active name='logo-google' style={{position:'relative',left:70}}/>
+            <View style={{flex:1,flexDirection:'row',justifyContent:'center',marginTop:50}}>
+
+            <Button square style={{backgroundColor:'#0097A7',marginRight:20}}>
+            <Icon name='logo-facebook' style={{color:'white'}} />
+            </Button>
+            <Button square style={{backgroundColor:'#0097A7',marginLeft:20}}>
+            <Icon active name='logo-google' style={{color:'white'}}/>
+            </Button>
+
             </View>
           </Form>
           </Content>
@@ -93,8 +99,8 @@ class SignupScreen extends Component{
               />
             </Item>
 
-            <Button style={{marginTop:30,marginLeft:20,marginRight:20}} full rounded success>
-            <Text>Sign Up</Text>
+            <Button style={{marginTop:50,marginLeft:20,marginRight:20,backgroundColor:'#0097A7'}} full rounded success>
+            <Text style={{color:'white'}}>Sign Up</Text>
             </Button>
 
           </Form>
