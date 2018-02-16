@@ -13,6 +13,7 @@ import OrdersScreen from '../screens/OrdersScreen';
 import CartScreen from '../screens/CartScreen';
 import UsersScreen from '../screens/UsersScreen';
 import UserauthScreen from '../screens/UserauthScreen'
+import DummyScreen from '../screens/DummyScreen'
 
 const RootStackNavigator = DrawerNavigator(
   /**
@@ -39,6 +40,9 @@ const RootStackNavigator = DrawerNavigator(
     },
     Log:{
       screen: UserauthScreen,
+    },
+    Demo:{
+      screen: DummyScreen,
     },
     
   },

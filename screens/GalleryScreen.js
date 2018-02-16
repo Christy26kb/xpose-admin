@@ -24,11 +24,12 @@ import {
 //library for creating grid layouts..
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {NavigationActions} from 'react-navigation';
-import navback from '../assets/images/navback.png';
+import menu from '../assets/images/menu.png';
+import searchw from '../assets/images/searchw.png';
 
 import { MonoText } from '../components/StyledText';
 import ProTile from '../components/ProTile';
-import Home from '../screens/HomeScreen';
+
 
 export default class GalleryScreen extends React.Component {
   static navigationOptions = {
@@ -49,8 +50,11 @@ export default class GalleryScreen extends React.Component {
       <View style={styles.container}>
 
       <Header style={styles.headeri}>
-      <TouchableOpacity onPress={this.navigateToScreen('Home')}>
-      <Image source={navback}/>
+      <TouchableOpacity onPress={this.navigateToScreen('DrawerOpen')}>
+      <Image source={menu}/>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={this.navigateToScreen('Search')}>
+      <Image source={searchw} style={{marginHorizontal:70}}/>
       </TouchableOpacity>
       </Header>
 
@@ -132,6 +136,7 @@ const styles = StyleSheet.create({
   headeri:{
     backgroundColor:'#0097A7',
     flexDirection:'row',
+    //make it to the specific element which need to be positioned...
     justifyContent:'flex-start',
     alignItems:'center',
   },
@@ -145,6 +150,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 20,
     flex: 1,
+    //need a small attention!
     alignItems:'center',
     paddingRight:18,
   },

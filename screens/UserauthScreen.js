@@ -12,13 +12,21 @@ import {
 import { WebBrowser } from 'expo';
 import { Container, Header, Content, Form, Item, Input, Label , Icon , Button } from 'native-base';
 
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, NavigationActions } from 'react-navigation';
 import { MonoText } from '../components/StyledText';
 
-export default class UserauthSreen extends React.Component {
+
+export default class UserauthScreen extends React.Component {
   static navigationOptions = {
     title: 'Log',
   };
+  navigateToScreen = (route) => () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    this.props.navigation.dispatch(navigateAction);
+  }
+
   render() {
     return <LStabnav />;
   }
@@ -29,16 +37,16 @@ class LoginScreen extends Component{
   render() {
     return(
         <Container>
-        <Content  style={{backgroundColor:'white'}}>
+        <Content  style={{backgroundColor:'white',marginTop:30}}>
           <Form>
-          <Item floatingLabel>
-              <Label>Mobile no</Label>
-              <Input autoCorrect={false}
+          <Item inlineLabel>
+              <Label>Mobile</Label>
+              <Input keyboardType='numeric' autoCorrect={false}
               autoCapitalize="none"
               />
             </Item>
 
-            <Item floatingLabel>
+            <Item inlineLabel>
               <Label>Password</Label>
               <Input secureTextEntry = {true}
               autoCorrect = {false}
@@ -47,7 +55,8 @@ class LoginScreen extends Component{
               
             </Item>
 
-            <Button style={{marginTop:50,marginLeft:20,marginRight:20,backgroundColor:'#0097A7'}} full rounded success>
+            <Button
+            style={{marginTop:50,marginLeft:20,marginRight:20,backgroundColor:'#0097A7'}} full rounded success>
             <Text style={{color:'white'}}>Sign in</Text>
             </Button>
 
@@ -124,7 +133,14 @@ const LStabnav = TabNavigator(
   {
     tabBarPosition: 'bottom',
     animationEnabled:true,
+    tabBarOptions:{
+                  style:{
+                    backgroundColor:'#0097A7',
 
-  }
+                  },
+
+    },
+
+  },
 
 );

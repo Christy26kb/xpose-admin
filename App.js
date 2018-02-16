@@ -3,10 +3,12 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
+import UserauthScreen from './screens/UserauthScreen'
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+    login:false,
   };
 
   render() {
@@ -19,14 +21,23 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-          <RootNavigation />
-        </View>
-      );
-    }
+
+              if(!this.state.login)
+              {
+                return <UserauthScreen />
+
+              }
+              else
+              {
+                return (
+                  <View style={styles.container}>
+                    {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+                    {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
+                    <RootNavigation />
+                  </View>
+                );
+              }
+            }
   }
 
   _loadResourcesAsync = async () => {
@@ -38,6 +49,9 @@ export default class App extends React.Component {
         require('./assets/images/cart.png'),
         require('./assets/images/users.png'),
         require('./assets/images/orders.png'),
+        require('./assets/images/menu.png'),
+        require('./assets/images/navback.png'),
+        require('./assets/images/searchw.png'),
       ]),
       Expo.Font.loadAsync({
         
@@ -53,6 +67,8 @@ export default class App extends React.Component {
   };
 
   _handleFinishLoading = () => {
+    //..check if the login data loaded asyn from asynstorage and set the state login:{true/false}..
+
     this.setState({ isLoadingComplete: true });
   };
 }

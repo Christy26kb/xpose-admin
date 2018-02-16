@@ -71,7 +71,7 @@ SideMenu.propTypes = {
 const styles={
     container: {
       paddingTop: 20,
-      flex: 1
+      flex: 1,
     },
     listitemi:{
         borderBottomLeftRadius:20

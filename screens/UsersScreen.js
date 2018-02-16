@@ -77,8 +77,10 @@ export default class UsersScreen extends React.Component {
               <Icon active name='logo-whatsapp' />
             </Item>
             
-            <Button style={{marginTop:30,marginLeft:20,marginRight:20,marginBottom:20}} full rounded success>
-            <Text>Edit info</Text>
+            <Button 
+            style={{marginTop:30,marginLeft:20,marginRight:20,marginBottom:20,backgroundColor:'#0097A7'}}
+             full rounded success>
+            <Text style={{color:'white'}}>Edit info</Text>
             </Button>
           </Form>
           </ScrollView>
