@@ -1,9 +1,23 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View , AsyncStorage} from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
-import UserauthScreen from './screens/UserauthScreen'
+import UserauthScreen from './screens/UserauthScreen';
+import { TabNavigator, NavigationActions } from 'react-navigation';
+
+import * as firebase from 'firebase';
+//..Setting the necessary firebase config options
+const firebaseconfig = {
+  apiKey: "AIzaSyAiy6NBxiH3UebfQwAu0e2TJOrqCIYkSjk",
+  authDomain: "xpose-8e518.firebaseapp.com",
+  databaseURL: "https://xpose-8e518.firebaseio.com",
+  projectId: "xpose-8e518",
+  storageBucket: "xpose-8e518.appspot.com",
+}
+
+//..Initializing firebase with the config...
+firebase.initializeApp(firebaseconfig);
 
 export default class App extends React.Component {
   state = {
@@ -22,10 +36,9 @@ export default class App extends React.Component {
       );
     } else {
 
-              if(!this.state.login)
+              if(this.state.login)
               {
-                return <UserauthScreen />
-
+                return <UserauthScreen />;
               }
               else
               {
@@ -41,6 +54,7 @@ export default class App extends React.Component {
   }
 
   _loadResourcesAsync = async () => {
+
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/gallery.png'),
@@ -52,11 +66,18 @@ export default class App extends React.Component {
         require('./assets/images/menu.png'),
         require('./assets/images/navback.png'),
         require('./assets/images/searchw.png'),
+
       ]),
       Expo.Font.loadAsync({
         
-      // Fonts can be loaded here        
+      // Fonts can be loaded here   
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+      'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'), 
       }),
+
+       //.. Load data from asynstorage  for the  login state:{true/false}..
+
     ]);
   };
 
@@ -67,8 +88,8 @@ export default class App extends React.Component {
   };
 
   _handleFinishLoading = () => {
-    //..check if the login data loaded asyn from asynstorage and set the state login:{true/false}..
-
+    //..set the login state according to asyncstorage....
+    
     this.setState({ isLoadingComplete: true });
   };
 }
