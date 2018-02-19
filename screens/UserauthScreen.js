@@ -24,7 +24,7 @@ export default class UserauthScreen extends React.Component {
   
   render() {
     //...Realtime state observer for user login(In/Out)..set asyncsorage accordingly..invokes when state changes.  
-    var user = firebase.auth().onAuthStateChanged(function (user) {
+      var user = firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // User is signed in.
         alert('Signed in!');
@@ -83,7 +83,7 @@ class LoginScreen extends Component{
   signoutuser = () => ()=>{
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
-      //alert('Signed out');
+      alert('Signed out');
     }).catch(function(error) {
       // An error happened.
       alert(error);

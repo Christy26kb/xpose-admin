@@ -3,7 +3,6 @@ import React from 'react';
 import { DrawerNavigator } from 'react-navigation';
 
 import Sidebar from '../components/Sidebar.js';
-import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 import HomeScreen from '../screens/HomeScreen';
@@ -11,9 +10,15 @@ import GalleryScreen from '../screens/GalleryScreen';
 import SearchScreen from '../screens/SearchScreen';
 import OrdersScreen from '../screens/OrdersScreen';
 import CartScreen from '../screens/CartScreen';
+import BagScreen from '../screens/BagScreen';
 import UsersScreen from '../screens/UsersScreen';
-import UserauthScreen from '../screens/UserauthScreen'
-import DummyScreen from '../screens/DummyScreen'
+import UserauthScreen from '../screens/UserauthScreen';
+import DummyScreen from '../screens/DummyScreen';
+import S_Gscreen from '../screens/S_Gscreen';
+import S_Oscreen from '../screens/S_Oscreen';
+import S_Cscreen from '../screens/S_Cscreen';
+import S_Uscreen from '../screens/S_Uscreen';
+
 
 const RootStackNavigator = DrawerNavigator(
   /**
@@ -35,6 +40,9 @@ const RootStackNavigator = DrawerNavigator(
     Cart: {
       screen: CartScreen,
     },
+    Bag: {
+      screen:BagScreen,
+    },
     Users: {
       screen: UsersScreen,
     },
@@ -44,7 +52,19 @@ const RootStackNavigator = DrawerNavigator(
     Demo:{
       screen: DummyScreen,
     },
-    
+    //...starting of sub screens.....
+    S_Gscreen:{
+      screen:S_Gscreen,
+    },
+    S_Oscreen:{
+      screen:S_Oscreen,
+    },
+    S_Cscreen:{
+      screen:S_Cscreen,
+    },
+    S_Uscreen:{
+      screen:S_Uscreen,
+    },
   },
   {
     contentComponent: Sidebar,

@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Body, Icon } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Body, Icon, H3,H2,H1 } from 'native-base';
 
 
 export default class ProTile extends React.Component {
@@ -20,9 +20,9 @@ export default class ProTile extends React.Component {
     return(
     <View>
       <TouchableOpacity>
-          <View style={{flex:1,alignItems:'stretch'}}>
+          <View style={{flex:1,}}>
           <Image source={{uri:this.props.item.product.imguri}}
-                  style={{flex:1,width: 125, height: 125, resizeMode:'cover'}} />
+                  style={{width: 125, height: 125, resizeMode:'contain'}} />
           </View>
        </TouchableOpacity>
             <View>
@@ -61,10 +61,13 @@ const styles = StyleSheet.create({
   },
   proinfo:{
     marginTop: 15,
-    fontWeight:'bold'
+    fontSize:20,
+    color:'grey',
   },
   priinfo:{
-    marginTop:15
+    marginTop:15,
+    color:'grey',
+    fontSize:16,
   },
   iconpos:{
     position: 'absolute',

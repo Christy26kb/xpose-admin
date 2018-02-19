@@ -34,8 +34,8 @@ export default class Gridi extends React.Component {
         { name: 'Gallery', image: imageGallery },
         { name: 'Search', image: imageSearch },
         { name: 'Orders', image: imageOrders },
+        { name: 'Bag', image: imageCart },
         { name: 'Cart', image: imageCart },
-        { name: 'Users', image: imageUsers },
         { name: 'Log', image: imageSearch2 }
     ];
     return(

@@ -1,37 +1,33 @@
-import React ,{Component} from 'react';
+import React from 'react';
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
-  Text,
   FlatList,
 } from 'react-native';
 
 import {
-  Container,
-  Header,
-  Content,
-  Right,
-  Left,
-  Body,
   ListItem,
   List,
-  Icon,
+  Header,
 } from 'native-base';
-//library for creating grid layouts..
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import {NavigationActions, StackNavigator} from 'react-navigation';
-import menu from '../assets/images/menu.png';
-import searchw from '../assets/images/searchw.png';
+
+import {NavigationActions} from 'react-navigation';
+import navback from '../assets/images/navback.png';
+import Home from '../screens/HomeScreen';
 
 import { MonoText } from '../components/StyledText';
-import ProTile from '../components/ProTile';
+import CarTile from '../components/CarTile';
 
+export default class BagScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Bag'
+  };
 
-export default class GalleryScreen extends React.Component {
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -39,16 +35,14 @@ export default class GalleryScreen extends React.Component {
     this.props.navigation.dispatch(navigateAction);
   }
 
+
   render() {
     return (
       <View style={styles.container}>
 
       <Header style={styles.headeri}>
-      <TouchableOpacity onPress={this.navigateToScreen('DrawerOpen')}>
-      <Image source={menu}/>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={this.navigateToScreen('S_Gscreen')}>
-      <Image source={searchw} style={{marginHorizontal:70}}/>
+      <TouchableOpacity onPress={this.navigateToScreen('Home')}>
+      <Image source={navback}/>
       </TouchableOpacity>
       </Header>
 
@@ -57,59 +51,57 @@ export default class GalleryScreen extends React.Component {
             <FlatList 
             data={[
               {
-              product:{
-              name:'Adidas',
-              price:345,
-              pid:'#1',
-              imguri:'https://content.adidas.co.in/static/Product-DB0591/Men_RUNNING_SHOES_LOW_DB0591_1.jpg.plp',
-            }
-            },
+                product:{
+                name:'Adidas',
+                price:345,
+                pid:'#1',
+                imguri:'https://content.adidas.co.in/static/Product-DB0591/Men_RUNNING_SHOES_LOW_DB0591_1.jpg.plp',
+              }
+              },
+                {
+                product:{
+                name:'FILA',
+                price:545,
+                pid:'#2',
+                imguri:'https://images-na.ssl-images-amazon.com/images/I/81e2cND9baL._UY395_.jpg',
+              }
+              },
+                {
+                product:{
+                name:'Nike',
+                price:645,
+                pid:'#3',
+                imguri:'https://slimages.macysassets.com/is/image/MCY/products/8/optimized/8976488_fpx.tif?bgc=255,255,255&wid=224&qlt=90,0&layer=comp&op_sharpen=0&resMode=bicub&op_usm=0.7,1.0,0.5,0&fmt=jpeg',
+              }
+              },
+                {
+                product:{
+                name:'Puma',
+                price:745,
+                pid:'#4',
+                imguri:'http://www.dancesculpture.co.nz/images/dancesculpture.co.nz/puma-yellow-slippers-A-flip-flops-black-white-dark-grey-men-s-slippers-A-flip-flops-49PV.jpg',
+              }
+              },
               {
-              product:{
-              name:'FILA',
-              price:545,
-              pid:'#2',
-              imguri:'https://images-na.ssl-images-amazon.com/images/I/81e2cND9baL._UY395_.jpg',
-            }
-            },
-              {
-              product:{
-              name:'Nike',
-              price:645,
-              pid:'#3',
-              imguri:'https://slimages.macysassets.com/is/image/MCY/products/8/optimized/8976488_fpx.tif?bgc=255,255,255&wid=224&qlt=90,0&layer=comp&op_sharpen=0&resMode=bicub&op_usm=0.7,1.0,0.5,0&fmt=jpeg',
-            }
-            },
-              {
-              product:{
-              name:'Puma',
-              price:745,
-              pid:'#4',
-              imguri:'http://www.dancesculpture.co.nz/images/dancesculpture.co.nz/puma-yellow-slippers-A-flip-flops-black-white-dark-grey-men-s-slippers-A-flip-flops-49PV.jpg',
-            }
-            },
-            {
-              product:{
-              name:'Titan',
-              price:845,
-              pid:'#5',
-              imguri:'http://www.titanworld.com/sites/default/files/titan-edge-men-ceramic-watch-1696nc01-%28straight%29.png',
-            }
-            },
-              {
-              product:{
-              name:'Hushpuppies',
-              price:445,
-              pid:'#6',
-              imguri:'https://n3.sdlcdn.com/imgs/f/0/c/Hush-Puppies-Formal-Shoes-SDL572080594-1-6b77d.jpeg',
-            }
-            },
+                product:{
+                name:'Titan',
+                price:845,
+                pid:'#5',
+                imguri:'http://www.titanworld.com/sites/default/files/titan-edge-men-ceramic-watch-1696nc01-%28straight%29.png',
+              }
+              },
+                {
+                product:{
+                name:'Hushpuppies',
+                price:445,
+                pid:'#6',
+                imguri:'https://n3.sdlcdn.com/imgs/f/0/c/Hush-Puppies-Formal-Shoes-SDL572080594-1-6b77d.jpeg',
+              }
+              },
           ]}
-             horizontal={false}
-             numColumns={2}
              renderItem={({ item }) =>(
                 <ListItem>
-                  <ProTile item={item}/>
+                  <CarTile item={item}/>
                 </ListItem>
             ) }
             keyExtractor={item=>item.product.pid}
@@ -117,10 +109,11 @@ export default class GalleryScreen extends React.Component {
           </List>
       </ScrollView>
       </View>
-        );
+    );
   }
-
+ 
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -130,7 +123,6 @@ const styles = StyleSheet.create({
   headeri:{
     backgroundColor:'#0097A7',
     flexDirection:'row',
-    //make it to the specific element which need to be positioned...
     justifyContent:'flex-start',
     alignItems:'center',
   },
@@ -144,7 +136,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 20,
     flex: 1,
-    //need a small attention!
     alignItems:'center',
     paddingRight:18,
   },
