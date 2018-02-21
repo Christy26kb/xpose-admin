@@ -62,11 +62,13 @@ export default class S_Gscreen extends Component{
             <View style={{flexWrap:"nowrap",padding:20,borderBottomWidth:0.8,borderBottomColor:'grey'}}>
               <H3 style={{marginTop:15,color:'grey'}}>Nike Shoes</H3>
               <H3 style={{marginTop:15,color:'grey'}}>$1300</H3>
+              <H3 style={{marginTop:15,color:'grey'}}>In stock:- Available</H3>
               </View>
 
-              <View style={{padding:2}}>
+              <View style={{padding:2,marginLeft:15}}>
               <H3 style={{marginTop:10,color:'grey'}}>Description</H3>
-              <Text style={{marginTop:10,color:'grey',fontSize:14}}>This will install all the project dependencies.
+              <Text style={{marginTop:10,color:'grey',fontSize:14}}>
+                This will install all the project dependencies.
                  This may take a while depending on your download speed, because it has to download a lot of dependencies. 
                 Take a look at package.json if you want see the packages it needs to download.
                 </Text>
@@ -85,10 +87,10 @@ export default class S_Gscreen extends Component{
             </TouchableOpacity>
         </FooterTab>
         <FooterTab style={{backgroundColor:'grey'}}>
-        <TouchableOpacity onPress={this.navigateToScreen('Cart')}>
+        <TouchableOpacity >
         <Image style={{marginLeft:15}} source={movcart} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.navigateToScreen('Bag')}>
+        <TouchableOpacity >
         <Image style={{marginRight:15}} source={movbag} />
         </TouchableOpacity>
         </FooterTab>

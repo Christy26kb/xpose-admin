@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
-  Image, 
+  Image,
+  ImageBackground,
   View, 
   TouchableOpacity,
   Alert,
@@ -8,8 +9,11 @@ import {
   Text,
   TouchableHighlight,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
-import {   Icon, Button } from 'native-base';
+import {   Icon, Button, Picker } from 'native-base';
+import movbag from '../assets/images/movbag.png';
+import rmv from '../assets/images/rmv.png';
 
 
 export default class CarTile extends React.Component {
@@ -18,21 +22,27 @@ export default class CarTile extends React.Component {
   }*/
   render() {
     return(
-    <View style={{width:300,height:150}}>
-        <TouchableOpacity>
-          <View>
-          <Image source={{uri:this.props.item.product.imguri}}
-                  style={{width: 70, height: 70}} />
+    <View style={{width:500,height:200}}>
+        
+          <View style={{flexDirection:'row'}}>
+            <TouchableOpacity>
+              <Image source={{uri:this.props.item.product.imguri}}
+                  style={{width: 100, height: 100,}} />
+             </TouchableOpacity>
+             <TouchableOpacity>
+                <Image source={movbag} style={{ marginLeft:75,justifyContent:'flex-end',marginRight:15}}/>  
+               </TouchableOpacity> 
+               <TouchableOpacity>
+               <Image source={rmv} style={{}}/>
+               </TouchableOpacity>
           </View>
-            <View>
+            <View style={{marginVertical:10}}>
+            <TouchableOpacity>
                 <Text style={styles.text}>PRODUCT-ID: {this.props.item.product.pid}</Text>
                 <Text style={styles.text}>NAME: {this.props.item.product.name}</Text>
                 <Text style={styles.text}>PRICE: ${this.props.item.product.price}</Text>
-                <TouchableWithoutFeedback>
-                <Icon active name='hand' style={styles.iconpos}/>
-                </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
-      </TouchableOpacity>
     </View>
    
     );
@@ -52,7 +62,8 @@ const styles = StyleSheet.create({
     height: 110
   },
   text:{
-    fontWeight: 'bold',
+    color:'grey',
+    fontSize:14,
     marginTop: 3,
   },
   base:{
@@ -68,10 +79,8 @@ const styles = StyleSheet.create({
     marginTop:15
   },
   iconpos:{
-    position: 'absolute',
-    top: 40,
-    right: 20,
-    color:'black'
+    marginBottom:30,
+    marginLeft:125
   },
 });
 

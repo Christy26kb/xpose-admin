@@ -14,6 +14,9 @@ import {
   ListItem,
   List,
   Header,
+  Picker,
+  Footer,
+  FooterTab,
 } from 'native-base';
 
 import {NavigationActions} from 'react-navigation';
@@ -34,14 +37,15 @@ export default class CartScreen extends React.Component {
     });
     this.props.navigation.dispatch(navigateAction);
   }
-
+  //Need a multilevel func like 'handleTap'.... to pass and use instance(object) of actual data and process...
+  //..pass ref to detailed product view or S_Gscreen..
 
   render() {
     return (
       <View style={styles.container}>
 
       <Header style={styles.headeri}>
-      <TouchableOpacity onPress={this.navigateToScreen('Home')}>
+      <TouchableOpacity onPress={this.navigateToScreen('Gallery')}>
       <Image source={navback}/>
       </TouchableOpacity>
       </Header>
@@ -134,10 +138,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 20,
-    flex: 1,
-    alignItems:'center',
-    paddingRight:18,
+    padding:10,
+    
   },
   welcomeContainer: {
     alignItems: 'center',
