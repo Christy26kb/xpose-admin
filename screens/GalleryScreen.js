@@ -8,6 +8,8 @@ import {
   View,
   Text,
   FlatList,
+  Modal,
+  Button,
 } from 'react-native';
 
 import {
@@ -33,6 +35,22 @@ import ProTile from '../components/ProTile';
 
 
 export default class GalleryScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      modalVisible: false, 
+      }
+  }
+
+  openModal() {
+    this.setState({modalVisible:true});
+  }
+
+  closeModal() {
+    this.setState({modalVisible:false});
+  }
+
+
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -51,10 +69,30 @@ export default class GalleryScreen extends React.Component {
       <TouchableOpacity onPress={this.navigateToScreen('S_Gscreen')}>
       <Image source={searchw} style={{marginHorizontal:80}}/>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => this.openModal()}>
       <Image source={sorte} style={{}}/>
       </TouchableOpacity>
       </Header>
+
+      <Modal
+              visible={this.state.modalVisible}
+              animationType={'fade'}
+              onRequestClose={() => this.closeModal()}
+              transparent={true}
+              hardwareAccelerated={true}
+
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.innerContainer}>
+                <Text>This is content inside of modal component</Text>
+                <Button
+                    onPress={() => this.closeModal()}
+                    title="Close modal"
+                >
+                </Button>
+              </View>
+            </View>
+          </Modal>
 
       <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           <List>
@@ -137,6 +175,14 @@ const styles = StyleSheet.create({
     //make it to the specific element which need to be positioned...
     justifyContent:'flex-start',
     alignItems:'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'grey',
+  },
+  innerContainer: {
+    alignItems: 'center',
   },
   developmentModeText: {
     marginBottom: 20,

@@ -8,6 +8,7 @@ import {
   View,
   Text,
   FlatList,
+  Picker,
 } from 'react-native';
 
 import {
@@ -32,6 +33,10 @@ import movcart from '../assets/images/movcart.png';
 import movbag from '../assets/images/movbag.png';
 
 export default class S_Gscreen extends Component{
+  constructor(props) {
+    super(props)
+    this.state = { quantity:"1" }
+  }
 
     navigateToScreen = (route) => () => {
       const navigateAction = NavigationActions.navigate({
@@ -63,6 +68,21 @@ export default class S_Gscreen extends Component{
               <H3 style={{marginTop:15,color:'grey'}}>Nike Shoes</H3>
               <H3 style={{marginTop:15,color:'grey'}}>$1300</H3>
               <H3 style={{marginTop:15,color:'grey'}}>In stock:- Available</H3>
+              <View style={{flexDirection:'row',marginTop:15}}>
+                    <H3 style={{color:'grey'}}>Qty :</H3>
+                     <Picker
+                      style={{width:40,height:25,backgroundColor:'#EFF1F2',marginLeft:20}}
+                      mode='dropdown'
+                      itemStyle={{backgroundColor:'grey',height:10,width:20}}
+                      selectedValue={this.state.quantity}
+                      onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}>
+                      <Picker.Item label="1" value="1" />
+                      <Picker.Item label="2" value="2" />
+                      <Picker.Item label="3" value="3" />
+                      <Picker.Item label="4" value="4" />
+                      <Picker.Item label="5" value="5" />
+                    </Picker>
+                 </View>
               </View>
 
               <View style={{padding:2,marginLeft:15}}>
