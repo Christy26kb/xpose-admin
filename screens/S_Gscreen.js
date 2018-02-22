@@ -42,10 +42,10 @@ export default class S_Gscreen extends Component {
 
                     <View style={{ flexWrap: "nowrap", padding: 20, borderBottomWidth: 0.8, borderBottomColor: "grey" }}>
                         <H3 style={{ marginTop: 15, color: "grey" }}>{data.name}</H3>
-                        <H3 style={{ marginTop: 15, color: "grey" }}>{data.price}</H3>
-                        <H3 style={{ marginTop: 15, color: "grey" }}>In stock:- Available</H3>
+                        <H3 style={{ marginTop: 15, color: "grey" }}>{data.price.toString()}</H3>
+                        <H3 style={{ marginTop: 15, color: "grey" }}>{data.instock ? "Available" : "Out of stock"}</H3>
                         <View style={{ flexDirection: "row", marginTop: 15 }}>
-                            <H3 style={{ color: "grey" }}>Qty :</H3>
+                            <H3 style={{ color: "grey" }}>Qty:</H3>
                             <Picker
                                 style={{ width: 40, height: 25, backgroundColor: "#EFF1F2", marginLeft: 20 }}
                                 mode="dropdown"
@@ -71,8 +71,17 @@ export default class S_Gscreen extends Component {
                 <Footer style={{ height: 50, borderTopWidth: 0.5, borderTopColor: "#0097A7" }}>
                     <FooterTab style={{ backgroundColor: "#FFF", borderRightWidth: 0.5, borderRightColor: "#0097A7" }}>
                         <TouchableOpacity onPress={this.navigateToScreen("S_Cscreen")}>
-                            <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
-                                ORDER NOW
+                            <Text
+                                style={{
+                                    textAlign: "center",
+                                    marginVertical: 10,
+                                    marginHorizontal: 30,
+                                    color: "#17B7C7",
+                                    fontSize: 20,
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                BUY NOW
                             </Text>
                         </TouchableOpacity>
                     </FooterTab>
