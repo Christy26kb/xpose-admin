@@ -21,7 +21,7 @@ import navback from '../assets/images/navback.png';
 import Home from '../screens/HomeScreen';
 
 import { MonoText } from '../components/StyledText';
-import CarTile from '../components/CarTile';
+import BagTile from '../components/BagTile';
 
 export default class BagScreen extends React.Component {
   static navigationOptions = {
@@ -101,7 +101,7 @@ export default class BagScreen extends React.Component {
           ]}
              renderItem={({ item }) =>(
                 <ListItem>
-                  <CarTile item={item}/>
+                  <BagTile item={item}/>
                 </ListItem>
             ) }
             keyExtractor={item=>item.product.pid}
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     flex: 1,
     alignItems:'center',
-    paddingRight:18,
+    padding:8,
   },
   welcomeContainer: {
     alignItems: 'center',

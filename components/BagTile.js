@@ -12,7 +12,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {   Icon, Button, Picker,Footer,FooterTab } from 'native-base';
-import movbag from '../assets/images/movbag.png';
+import movcart from '../assets/images/movcart.png';
 import rmv from '../assets/images/rmv.png';
 
 
@@ -30,7 +30,7 @@ export default class CarTile extends React.Component {
                   style={{width: 100, height: 100,}} />
              </TouchableOpacity>
              <TouchableOpacity>
-                <Image source={movbag} style={{ marginLeft:75,justifyContent:'flex-end',marginRight:15}}/>  
+                <Image source={movcart} style={{ marginLeft:75,justifyContent:'flex-end',marginRight:15}}/>  
                </TouchableOpacity> 
                <TouchableOpacity>
                <Image source={rmv} style={{}}/>

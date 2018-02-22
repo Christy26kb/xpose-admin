@@ -66,6 +66,11 @@ export default class App extends React.Component {
         require('./assets/images/menu.png'),
         require('./assets/images/navback.png'),
         require('./assets/images/searchw.png'),
+        require('./assets/images/movbag.png'),
+        require('./assets/images/movcart.png'),
+        require('./assets/images/rmv.png'),
+        require('./assets/images/sort.png'),
+
 
       ]),
       Expo.Font.loadAsync({

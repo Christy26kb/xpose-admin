@@ -112,6 +112,26 @@ export default class CartScreen extends React.Component {
             />
           </List>
       </ScrollView>
+
+      <Footer style={{height:50,borderTopWidth:0.5,borderTopColor:'#0097A7'}}>
+        <FooterTab 
+          style={{backgroundColor:'#FFF',borderRightWidth:0.5,borderRightColor:'#0097A7'}}>
+          <TouchableOpacity >
+            <Text 
+              style={{alignSelf:'center',marginVertical:10,marginHorizontal:20,color:'#17B7C7',fontSize:20,fontWeight:'bold'}}>
+              Net Amount
+            </Text>
+            </TouchableOpacity>
+        </FooterTab>
+        <FooterTab style={{backgroundColor:'#FFF'}}>
+        <TouchableOpacity onPress={this.navigateToScreen('S_Cscreen')} >
+          <Text
+          style={{alignSelf:'center',marginVertical:10,marginHorizontal:20,color:'#17B7C7',fontSize:20,fontWeight:'bold'}}>
+          ORDER NOW</Text>
+        </TouchableOpacity>
+        </FooterTab>
+        </Footer>
+        
       </View>
     );
   }

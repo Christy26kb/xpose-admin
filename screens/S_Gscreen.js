@@ -76,9 +76,9 @@ export default class S_Gscreen extends Component{
 
         </ScrollView>  
 
-        <Footer style={{height:50,borderTopWidth:1,borderTopColor:'#0097A7'}}>
+        <Footer style={{height:50,borderTopWidth:0.5,borderTopColor:'#0097A7'}}>
         <FooterTab 
-          style={{backgroundColor:'grey',borderRightWidth:1,borderRightColor:'#0097A7'}}>
+          style={{backgroundColor:'#FFF',borderRightWidth:0.5,borderRightColor:'#0097A7'}}>
           <TouchableOpacity onPress={this.navigateToScreen('S_Cscreen')}>
             <Text 
               style={{alignSelf:'center',marginVertical:10,marginHorizontal:20,color:'#17B7C7',fontSize:20,fontWeight:'bold'}}>
@@ -86,7 +86,7 @@ export default class S_Gscreen extends Component{
             </Text>
             </TouchableOpacity>
         </FooterTab>
-        <FooterTab style={{backgroundColor:'grey'}}>
+        <FooterTab style={{backgroundColor:'#FFF'}}>
         <TouchableOpacity >
         <Image style={{marginLeft:15}} source={movcart} />
         </TouchableOpacity>

@@ -26,6 +26,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import {NavigationActions, StackNavigator} from 'react-navigation';
 import menu from '../assets/images/menu.png';
 import searchw from '../assets/images/searchw.png';
+import sorte from '../assets/images/sort.png';
 
 import { MonoText } from '../components/StyledText';
 import ProTile from '../components/ProTile';
@@ -48,7 +49,10 @@ export default class GalleryScreen extends React.Component {
       <Image source={menu}/>
       </TouchableOpacity>
       <TouchableOpacity onPress={this.navigateToScreen('S_Gscreen')}>
-      <Image source={searchw} style={{marginHorizontal:70}}/>
+      <Image source={searchw} style={{marginHorizontal:80}}/>
+      </TouchableOpacity>
+      <TouchableOpacity>
+      <Image source={sorte} style={{}}/>
       </TouchableOpacity>
       </Header>
 
