@@ -4,18 +4,18 @@ import { Container, Header, Content, Card, CardItem, Body, Icon, H3, H2, H1 } fr
 
 export default class ProTile extends React.Component {
     _handleTap = () => {
-        this.props._handleTileNavigation("S_Gscreen", this.props.item.product);
+        this.props._handleTileNavigation("S_Gscreen", this.props.item);
     };
     render() {
         return (
             <TouchableOpacity onPress={this._handleTap}>
                 <View>
                     <View style={{ flex: 1 }}>
-                        <Image source={{ uri: this.props.item.product.imguri }} style={{ width: 125, height: 125, resizeMode: "contain" }} />
+                        <Image source={{ uri: this.props.item.imguri }} style={{ width: 125, height: 125, resizeMode: "contain" }} />
                     </View>
                     <View>
-                        <Text style={styles.proinfo}>{this.props.item.product.name}</Text>
-                        <Text style={styles.priinfo}>${this.props.item.product.price}</Text>
+                        <Text style={styles.proinfo}>{this.props.item.name}</Text>
+                        <Text style={styles.priinfo}>${this.props.item.price}</Text>
                         <TouchableWithoutFeedback>
                             <Icon active name="hand" style={styles.iconpos} />
                         </TouchableWithoutFeedback>
