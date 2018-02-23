@@ -1,236 +1,110 @@
-import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  FlatList,
-} from 'react-native';
+import React from "react";
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList } from "react-native";
 
-import {
-  ListItem,
-  List,
-  Header,
-  Picker,
-  Footer,
-  FooterTab,
-} from 'native-base';
+import { ListItem, List, Header, Picker, Footer, FooterTab } from "native-base";
 
-import {NavigationActions} from 'react-navigation';
-import navback from '../assets/images/navback.png';
-import Home from '../screens/HomeScreen';
+import { NavigationActions } from "react-navigation";
+import * as firebase from "firebase";
+import navback from "../assets/images/navback.png";
+import Home from "../screens/HomeScreen";
 
-import { MonoText } from '../components/StyledText';
-import CarTile from '../components/CarTile';
+import { MonoText } from "../components/StyledText";
+import CarTile from "../components/CarTile";
 
 export default class CartScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Cart'
-  };
+    constructor(props) {
+        super(props);
+        this.state = {
+            cartproducts: []
+        };
+    }
+    static navigationOptions = {
+        title: "Cart"
+    };
 
-  navigateToScreen = (route) => () => {
-    const navigateAction = NavigationActions.navigate({
-      routeName: route
-    });
-    this.props.navigation.dispatch(navigateAction);
-  }
-  //Need a multilevel func like 'handleTap'.... to pass and use instance(object) of actual data and process...
-  //..pass ref to detailed product view or S_Gscreen..
+    componentDidMount() {
+        return firebase
+            .database()
+            .ref("/products/")
+            .once("value", (data) => {
+                this.setState({
+                    cartproducts: Object.values(data.val())
+                });
+            });
+    }
 
-  render() {
-    return (
-      <View style={styles.container}>
+    navigateToScreen = (route) => () => {
+        const navigateAction = NavigationActions.navigate({
+            routeName: route
+        });
+        this.props.navigation.dispatch(navigateAction);
+    };
+    _handleTileNavigation = (pageName, propsObject) => {
+        this.navigate(pageName, propsObject);
+    };
 
-      <Header style={styles.headeri}>
-      <TouchableOpacity onPress={this.navigateToScreen('Gallery')}>
-      <Image source={navback}/>
-      </TouchableOpacity>
-      </Header>
+    render() {
+        this.navigate = this.props.navigation.navigate;
+        return (
+            <View style={styles.container}>
+                <Header style={styles.headeri}>
+                    <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
+                        <Image source={navback} />
+                    </TouchableOpacity>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>My Cart</Text>
+                </Header>
 
-      <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
-          <List>
-            <FlatList 
-            data={[
-              {
-                product:{
-                name:'Adidas',
-                price:345,
-                pid:'#1',
-                imguri:'https://content.adidas.co.in/static/Product-DB0591/Men_RUNNING_SHOES_LOW_DB0591_1.jpg.plp',
-              }
-              },
-                {
-                product:{
-                name:'FILA',
-                price:545,
-                pid:'#2',
-                imguri:'https://images-na.ssl-images-amazon.com/images/I/81e2cND9baL._UY395_.jpg',
-              }
-              },
-                {
-                product:{
-                name:'Nike',
-                price:645,
-                pid:'#3',
-                imguri:'https://slimages.macysassets.com/is/image/MCY/products/8/optimized/8976488_fpx.tif?bgc=255,255,255&wid=224&qlt=90,0&layer=comp&op_sharpen=0&resMode=bicub&op_usm=0.7,1.0,0.5,0&fmt=jpeg',
-              }
-              },
-                {
-                product:{
-                name:'Puma',
-                price:745,
-                pid:'#4',
-                imguri:'http://www.dancesculpture.co.nz/images/dancesculpture.co.nz/puma-yellow-slippers-A-flip-flops-black-white-dark-grey-men-s-slippers-A-flip-flops-49PV.jpg',
-              }
-              },
-              {
-                product:{
-                name:'Titan',
-                price:845,
-                pid:'#5',
-                imguri:'http://www.titanworld.com/sites/default/files/titan-edge-men-ceramic-watch-1696nc01-%28straight%29.png',
-              }
-              },
-                {
-                product:{
-                name:'Hushpuppies',
-                price:445,
-                pid:'#6',
-                imguri:'https://n3.sdlcdn.com/imgs/f/0/c/Hush-Puppies-Formal-Shoes-SDL572080594-1-6b77d.jpeg',
-              }
-              },
-          ]}
-             renderItem={({ item }) =>(
-                <ListItem>
-                  <CarTile item={item}/>
-                </ListItem>
-            ) }
-            keyExtractor={item=>item.product.pid}
-            />
-          </List>
-      </ScrollView>
+                <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
+                    <FlatList
+                        data={this.state.cartproducts}
+                        renderItem={({ item }) => (
+                            <ListItem>
+                                <CarTile item={item} />
+                            </ListItem>
+                        )}
+                        keyExtractor={(item) => item.pid}
+                    />
+                </ScrollView>
 
-      <Footer style={{height:50,borderTopWidth:0.5,borderTopColor:'#0097A7'}}>
-        <FooterTab 
-          style={{backgroundColor:'#FFF',borderRightWidth:0.5,borderRightColor:'#0097A7'}}>
-          <TouchableOpacity >
-            <Text 
-              style={{alignSelf:'center',marginVertical:10,marginHorizontal:20,color:'#17B7C7',fontSize:20,fontWeight:'bold'}}>
-              Net Amount
-            </Text>
-            </TouchableOpacity>
-        </FooterTab>
-        <FooterTab style={{backgroundColor:'#FFF'}}>
-        <TouchableOpacity onPress={this.navigateToScreen('S_Cscreen')} >
-          <Text
-          style={{alignSelf:'center',marginVertical:10,marginHorizontal:20,color:'#17B7C7',fontSize:20,fontWeight:'bold'}}>
-          ORDER NOW</Text>
-        </TouchableOpacity>
-        </FooterTab>
-        </Footer>
-        
-      </View>
-    );
-  }
- 
+                <Footer style={{ height: 50, borderTopWidth: 0.5, borderTopColor: "#0097A7" }}>
+                    <FooterTab style={{ backgroundColor: "#FFF", borderRightWidth: 0.5, borderRightColor: "#0097A7" }}>
+                        <TouchableOpacity>
+                            <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
+                                Net Amount
+                            </Text>
+                        </TouchableOpacity>
+                    </FooterTab>
+                    <FooterTab style={{ backgroundColor: "#FFF" }}>
+                        <TouchableOpacity>
+                            <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
+                                ORDER NOW
+                            </Text>
+                        </TouchableOpacity>
+                    </FooterTab>
+                </Footer>
+            </View>
+        );
+    }
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  headeri:{
-    backgroundColor:'#0097A7',
-    flexDirection:'row',
-    justifyContent:'flex-start',
-    alignItems:'center',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    padding:10,
-    
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+    container: {
+        flex: 1
+    },
+    headeri: {
+        backgroundColor: "#0097A7",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center"
+    },
+    developmentModeText: {
+        marginBottom: 20,
+        color: "rgba(0,0,0,0.4)",
+        fontSize: 14,
+        lineHeight: 19,
+        textAlign: "center"
+    },
+    contentContainer: {
+        //padding:10,
+    }
 });

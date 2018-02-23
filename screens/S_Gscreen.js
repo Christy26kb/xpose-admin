@@ -33,6 +33,7 @@ export default class S_Gscreen extends Component {
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
                         <Image source={navback} />
                     </TouchableOpacity>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Product Details</Text>
                 </Header>
 
                 <ScrollView contentContainerStyle={styles.baseContainer}>
@@ -42,7 +43,7 @@ export default class S_Gscreen extends Component {
 
                     <View style={{ flexWrap: "nowrap", padding: 20, borderBottomWidth: 0.8, borderBottomColor: "grey" }}>
                         <H3 style={{ marginTop: 15, color: "grey" }}>{data.name}</H3>
-                        <H3 style={{ marginTop: 15, color: "grey" }}>{data.price.toString()}</H3>
+                        <H3 style={{ marginTop: 15, color: "grey" }}>${data.price.toString()}</H3>
                         <H3 style={{ marginTop: 15, color: "grey" }}>{data.instock ? "Available" : "Out of stock"}</H3>
                         <View style={{ flexDirection: "row", marginTop: 15 }}>
                             <H3 style={{ color: "grey" }}>Qty:</H3>

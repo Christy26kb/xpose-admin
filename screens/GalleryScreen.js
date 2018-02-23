@@ -60,7 +60,7 @@ export default class GalleryScreen extends React.Component {
                     <TouchableOpacity onPress={this.navigateToScreen("DrawerOpen")}>
                         <Image source={menu} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.navigateToScreen("S_Gscreen")}>
+                    <TouchableOpacity >
                         <Image source={searchw} style={{ marginHorizontal: 80 }} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.openModal()}>

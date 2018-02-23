@@ -1,12 +1,20 @@
-import React, { Component } from "react";
-import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, FlatList } from "react-native";
+import React from "react";
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList } from "react-native";
 
-import { Container, Header, Content, Body, ListItem, List, Icon } from "native-base";
-import { NavigationActions, StackNavigator } from "react-navigation";
+import { ListItem, List, Header } from "native-base";
+
+import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
-import DetailOrderTile from "../components/DetailOrderTile";
+import Home from "../screens/HomeScreen";
 
-export default class S_Oscreen extends Component {
+import { MonoText } from "../components/StyledText";
+import WishTile from "../components/WishTile";
+
+export default class WishlistScreen extends React.Component {
+    static navigationOptions = {
+        title: "Wishlist"
+    };
+
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
@@ -14,19 +22,14 @@ export default class S_Oscreen extends Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
-    /*<Text>{data.order.oid}</Text>
-    <Text>{data.order.status}</Text>
-    <Text>{data.order.totalp}</Text>*/
     render() {
-        //->Recieving data sent from OrdersScreen.
-        const r_data = this.props.navigation.state.params;
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
-                    <TouchableOpacity onPress={this.navigateToScreen("Orders")}>
+                    <TouchableOpacity onPress={this.navigateToScreen("Home")}>
                         <Image source={navback} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Orderid/{r_data.order.oid}</Text>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>My Wishlist</Text>
                 </Header>
 
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
@@ -85,7 +88,7 @@ export default class S_Oscreen extends Component {
                         ]}
                         renderItem={({ item }) => (
                             <ListItem>
-                                <DetailOrderTile item={item} />
+                                <WishTile item={item} />
                             </ListItem>
                         )}
                         keyExtractor={(item) => item.product.pid}

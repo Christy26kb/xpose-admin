@@ -1,22 +1,8 @@
 import React from "react";
-import {
-    Image,
-    ImageBackground,
-    View,
-    TouchableOpacity,
-    Alert,
-    StyleSheet,
-    Text,
-    TouchableHighlight,
-    TouchableWithoutFeedback,
-    Dimensions,
-    Picker
-} from "react-native";
+import { Image, View, TouchableOpacity, Alert, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, Dimensions, Picker } from "react-native";
 import { Icon, Button, Footer, FooterTab } from "native-base";
-import movbag from "../assets/images/movbag.png";
-import rmv from "../assets/images/rmv.png";
 
-export default class CarTile extends React.Component {
+export default class DetailOrderTile extends React.Component {
     constructor(props) {
         super(props);
         this.state = { quantity: "1" };
@@ -26,16 +12,16 @@ export default class CarTile extends React.Component {
   }*/
     render() {
         return (
-            <View style={{ width: 500, height: 200 }}>
+            <View style={{ width: 500, height: 150 }}>
                 <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity>
-                        <Image source={{ uri: this.props.item.imguri }} style={{ width: 125, height: 125, marginTop: 10 }} />
+                        <Image source={{ uri: this.props.item.product.imguri }} style={{ width: 100, height: 100 }} />
                     </TouchableOpacity>
                     <View style={{ marginVertical: 20, marginHorizontal: 50 }}>
                         <TouchableOpacity>
-                            <Text style={styles.text}>PRODUCT-ID: {this.props.item.pid}</Text>
-                            <Text style={styles.text}>NAME: {this.props.item.name}</Text>
-                            <Text style={styles.text}>PRICE: ${this.props.item.price}</Text>
+                            <Text style={styles.text}>PRODUCT-ID: {this.props.item.product.pid}</Text>
+                            <Text style={styles.text}>NAME: {this.props.item.product.name}</Text>
+                            <Text style={styles.text}>PRICE: ${this.props.item.product.price}</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", marginTop: 3 }}>
                             <Text style={styles.text}>Qty :</Text>
@@ -44,6 +30,7 @@ export default class CarTile extends React.Component {
                                 mode="dropdown"
                                 itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
                                 selectedValue={this.state.quantity}
+                                enabled={false}
                                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
                             >
                                 <Picker.Item label="1" value="1" />
@@ -54,14 +41,6 @@ export default class CarTile extends React.Component {
                             </Picker>
                         </View>
                     </View>
-                </View>
-                <View style={{ flexDirection: "row", marginTop: 10, justifyContent: "center", marginRight: 50 }}>
-                    <TouchableOpacity>
-                        <Image source={movbag} style={{}} />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image source={rmv} style={{}} />
-                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -82,7 +61,7 @@ const styles = StyleSheet.create({
     text: {
         color: "grey",
         fontSize: 14,
-        marginTop: 3
+        marginTop: 5
     },
     base: {
         flex: 1,

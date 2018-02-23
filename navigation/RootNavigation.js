@@ -10,7 +10,7 @@ import GalleryScreen from "../screens/GalleryScreen";
 import SearchScreen from "../screens/SearchScreen";
 import OrdersScreen from "../screens/OrdersScreen";
 import CartScreen from "../screens/CartScreen";
-import BagScreen from "../screens/BagScreen";
+import WishlistScreen from "../screens/WishlistScreen";
 import UsersScreen from "../screens/UsersScreen";
 import UserauthScreen from "../screens/UserauthScreen";
 import DummyScreen from "../screens/DummyScreen";
@@ -39,8 +39,8 @@ const RootStackNavigator = DrawerNavigator(
         Cart: {
             screen: CartScreen
         },
-        Bag: {
-            screen: BagScreen
+        Wishlist: {
+            screen: WishlistScreen
         },
         Users: {
             screen: UsersScreen

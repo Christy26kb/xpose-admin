@@ -36,9 +36,9 @@ export default class SideMenu extends Component {
                 Gallery
               </Text>
             </ListItem>
-            <ListItem  style={styles.listitemi}  onPress={this.navigateToScreen('Bag')}>
+            <ListItem  style={styles.listitemi}  onPress={this.navigateToScreen('Wishlist')}>
               <Text style={styles.navItemStyle}>
-                Bag
+                Wishlist
               </Text>
             </ListItem>
             <ListItem  style={styles.listitemi} onPress={this.navigateToScreen('Orders')}>
