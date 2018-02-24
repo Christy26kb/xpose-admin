@@ -43,6 +43,26 @@ export default class CartScreen extends React.Component {
         this.navigate(pageName, propsObject);
     };
 
+    updateCartState(childItemValue, childItemPid) {
+        // this.setState({});
+        console.log("im from parent. And my state is: ", this.state);
+        var products = this.state.cartproducts;
+        var updatedProducts = products.map(product => {
+            if (product.pid == childItemPid) {
+                product.quantity = childItemValue;
+            } else {
+                product.quantity = 1;
+            }
+            return product;
+        });
+        console.log("childItemValue", childItemValue);
+        console.log("childItemPid", childItemPid);
+        console.log("updateProduct:", updatedProducts);
+        this.setState({
+            cartproducts: updatedProducts
+        });
+    }
+
     render() {
         this.navigate = this.props.navigation.navigate;
         return (
@@ -59,7 +79,7 @@ export default class CartScreen extends React.Component {
                         data={this.state.cartproducts}
                         renderItem={({ item }) => (
                             <ListItem>
-                                <CarTile item={item} />
+                                <CarTile item={item} updateCartState={this.updateCartState.bind(this)} />
                             </ListItem>
                         )}
                         keyExtractor={item => item.pid}

@@ -24,6 +24,16 @@ export default class CarTile extends React.Component {
     /*_handleTap = () =>{
     this.props._handleTileNavigation(this.props.item.name, {});
   }*/
+
+    updateCartState(itemValue, itemIndex) {
+        //inform parent's state about the updating happened here
+        this.props.updateCartState(itemValue, this.props.item.pid);
+        //update this component's state here
+        this.setState({
+            quantity: itemValue
+        });
+    }
+
     render() {
         return (
             <View style={{ width: 500, height: 200 }}>
@@ -44,7 +54,7 @@ export default class CarTile extends React.Component {
                                 mode="dropdown"
                                 itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
                                 selectedValue={this.state.quantity}
-                                onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
+                                onValueChange={this.updateCartState.bind(this)}
                             >
                                 <Picker.Item label="1" value="1" />
                                 <Picker.Item label="2" value="2" />

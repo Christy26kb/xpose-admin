@@ -29,7 +29,7 @@ export default class BuynowTile extends React.Component {
                                 style={{ width: 40, height: 25, backgroundColor: "#EFF1F2", marginLeft: 20, marginTop: 3 }}
                                 mode="dropdown"
                                 itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
-                                selectedValue={this.state.quantity}
+                                selectedValue={this.props.item.quantity}
                                 enabled={false}
                                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
                             >
