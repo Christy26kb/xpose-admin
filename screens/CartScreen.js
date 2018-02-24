@@ -26,14 +26,14 @@ export default class CartScreen extends React.Component {
         return firebase
             .database()
             .ref("/products/")
-            .once("value", (data) => {
+            .once("value", data => {
                 this.setState({
                     cartproducts: Object.values(data.val())
                 });
             });
     }
 
-    navigateToScreen = (route) => () => {
+    navigateToScreen = route => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
         });
@@ -62,7 +62,7 @@ export default class CartScreen extends React.Component {
                                 <CarTile item={item} />
                             </ListItem>
                         )}
-                        keyExtractor={(item) => item.pid}
+                        keyExtractor={item => item.pid}
                     />
                 </ScrollView>
 
@@ -75,7 +75,7 @@ export default class CartScreen extends React.Component {
                         </TouchableOpacity>
                     </FooterTab>
                     <FooterTab style={{ backgroundColor: "#FFF" }}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this._handleTileNavigation.bind(null, "S_Cscreen", this.state.cartproducts)}>
                             <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
                                 ORDER NOW
                             </Text>

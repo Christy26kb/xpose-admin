@@ -4,7 +4,6 @@ import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, 
 import { Container, Header, Footer, FooterTab, Content, Body, ListItem, List, Icon, H3, H1, H2 } from "native-base";
 
 import { NavigationActions, StackNavigator } from "react-navigation";
-import nike from "../assets/images/nikexx.jpg";
 import navback from "../assets/images/navback.png";
 import movcart from "../assets/images/movcart.png";
 import movbag from "../assets/images/movbag.png";
@@ -15,18 +14,27 @@ export default class S_Gscreen extends Component {
         this.state = { quantity: "1" };
     }
 
-    navigateToScreen = (route) => () => {
+    navigateToScreen = route => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
         });
         this.props.navigation.dispatch(navigateAction);
     };
 
-    //Need a multilevel func like 'handleTap'.... to pass and use instance(object) of actual data and process...
-    //..Replace image in view with image slider component....
+    _handleTileNavigation = (pageName, propsObject) => {
+        this.navigate(pageName, propsObject);
+    };
+    //Replace image in view with image slider component.
 
     render() {
-        const data = this.props.navigation.state.params;
+        this.navigate = this.props.navigation.navigate;
+
+        //Recieving selected product data from GalleryScreen.
+        const productdata = this.props.navigation.state.params;
+        //Structuring the data to the corresponding design over S_Cscreen.
+        const preparedparam = {
+            productdata
+        };
         return (
             <Container>
                 <Header style={styles.headeri}>
@@ -38,13 +46,13 @@ export default class S_Gscreen extends Component {
 
                 <ScrollView contentContainerStyle={styles.baseContainer}>
                     <View style={{ flex: 2 }}>
-                        <Image source={{ uri: data.imguri }} style={{ width: 300, height: 223, resizeMode: "contain" }} />
+                        <Image source={{ uri: productdata.imguri }} style={{ width: 300, height: 223, resizeMode: "contain" }} />
                     </View>
 
                     <View style={{ flexWrap: "nowrap", padding: 20, borderBottomWidth: 0.8, borderBottomColor: "grey" }}>
-                        <H3 style={{ marginTop: 15, color: "grey" }}>{data.name}</H3>
-                        <H3 style={{ marginTop: 15, color: "grey" }}>${data.price.toString()}</H3>
-                        <H3 style={{ marginTop: 15, color: "grey" }}>{data.instock ? "Available" : "Out of stock"}</H3>
+                        <H3 style={{ marginTop: 15, color: "grey" }}>{productdata.name}</H3>
+                        <H3 style={{ marginTop: 15, color: "grey" }}>${productdata.price.toString()}</H3>
+                        <H3 style={{ marginTop: 15, color: "grey" }}>{productdata.instock ? "Available" : "Out of stock"}</H3>
                         <View style={{ flexDirection: "row", marginTop: 15 }}>
                             <H3 style={{ color: "grey" }}>Qty:</H3>
                             <Picker
@@ -65,13 +73,13 @@ export default class S_Gscreen extends Component {
 
                     <View style={{ padding: 2, marginLeft: 15 }}>
                         <H3 style={{ marginTop: 10, color: "grey" }}>Description</H3>
-                        <Text style={{ marginTop: 10, color: "grey", fontSize: 14 }}>{data.description}</Text>
+                        <Text style={{ marginTop: 10, color: "grey", fontSize: 14 }}>{productdata.description}</Text>
                     </View>
                 </ScrollView>
 
                 <Footer style={{ height: 50, borderTopWidth: 0.5, borderTopColor: "#0097A7" }}>
                     <FooterTab style={{ backgroundColor: "#FFF", borderRightWidth: 0.5, borderRightColor: "#0097A7" }}>
-                        <TouchableOpacity onPress={this.navigateToScreen("S_Cscreen")}>
+                        <TouchableOpacity onPress={this._handleTileNavigation.bind(null, "S_Cscreen", preparedparam)}>
                             <Text
                                 style={{
                                     textAlign: "center",

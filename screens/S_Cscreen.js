@@ -3,7 +3,7 @@ import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, 
 import { Container, Header, Content, Body, ListItem, List, Icon } from "native-base";
 import { NavigationActions, StackNavigator } from "react-navigation";
 import navback from "../assets/images/navback.png";
-import DetailOrderTile from "../components/DetailOrderTile";
+import BuynowTile from "../components/BuynowTile";
 
 export default class S_Cscreen extends Component {
     constructor(props) {
@@ -13,14 +13,13 @@ export default class S_Cscreen extends Component {
         };
     }
 
-    /*componentWillMount() {
+    componentDidMount() {
         //->Recieving data sent from CartScreen.
-        let r_data = this.props.navigation.state.params;
-        this.state = {
-            orderproducts: r_data
-        };
-    }*/
-    navigateToScreen = (route) => () => {
+        this.setState({
+            orderproducts: Object.values(this.props.navigation.state.params)
+        });
+    }
+    navigateToScreen = route => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
         });
@@ -42,10 +41,10 @@ export default class S_Cscreen extends Component {
                         data={this.state.orderproducts}
                         renderItem={({ item }) => (
                             <ListItem>
-                                <DetailOrderTile item={item} />
+                                <BuynowTile item={item} />
                             </ListItem>
                         )}
-                        keyExtractor={(item) => item.pid}
+                        keyExtractor={item => item.pid}
                     />
                 </ScrollView>
             </View>

@@ -3,7 +3,6 @@ import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, 
 
 import { Container, Header, Content, Right, Left, Body, ListItem, List, Icon } from "native-base";
 //library for creating grid layouts..
-import { Col, Row, Grid } from "react-native-easy-grid";
 import { NavigationActions, StackNavigator } from "react-navigation";
 import * as firebase from "firebase";
 import menu from "../assets/images/menu.png";
