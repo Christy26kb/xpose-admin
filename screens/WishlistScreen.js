@@ -11,6 +11,12 @@ import { MonoText } from "../components/StyledText";
 import WishTile from "../components/WishTile";
 
 export default class WishlistScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            wproducts: []
+        };
+    }
     static navigationOptions = {
         title: "Wishlist"
     };
@@ -22,7 +28,28 @@ export default class WishlistScreen extends React.Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
+    componentDidMount() {
+        return (
+            firebase
+                .database()
+                //TODO:user1 is actually a dynamic key that need to be fetched from actual user.
+                .ref("/wishlists/user1")
+                .orderByKey()
+                .on("child_added", (data) => {
+                    //console.log("wishlist", data.key);
+                    firebase
+                        .database()
+                        .ref("/products/" + data.key)
+                        .once("value", (dat) => {
+                            this.state.wproducts.push(dat.val());
+                            this.setState({ wproducts: this.state.wproducts });
+                        });
+                })
+        );
+    }
+
     render() {
+        //console.log("state", this.state.wproducts);
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
@@ -34,64 +61,14 @@ export default class WishlistScreen extends React.Component {
 
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
-                        data={[
-                            {
-                                product: {
-                                    name: "Adidas",
-                                    price: 345,
-                                    pid: "#1",
-                                    imguri: "https://content.adidas.co.in/static/Product-DB0591/Men_RUNNING_SHOES_LOW_DB0591_1.jpg.plp"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "FILA",
-                                    price: 545,
-                                    pid: "#2",
-                                    imguri: "https://images-na.ssl-images-amazon.com/images/I/81e2cND9baL._UY395_.jpg"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Nike",
-                                    price: 645,
-                                    pid: "#3",
-                                    imguri:
-                                        "https://slimages.macysassets.com/is/image/MCY/products/8/optimized/8976488_fpx.tif?bgc=255,255,255&wid=224&qlt=90,0&layer=comp&op_sharpen=0&resMode=bicub&op_usm=0.7,1.0,0.5,0&fmt=jpeg"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Puma",
-                                    price: 745,
-                                    pid: "#4",
-                                    imguri:
-                                        "http://www.dancesculpture.co.nz/images/dancesculpture.co.nz/puma-yellow-slippers-A-flip-flops-black-white-dark-grey-men-s-slippers-A-flip-flops-49PV.jpg"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Titan",
-                                    price: 845,
-                                    pid: "#5",
-                                    imguri: "http://www.titanworld.com/sites/default/files/titan-edge-men-ceramic-watch-1696nc01-%28straight%29.png"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Hushpuppies",
-                                    price: 445,
-                                    pid: "#6",
-                                    imguri: "https://n3.sdlcdn.com/imgs/f/0/c/Hush-Puppies-Formal-Shoes-SDL572080594-1-6b77d.jpeg"
-                                }
-                            }
-                        ]}
+                        data={this.state.wproducts}
+                        initialNumToRender={1}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <WishTile item={item} />
                             </ListItem>
                         )}
-                        keyExtractor={(item) => item.product.pid}
+                        keyExtractor={(item) => item.pid}
                     />
                 </ScrollView>
             </View>

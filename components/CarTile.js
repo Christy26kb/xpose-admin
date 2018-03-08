@@ -26,7 +26,7 @@ export default class CarTile extends React.Component {
   }*/
 
     updateCartState(itemValue, itemIndex) {
-        //inform parent's state about the updating happened here
+        //inform parent's state about the updation happened here
         this.props.updateCartState(itemValue, this.props.item.pid);
         //update this component's state here
         this.setState({

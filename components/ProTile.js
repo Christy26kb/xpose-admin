@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 40,
         right: 20,
-        color: "black"
+        color: "grey"
     }
 });

@@ -14,7 +14,36 @@ export default class S_Gscreen extends Component {
         this.state = { quantity: "1" };
     }
 
-    navigateToScreen = route => () => {
+    addToWishlist = () => () => {
+        //console.log("check", this.props.navigation.state.params);
+        var productid = this.props.navigation.state.params.pid;
+        var a;
+        //Finding product key to enter into Wishlists as a custom key for each user.
+        firebase
+            .database()
+            .ref("/products/")
+            .orderByChild("pid")
+            .equalTo(productid)
+            .on("value", (dat) => {
+                a = Object.keys(dat.val());
+                //console.log("keyfinder", a[0]);
+            });
+        //Adding new entry to wishlist of 'user1'(it will be dynamic) with finded custom key.
+        firebase
+            .database()
+            .ref("/wishlists")
+            .child("user1")
+            .child(a[0])
+            .set(productid, function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Added to wishlist successfully");
+                }
+            });
+    };
+
+    navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
         });
@@ -24,7 +53,8 @@ export default class S_Gscreen extends Component {
     _handleTileNavigation = (pageName, propsObject) => {
         this.navigate(pageName, propsObject);
     };
-    //Replace image in view with image slider component.
+
+    //TODO:Replace image in view with image slider component.
 
     render() {
         this.navigate = this.props.navigation.navigate;
@@ -98,7 +128,7 @@ export default class S_Gscreen extends Component {
                         <TouchableOpacity>
                             <Image style={{ marginLeft: 15 }} source={movcart} />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.addToWishlist().bind()}>
                             <Image style={{ marginRight: 15 }} source={movbag} />
                         </TouchableOpacity>
                     </FooterTab>

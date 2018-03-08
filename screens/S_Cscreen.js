@@ -14,12 +14,20 @@ export default class S_Cscreen extends Component {
     }
 
     componentDidMount() {
-        //->Recieving data sent from CartScreen.
+        //->Recieving data sent from CartScreen and S_Gscreen(detailproductdisplay).
+
         this.setState({
             orderproducts: Object.values(this.props.navigation.state.params)
         });
     }
-    navigateToScreen = route => () => {
+/*
+    componentWillUnmount() {
+        console.log("cwm");
+        this.props.navigation.setParams({ undefined });
+        console.log("after", this.props.navigation.state.params);
+    }
+*/
+    navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
         });
@@ -44,7 +52,7 @@ export default class S_Cscreen extends Component {
                                 <BuynowTile item={item} />
                             </ListItem>
                         )}
-                        keyExtractor={item => item.pid}
+                        keyExtractor={(item) => item.pid}
                     />
                 </ScrollView>
             </View>

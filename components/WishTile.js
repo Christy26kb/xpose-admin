@@ -19,18 +19,50 @@ export default class WishTile extends React.Component {
     /*_handleTap = () =>{
     this.props._handleTileNavigation(this.props.item.name, {});
   }*/
+
+    removeFromWishlist = () => () => {
+        //console.log("check", this.props.item.pid);
+        var productid = this.props.item.pid;
+        var a;
+        //Finding product key to enter into Wishlists as a custom key for each user.
+        firebase
+            .database()
+            .ref("/products/")
+            .orderByChild("pid")
+            .equalTo(productid)
+            .on("value", (dat) => {
+                a = Object.keys(dat.val());
+                //console.log("keyfinder", a[0]);
+                if (a) {
+                    //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
+                    firebase
+                        .database()
+                        .ref("/wishlists")
+                        .child("user1")
+                        .child(a[0])
+                        .remove(function(error) {
+                            if (error) {
+                                alert(error);
+                            } else {
+                                alert("Removed from wishlist successfully");
+                            }
+                        });
+                }
+            });
+    };
+
     render() {
         return (
             <View style={{ width: 500, height: 200 }}>
                 <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity>
-                        <Image source={{ uri: this.props.item.product.imguri }} style={{ width: 125, height: 125 }} />
+                        <Image source={{ uri: this.props.item.imguri }} style={{ width: 125, height: 125 }} />
                     </TouchableOpacity>
                     <View style={{ marginVertical: 20, marginHorizontal: 50 }}>
                         <TouchableOpacity>
-                            <Text style={styles.text}>PRODUCT-ID: {this.props.item.product.pid}</Text>
-                            <Text style={styles.text}>NAME: {this.props.item.product.name}</Text>
-                            <Text style={styles.text}>PRICE: ${this.props.item.product.price}</Text>
+                            <Text style={styles.text}>PRODUCT-ID: {this.props.item.pid}</Text>
+                            <Text style={styles.text}>NAME: {this.props.item.name}</Text>
+                            <Text style={styles.text}>PRICE: ${this.props.item.price}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -38,7 +70,7 @@ export default class WishTile extends React.Component {
                     <TouchableOpacity>
                         <Image source={movcart} style={{}} />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.removeFromWishlist().bind()}>
                         <Image source={rmv} style={{}} />
                     </TouchableOpacity>
                 </View>

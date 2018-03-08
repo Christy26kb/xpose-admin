@@ -26,14 +26,14 @@ export default class CartScreen extends React.Component {
         return firebase
             .database()
             .ref("/products/")
-            .once("value", data => {
+            .on("value", (data) => {
                 this.setState({
                     cartproducts: Object.values(data.val())
                 });
             });
     }
 
-    navigateToScreen = route => () => {
+    navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
         });
@@ -47,7 +47,7 @@ export default class CartScreen extends React.Component {
         // this.setState({});
         console.log("im from parent. And my state is: ", this.state);
         var products = this.state.cartproducts;
-        var updatedProducts = products.map(product => {
+        var updatedProducts = products.map((product) => {
             if (product.pid == childItemPid) {
                 product.quantity = childItemValue;
             } else {
@@ -77,12 +77,13 @@ export default class CartScreen extends React.Component {
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
                         data={this.state.cartproducts}
+                        initialNumToRender={1}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <CarTile item={item} updateCartState={this.updateCartState.bind(this)} />
                             </ListItem>
                         )}
-                        keyExtractor={item => item.pid}
+                        keyExtractor={(item) => item.pid}
                     />
                 </ScrollView>
 

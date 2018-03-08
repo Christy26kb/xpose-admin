@@ -73,7 +73,7 @@ export default class App extends React.Component {
         ]);
     };
 
-    _handleLoadingError = error => {
+    _handleLoadingError = (error) => {
         // In this case, you might want to report the error to your error
         // reporting service, for example Sentry
         console.warn(error);

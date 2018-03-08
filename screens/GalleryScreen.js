@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, FlatList, Modal, Button } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, FlatList, Modal, Button, Dimensions } from "react-native";
 
 import { Container, Header, Content, Right, Left, Body, ListItem, List, Icon } from "native-base";
 //library for creating grid layouts..
@@ -16,18 +16,19 @@ export default class GalleryScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalVisible: false,
+            sortmodalv: false,
+            searchmodalv: false,
             products: []
         };
     }
 
-    openModal() {
-        this.setState({ modalVisible: true });
-    }
+    sortModalState = (val) => () => {
+        this.setState({ sortmodalv: val });
+    };
 
-    closeModal() {
-        this.setState({ modalVisible: false });
-    }
+    searchModalState = (val) => () => {
+        this.setState({ searchmodalv: val });
+    };
 
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
@@ -44,40 +45,57 @@ export default class GalleryScreen extends React.Component {
         return firebase
             .database()
             .ref("/products/")
-            .once("value", (data) => {
+            .on("value", (data) => {
                 this.setState({
                     products: Object.values(data.val())
                 });
+                // console.log("datas", Object.values(data.val()));
             });
     }
 
     render() {
         this.navigate = this.props.navigation.navigate;
+        const width = Dimensions.get("window").width;
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
                     <TouchableOpacity onPress={this.navigateToScreen("DrawerOpen")}>
                         <Image source={menu} />
                     </TouchableOpacity>
-                    <TouchableOpacity >
-                        <Image source={searchw} style={{ marginHorizontal: 80 }} />
+                    <TouchableOpacity onPress={this.searchModalState(true).bind()}>
+                        <Image source={searchw} style={{ marginHorizontal: width / 4 }} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.openModal()}>
+                    <TouchableOpacity onPress={this.sortModalState(true).bind()}>
                         <Image source={sorte} style={{}} />
                     </TouchableOpacity>
                 </Header>
 
                 <Modal
-                    visible={this.state.modalVisible}
+                    visible={this.state.sortmodalv}
                     animationType={"fade"}
-                    onRequestClose={() => this.closeModal()}
+                    onRequestClose={this.sortModalState(false).bind()}
                     transparent={true}
                     hardwareAccelerated={true}
                 >
                     <View style={styles.modalContainer}>
                         <View style={styles.innerContainer}>
-                            <Text>This is content inside of modal component</Text>
-                            <Button onPress={() => this.closeModal()} title="Close modal" />
+                            <Text>This is content inside of Sort modal component</Text>
+                            <Button onPress={this.sortModalState(false).bind()} title="Close modal" />
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal
+                    visible={this.state.searchmodalv}
+                    animationType={"fade"}
+                    onRequestClose={this.searchModalState(false).bind()}
+                    transparent={true}
+                    hardwareAccelerated={true}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.innerContainer}>
+                            <Text>This is content inside of Search modal component</Text>
+                            <Button onPress={this.searchModalState(false).bind()} title="Close modal" />
                         </View>
                     </View>
                 </Modal>
@@ -87,6 +105,7 @@ export default class GalleryScreen extends React.Component {
                         data={this.state.products}
                         horizontal={false}
                         numColumns={2}
+                        initialNumToRender={1}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <ProTile item={item} _handleTileNavigation={this._handleTileNavigation.bind(this)} />
@@ -108,7 +127,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#0097A7",
         flexDirection: "row",
         //make it to the specific element which need to be positioned.
-        justifyContent: "flex-start",
         alignItems: "center"
     },
     modalContainer: {
