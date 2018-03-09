@@ -40,20 +40,32 @@ export default class WishlistScreen extends React.Component {
                     firebase
                         .database()
                         .ref("/products/" + data.key)
-                        .once("value", (dat) => {
+                        .on("value", (dat) => {
                             this.state.wproducts.push(dat.val());
                             this.setState({ wproducts: this.state.wproducts });
                         });
                 })
         );
     }
+    //TODO:Need attention for updation of data in state from child.
+    /*updateWishlistState(ProductPid) {
+        console.log("childItemPid", ProductPid);
+        var products = this.state.wproducts;
+        var updatedProducts = products.filter(function(el) {
+            return el.pid !== ProductPid;
+        });
+
+        console.log("updateWishlist:", updatedProducts);
+        /*this.setState({
+            wproducts: updatedProducts
+        });}*/
 
     render() {
         //console.log("state", this.state.wproducts);
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
-                    <TouchableOpacity onPress={this.navigateToScreen("Home")}>
+                    <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
                         <Image source={navback} />
                     </TouchableOpacity>
                     <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>My Wishlist</Text>
@@ -65,7 +77,7 @@ export default class WishlistScreen extends React.Component {
                         initialNumToRender={1}
                         renderItem={({ item }) => (
                             <ListItem>
-                                <WishTile item={item} />
+                                <WishTile item={item} /*updateWishlistState={this.updateWishlistState.bind(this)}*/ />
                             </ListItem>
                         )}
                         keyExtractor={(item) => item.pid}

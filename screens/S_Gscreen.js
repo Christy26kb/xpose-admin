@@ -17,28 +17,42 @@ export default class S_Gscreen extends Component {
     addToWishlist = () => () => {
         //console.log("check", this.props.navigation.state.params);
         var productid = this.props.navigation.state.params.pid;
-        var a;
-        //Finding product key to enter into Wishlists as a custom key for each user.
-        firebase
-            .database()
-            .ref("/products/")
-            .orderByChild("pid")
-            .equalTo(productid)
-            .on("value", (dat) => {
-                a = Object.keys(dat.val());
-                //console.log("keyfinder", a[0]);
-            });
+        var wishlistentry = {
+            pid: productid
+        };
         //Adding new entry to wishlist of 'user1'(it will be dynamic) with finded custom key.
         firebase
             .database()
             .ref("/wishlists")
             .child("user1")
-            .child(a[0])
-            .set(productid, function(error) {
+            .child(wishlistentry.pid)
+            .set(wishlistentry, function(error) {
                 if (error) {
                     alert(error);
                 } else {
                     alert("Added to wishlist successfully");
+                }
+            });
+    };
+
+    addToCart = () => () => {
+        //console.log("check", this.props.navigation.state.params);
+        var productid = this.props.navigation.state.params.pid;
+        var cartentry = {
+            pid: productid,
+            quantity: "1"
+        };
+        //Adding new entry to carts of 'user1'(it will be dynamic) with finded custom key.
+        firebase
+            .database()
+            .ref("/carts")
+            .child("user1")
+            .child(cartentry.pid)
+            .set(cartentry, function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Added to Cart successfully");
                 }
             });
     };
@@ -125,7 +139,7 @@ export default class S_Gscreen extends Component {
                         </TouchableOpacity>
                     </FooterTab>
                     <FooterTab style={{ backgroundColor: "#FFF" }}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.addToCart().bind()}>
                             <Image style={{ marginLeft: 15 }} source={movcart} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.addToWishlist().bind()}>

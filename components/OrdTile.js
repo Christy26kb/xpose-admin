@@ -8,12 +8,13 @@ export default class ProTile extends React.Component {
     };
     render() {
         return (
-            <View style={{ width: 300, height: 100 }}>
+            <View style={{ width: 300, height: 150 }}>
                 <TouchableOpacity onPress={this._handleTap}>
                     <View>
-                        <Text style={styles.text}>ORDER-ID: {this.props.item.order.oid}</Text>
-                        <Text style={styles.text}>STATUS: {this.props.item.order.status}</Text>
-                        <Text style={styles.text}>TOTAL AMOUT: ${this.props.item.order.totalp}</Text>
+                        <Text style={styles.text}>ORDER-ID: {this.props.item.oid}</Text>
+                        <Text style={styles.text}>STATUS: {this.props.item.status}</Text>
+                        <Text style={styles.text}>TOTAL AMOUT: ${this.props.item.total}</Text>
+                        <Text style={styles.text}>Ordered Date: {this.props.item.date}</Text>
                         <TouchableWithoutFeedback>
                             <Icon active name="hand" style={styles.iconpos} />
                         </TouchableWithoutFeedback>

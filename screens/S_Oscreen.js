@@ -7,6 +7,13 @@ import navback from "../assets/images/navback.png";
 import DetailOrderTile from "../components/DetailOrderTile";
 
 export default class S_Oscreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentorderdata: []
+        };
+    }
+
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
@@ -14,9 +21,25 @@ export default class S_Oscreen extends Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
-    /*<Text>{data.order.oid}</Text>
-    <Text>{data.order.status}</Text>
-    <Text>{data.order.totalp}</Text>*/
+    componentDidMount() {
+        var ord = this.props.navigation.state.params;
+        //TODO:'User1' will be a dynamic key obtained from user.
+        return firebase
+            .database()
+            .ref("/orders/user_order_products")
+            .child("user1")
+            .child(ord.oid)
+            .on("child_added", (data) => {
+                firebase
+                    .database()
+                    .ref("/products/" + data.key)
+                    .on("value", (dat) => {
+                        this.state.currentorderdata.push(dat.val());
+                        this.setState({ currentorderdata: this.state.currentorderdata });
+                    });
+            });
+    }
+
     render() {
         //->Recieving data sent from OrdersScreen.
         const r_data = this.props.navigation.state.params;
@@ -26,69 +49,18 @@ export default class S_Oscreen extends Component {
                     <TouchableOpacity onPress={this.navigateToScreen("Orders")}>
                         <Image source={navback} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Orderid/{r_data.order.oid}</Text>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Orderid/{r_data.oid}</Text>
                 </Header>
 
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
-                        data={[
-                            {
-                                product: {
-                                    name: "Adidas",
-                                    price: 345,
-                                    pid: "#1",
-                                    imguri: "https://content.adidas.co.in/static/Product-DB0591/Men_RUNNING_SHOES_LOW_DB0591_1.jpg.plp"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "FILA",
-                                    price: 545,
-                                    pid: "#2",
-                                    imguri: "https://images-na.ssl-images-amazon.com/images/I/81e2cND9baL._UY395_.jpg"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Nike",
-                                    price: 645,
-                                    pid: "#3",
-                                    imguri:
-                                        "https://slimages.macysassets.com/is/image/MCY/products/8/optimized/8976488_fpx.tif?bgc=255,255,255&wid=224&qlt=90,0&layer=comp&op_sharpen=0&resMode=bicub&op_usm=0.7,1.0,0.5,0&fmt=jpeg"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Puma",
-                                    price: 745,
-                                    pid: "#4",
-                                    imguri:
-                                        "http://www.dancesculpture.co.nz/images/dancesculpture.co.nz/puma-yellow-slippers-A-flip-flops-black-white-dark-grey-men-s-slippers-A-flip-flops-49PV.jpg"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Titan",
-                                    price: 845,
-                                    pid: "#5",
-                                    imguri: "http://www.titanworld.com/sites/default/files/titan-edge-men-ceramic-watch-1696nc01-%28straight%29.png"
-                                }
-                            },
-                            {
-                                product: {
-                                    name: "Hushpuppies",
-                                    price: 445,
-                                    pid: "#6",
-                                    imguri: "https://n3.sdlcdn.com/imgs/f/0/c/Hush-Puppies-Formal-Shoes-SDL572080594-1-6b77d.jpeg"
-                                }
-                            }
-                        ]}
+                        data={this.state.currentorderdata}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <DetailOrderTile item={item} />
                             </ListItem>
                         )}
-                        keyExtractor={(item) => item.product.pid}
+                        keyExtractor={(item) => item.pid}
                     />
                 </ScrollView>
             </View>

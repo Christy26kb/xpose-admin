@@ -9,6 +9,12 @@ import { MonoText } from "../components/StyledText";
 import OrdTile from "../components/OrdTile";
 
 export default class OrdersScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ordersdat: []
+        };
+    }
     static navigationOptions = {
         title: "Orders"
     };
@@ -24,6 +30,20 @@ export default class OrdersScreen extends React.Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
+    componentDidMount() {
+        //TODO:'User1' will be a dynamic key obtained from user.
+        return firebase
+            .database()
+            .ref("/orders/users")
+            .child("user1")
+            .child("order")
+            .on("value", (data) => {
+                this.setState({
+                    ordersdat: Object.values(data.val())
+                });
+            });
+    }
+
     render() {
         this.navigate = this.props.navigation.navigate;
         return (
@@ -37,35 +57,13 @@ export default class OrdersScreen extends React.Component {
 
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
-                        data={[
-                            {
-                                order: {
-                                    status: "Processing",
-                                    totalp: 3145,
-                                    oid: "*12455"
-                                }
-                            },
-                            {
-                                order: {
-                                    status: "Processing",
-                                    totalp: 1545,
-                                    oid: "*21112"
-                                }
-                            },
-                            {
-                                order: {
-                                    status: "Processing",
-                                    totalp: 1645,
-                                    oid: "*37365"
-                                }
-                            }
-                        ]}
+                        data={this.state.ordersdat}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <OrdTile item={item} _handleTileNavigation={this._handleTileNavigation.bind(this)} />
                             </ListItem>
                         )}
-                        keyExtractor={(item) => item.order.oid}
+                        keyExtractor={(item) => item.oid}
                     />
                 </ScrollView>
             </View>

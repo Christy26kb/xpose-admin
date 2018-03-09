@@ -27,12 +27,55 @@ export default class CarTile extends React.Component {
 
     updateCartState(itemValue, itemIndex) {
         //inform parent's state about the updation happened here
+        //VIM:Call to the parent function reporting changes.
         this.props.updateCartState(itemValue, this.props.item.pid);
         //update this component's state here
         this.setState({
             quantity: itemValue
         });
     }
+
+    addToWishlist = () => () => {
+        //console.log("check", this.props.navigation.state.params);
+        var productid = this.props.item.pid;
+        var wishlistentry = {
+            pid: productid
+        };
+        //Adding new entry to wishlist of 'user1'(it will be dynamic) with finded custom key.
+        firebase
+            .database()
+            .ref("/wishlists")
+            .child("user1")
+            .child(wishlistentry.pid)
+            .set(wishlistentry, function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Added to wishlist successfully");
+                }
+            });
+    };
+
+    removeFromCart = () => () => {
+        //console.log("check", this.props.item.pid);
+        var rproductid = this.props.item.pid;
+        //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
+        firebase
+            .database()
+            .ref("/carts")
+            .child("user1")
+            .child(rproductid)
+            .remove(function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Removed from Cart successfully");
+                    //TODO:Force parent component to re-render after removal,from child.
+                    //call function from parent passed via props.
+                    //this.props.updateWishlistState(this.props.item.pid).bind();
+                }
+            });
+    };
 
     render() {
         return (
@@ -66,10 +109,10 @@ export default class CarTile extends React.Component {
                     </View>
                 </View>
                 <View style={{ flexDirection: "row", marginTop: 10, justifyContent: "center", marginRight: 50 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.addToWishlist().bind()}>
                         <Image source={movbag} style={{}} />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.removeFromCart().bind()}>
                         <Image source={rmv} style={{}} />
                     </TouchableOpacity>
                 </View>

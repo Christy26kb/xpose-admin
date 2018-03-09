@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, FlatList, Modal, Button } from "react-native";
 
 import { ListItem, List, Header, Picker, Footer, FooterTab } from "native-base";
 
@@ -15,6 +15,7 @@ export default class CartScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            addressmodalv: false,
             cartproducts: []
         };
     }
@@ -23,14 +24,23 @@ export default class CartScreen extends React.Component {
     };
 
     componentDidMount() {
-        return firebase
-            .database()
-            .ref("/products/")
-            .on("value", (data) => {
-                this.setState({
-                    cartproducts: Object.values(data.val())
-                });
-            });
+        return (
+            firebase
+                .database()
+                //TODO:user1 is actually a dynamic key that need to be fetched from actual user.
+                .ref("/carts/user1")
+                .orderByKey()
+                .on("child_added", (data) => {
+                    //console.log("cart", data.key);
+                    firebase
+                        .database()
+                        .ref("/products/" + data.key)
+                        .on("value", (dat) => {
+                            this.state.cartproducts.push(dat.val());
+                            this.setState({ cartproducts: this.state.cartproducts });
+                        });
+                })
+        );
     }
 
     navigateToScreen = (route) => () => {
@@ -42,7 +52,11 @@ export default class CartScreen extends React.Component {
     _handleTileNavigation = (pageName, propsObject) => {
         this.navigate(pageName, propsObject);
     };
+    addressModalState = (val) => () => {
+        this.setState({ addressmodalv: val });
+    };
 
+    //VIM:Function that listen for changes in child and update current state.
     updateCartState(childItemValue, childItemPid) {
         // this.setState({});
         console.log("im from parent. And my state is: ", this.state);
@@ -55,9 +69,9 @@ export default class CartScreen extends React.Component {
             }
             return product;
         });
-        console.log("childItemValue", childItemValue);
+        /*console.log("childItemValue", childItemValue);
         console.log("childItemPid", childItemPid);
-        console.log("updateProduct:", updatedProducts);
+        console.log("updateProduct:", updatedProducts);*/
         this.setState({
             cartproducts: updatedProducts
         });
@@ -91,18 +105,33 @@ export default class CartScreen extends React.Component {
                     <FooterTab style={{ backgroundColor: "#FFF", borderRightWidth: 0.5, borderRightColor: "#0097A7" }}>
                         <TouchableOpacity>
                             <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
-                                Net Amount
+                                Rs.
                             </Text>
                         </TouchableOpacity>
                     </FooterTab>
                     <FooterTab style={{ backgroundColor: "#FFF" }}>
-                        <TouchableOpacity onPress={this._handleTileNavigation.bind(null, "S_Cscreen", this.state.cartproducts)}>
+                        <TouchableOpacity onPress={this.addressModalState(true).bind()}>
                             <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
                                 ORDER NOW
                             </Text>
                         </TouchableOpacity>
                     </FooterTab>
                 </Footer>
+
+                <Modal
+                    visible={this.state.addressmodalv}
+                    animationType={"fade"}
+                    onRequestClose={this.addressModalState(false).bind()}
+                    transparent={true}
+                    hardwareAccelerated={true}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.innerContainer}>
+                            <Text>This is content inside of Address modal component</Text>
+                            <Button onPress={this.addressModalState(false).bind()} title="Close modal" />
+                        </View>
+                    </View>
+                </Modal>
             </View>
         );
     }
@@ -116,6 +145,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#0097A7",
         flexDirection: "row",
         justifyContent: "flex-start",
+        alignItems: "center"
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: "grey"
+    },
+    innerContainer: {
         alignItems: "center"
     },
     developmentModeText: {

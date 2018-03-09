@@ -15,13 +15,13 @@ export default class DetailOrderTile extends React.Component {
             <View style={{ width: 500, height: 150 }}>
                 <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity>
-                        <Image source={{ uri: this.props.item.product.imguri }} style={{ width: 100, height: 100 }} />
+                        <Image source={{ uri: this.props.item.imguri }} style={{ width: 100, height: 100 }} />
                     </TouchableOpacity>
                     <View style={{ marginVertical: 20, marginHorizontal: 50 }}>
                         <TouchableOpacity>
-                            <Text style={styles.text}>PRODUCT-ID: {this.props.item.product.pid}</Text>
-                            <Text style={styles.text}>NAME: {this.props.item.product.name}</Text>
-                            <Text style={styles.text}>PRICE: ${this.props.item.product.price}</Text>
+                            <Text style={styles.text}>PRODUCT-ID: {this.props.item.pid}</Text>
+                            <Text style={styles.text}>NAME: {this.props.item.name}</Text>
+                            <Text style={styles.text}>PRICE: ${this.props.item.price}</Text>
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", marginTop: 3 }}>
                             <Text style={styles.text}>Qty :</Text>

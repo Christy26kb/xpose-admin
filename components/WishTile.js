@@ -20,33 +20,52 @@ export default class WishTile extends React.Component {
     this.props._handleTileNavigation(this.props.item.name, {});
   }*/
 
+    //TODO:Need attention for triggering the updation function inside the parent component.
+    /*updateWishlistState(id) {
+        console.log("passed id 1", id);
+        //inform parent's state about the removal  happened here and passes the id.
+        this.props.updateWishlistState(id);
+    }*/
+
     removeFromWishlist = () => () => {
         //console.log("check", this.props.item.pid);
         var productid = this.props.item.pid;
-        var a;
-        //Finding product key to enter into Wishlists as a custom key for each user.
+        //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
         firebase
             .database()
-            .ref("/products/")
-            .orderByChild("pid")
-            .equalTo(productid)
-            .on("value", (dat) => {
-                a = Object.keys(dat.val());
-                //console.log("keyfinder", a[0]);
-                if (a) {
-                    //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
-                    firebase
-                        .database()
-                        .ref("/wishlists")
-                        .child("user1")
-                        .child(a[0])
-                        .remove(function(error) {
-                            if (error) {
-                                alert(error);
-                            } else {
-                                alert("Removed from wishlist successfully");
-                            }
-                        });
+            .ref("/wishlists")
+            .child("user1")
+            .child(productid)
+            .remove(function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Removed from wishlist successfully");
+                    //TODO:Force parent component to re-render after removal,from child.
+                    //call function from parent passed via props.
+                    //this.props.updateWishlistState(this.props.item.pid).bind();
+                }
+            });
+    };
+
+    addToCart = () => () => {
+        //console.log("check", this.props.navigation.state.params);
+        var productid = this.props.item.pid;
+        var cartentry = {
+            pid: productid,
+            quantity: "1"
+        };
+        //Adding new entry to carts of 'user1'(it will be dynamic) with finded custom key.
+        firebase
+            .database()
+            .ref("/carts")
+            .child("user1")
+            .child(cartentry.pid)
+            .set(cartentry, function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Added to Cart successfully");
                 }
             });
     };
@@ -67,7 +86,7 @@ export default class WishTile extends React.Component {
                     </View>
                 </View>
                 <View style={{ flexDirection: "row", marginTop: 10, justifyContent: "center", marginRight: 50 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.addToCart().bind()}>
                         <Image source={movcart} style={{}} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.removeFromWishlist().bind()}>
