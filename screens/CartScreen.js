@@ -16,14 +16,16 @@ export default class CartScreen extends React.Component {
         super(props);
         this.state = {
             addressmodalv: false,
-            cartproducts: []
+            cartproducts: [],
+            carttotal: ""
         };
     }
     static navigationOptions = {
         title: "Cart"
     };
 
-    componentDidMount() {
+    componentWillMount() {
+        var sum = 0;
         return (
             firebase
                 .database()
@@ -31,13 +33,17 @@ export default class CartScreen extends React.Component {
                 .ref("/carts/user1")
                 .orderByKey()
                 .on("child_added", (data) => {
-                    //console.log("cart", data.key);
+                    //console.log("cart", data.val().quantity);
+                    //TODO:Use quantity value inside 'dat' and add to 'data' cartproducts quantity and use this inside cartile.
                     firebase
                         .database()
                         .ref("/products/" + data.key)
                         .on("value", (dat) => {
+                            //console.log("dat", dat.val().quantity);
+                            //TODO:Setting quantity which is taken from carts DB.
+                            sum = sum + dat.val().price;
                             this.state.cartproducts.push(dat.val());
-                            this.setState({ cartproducts: this.state.cartproducts });
+                            this.setState({ cartproducts: this.state.cartproducts, carttotal: sum });
                         });
                 })
         );
@@ -56,28 +62,30 @@ export default class CartScreen extends React.Component {
         this.setState({ addressmodalv: val });
     };
 
-    //VIM:Function that listen for changes in child and update current state.
+    //VIM:Function that listen for changes in child and update current state in parent.
     updateCartState(childItemValue, childItemPid) {
-        // this.setState({});
-        console.log("im from parent. And my state is: ", this.state);
         var products = this.state.cartproducts;
-        var updatedProducts = products.map((product) => {
+        var updatedProducts = {};
+        updatedProducts = products.map((product) => {
             if (product.pid == childItemPid) {
                 product.quantity = childItemValue;
-            } else {
-                product.quantity = 1;
             }
             return product;
         });
-        /*console.log("childItemValue", childItemValue);
-        console.log("childItemPid", childItemPid);
-        console.log("updateProduct:", updatedProducts);*/
+        //console.log("updateProduct:", updatedProducts);
         this.setState({
             cartproducts: updatedProducts
         });
+
+        this.test();
+    }
+
+    test() {
+        console.log("hai");
     }
 
     render() {
+        //console.log("updatedcartproductsstate:", this.state.cartproducts);
         this.navigate = this.props.navigation.navigate;
         return (
             <View style={styles.container}>
@@ -91,7 +99,7 @@ export default class CartScreen extends React.Component {
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
                         data={this.state.cartproducts}
-                        initialNumToRender={1}
+                        initialNumToRender={2}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <CarTile item={item} updateCartState={this.updateCartState.bind(this)} />
@@ -105,7 +113,7 @@ export default class CartScreen extends React.Component {
                     <FooterTab style={{ backgroundColor: "#FFF", borderRightWidth: 0.5, borderRightColor: "#0097A7" }}>
                         <TouchableOpacity>
                             <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
-                                Rs.
+                                Rs. {this.state.carttotal}
                             </Text>
                         </TouchableOpacity>
                     </FooterTab>

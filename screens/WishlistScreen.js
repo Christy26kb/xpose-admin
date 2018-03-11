@@ -28,7 +28,7 @@ export default class WishlistScreen extends React.Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
-    componentDidMount() {
+    componentWillMount() {
         return (
             firebase
                 .database()
@@ -74,7 +74,7 @@ export default class WishlistScreen extends React.Component {
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
                         data={this.state.wproducts}
-                        initialNumToRender={1}
+                        initialNumToRender={2}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <WishTile item={item} /*updateWishlistState={this.updateWishlistState.bind(this)}*/ />

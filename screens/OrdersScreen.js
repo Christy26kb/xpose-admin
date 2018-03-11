@@ -38,9 +38,13 @@ export default class OrdersScreen extends React.Component {
             .child("user1")
             .child("order")
             .on("value", (data) => {
-                this.setState({
-                    ordersdat: Object.values(data.val())
-                });
+                if (data.val() != undefined) {
+                    this.setState({
+                        ordersdat: Object.values(data.val())
+                    });
+                } else {
+                    this.setState({ ordersdat: [] });
+                }
             });
     }
 
@@ -58,6 +62,7 @@ export default class OrdersScreen extends React.Component {
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
                         data={this.state.ordersdat}
+                        initialNumToRender={2}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <OrdTile item={item} _handleTileNavigation={this._handleTileNavigation.bind(this)} />

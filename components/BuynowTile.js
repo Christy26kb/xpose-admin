@@ -5,7 +5,7 @@ import { Icon, Button, Footer, FooterTab } from "native-base";
 export default class BuynowTile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { quantity: "1" };
+        this.state = { quantity: this.props.item.quantity };
     }
     /*_handleTap = () =>{
     this.props._handleTileNavigation(this.props.item.name, {});
@@ -29,7 +29,7 @@ export default class BuynowTile extends React.Component {
                                 style={{ width: 40, height: 25, backgroundColor: "#EFF1F2", marginLeft: 20, marginTop: 3 }}
                                 mode="dropdown"
                                 itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
-                                selectedValue={this.props.item.quantity}
+                                selectedValue={this.state.quantity}
                                 enabled={false}
                                 onValueChange={(itemValue, itemIndex) => this.setState({ quantity: itemValue })}
                             >

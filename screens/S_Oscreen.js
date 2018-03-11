@@ -55,6 +55,7 @@ export default class S_Oscreen extends Component {
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     <FlatList
                         data={this.state.currentorderdata}
+                        initialNumToRender={2}
                         renderItem={({ item }) => (
                             <ListItem>
                                 <DetailOrderTile item={item} />

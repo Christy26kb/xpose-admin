@@ -38,9 +38,10 @@ export default class S_Gscreen extends Component {
     addToCart = () => () => {
         //console.log("check", this.props.navigation.state.params);
         var productid = this.props.navigation.state.params.pid;
+        var qua = this.state.quantity;
         var cartentry = {
             pid: productid,
-            quantity: "1"
+            quantity: qua
         };
         //Adding new entry to carts of 'user1'(it will be dynamic) with finded custom key.
         firebase
@@ -65,20 +66,22 @@ export default class S_Gscreen extends Component {
     };
 
     _handleTileNavigation = (pageName, propsObject) => {
-        this.navigate(pageName, propsObject);
+        //Adding corresponding quantity selected by user to sending data to (S_Cscreen) or Buynow.
+        propsObject.quantity = this.state.quantity;
+        //Structuring the data to the corresponding design over S_Cscreen.
+        const preparedparam = {
+            propsObject
+        };
+        this.navigate(pageName, preparedparam);
     };
 
     //TODO:Replace image in view with image slider component.
 
     render() {
         this.navigate = this.props.navigation.navigate;
-
         //Recieving selected product data from GalleryScreen.
         const productdata = this.props.navigation.state.params;
-        //Structuring the data to the corresponding design over S_Cscreen.
-        const preparedparam = {
-            productdata
-        };
+
         return (
             <Container>
                 <Header style={styles.headeri}>
@@ -123,7 +126,7 @@ export default class S_Gscreen extends Component {
 
                 <Footer style={{ height: 50, borderTopWidth: 0.5, borderTopColor: "#0097A7" }}>
                     <FooterTab style={{ backgroundColor: "#FFF", borderRightWidth: 0.5, borderRightColor: "#0097A7" }}>
-                        <TouchableOpacity onPress={this._handleTileNavigation.bind(null, "S_Cscreen", preparedparam)}>
+                        <TouchableOpacity onPress={this._handleTileNavigation.bind(null, "S_Cscreen", productdata)}>
                             <Text
                                 style={{
                                     textAlign: "center",

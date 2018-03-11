@@ -14,20 +14,13 @@ export default class S_Cscreen extends Component {
     }
 
     componentDidMount() {
-        //->Recieving data sent from CartScreen and S_Gscreen(detailproductdisplay).
+        //->Recieving data sent from S_Gscreen(detailproductdisplay).
 
         this.setState({
             orderproducts: Object.values(this.props.navigation.state.params)
         });
     }
-    /*
-//TODO:Attemp to clear the data which sent from navigation.params when the component unmounts.
-    componentWillUnmount() {
-        console.log("cwm");
-        this.props.navigation.setParams({ undefined });
-        console.log("after", this.props.navigation.state.params);
-    }
-*/
+
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
@@ -41,8 +34,8 @@ export default class S_Cscreen extends Component {
         var productid = buydata[0].pid;
 
         //VIM TODO: use a random unique number generator to generate unique orderid.
-        var orderid = "11" + productid;
-        var tot = buydata[0].price;
+        var orderid = "11" + Math.floor(Math.random() * productid);
+        var tot = buydata[0].price * buydata[0].quantity;
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
@@ -58,7 +51,7 @@ export default class S_Cscreen extends Component {
         //2nd Data Structure to enter to orders/user_order_products/'user1'/'orderid'/'productid' path.
         var orderentry2 = {
             pid: productid,
-            quantity: "1"
+            quantity: buydata[0].quantity
         };
 
         //Adding new entry to orders 1st data structure,'user1'(it will be dynamic) with custom key.
@@ -90,10 +83,11 @@ export default class S_Cscreen extends Component {
     };
 
     render() {
+        var detdata = Object.values(this.props.navigation.state.params);
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
-                    <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
+                    <TouchableOpacity onPress={this.navigateToScreen("S_Gscreen")}>
                         <Image source={navback} />
                     </TouchableOpacity>
                     <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Buy Now</Text>
@@ -114,7 +108,7 @@ export default class S_Cscreen extends Component {
                 <Footer style={{ height: 50, borderTopWidth: 0.5, borderTopColor: "#0097A7" }}>
                     <FooterTab style={{ backgroundColor: "#FFF", borderRightWidth: 0.5, borderRightColor: "#0097A7" }}>
                         <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
-                            Rs.
+                            Rs. {detdata[0].price * detdata[0].quantity}
                         </Text>
                     </FooterTab>
                     <FooterTab style={{ backgroundColor: "#FFF" }}>
