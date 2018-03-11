@@ -13,7 +13,7 @@ import CartScreen from "../screens/CartScreen";
 import WishlistScreen from "../screens/WishlistScreen";
 import UsersScreen from "../screens/UsersScreen";
 import UserauthScreen from "../screens/UserauthScreen";
-import DummyScreen from "../screens/DummyScreen";
+import FeedbacksScreen from "../screens/FeedbacksScreen";
 import S_Gscreen from "../screens/S_Gscreen";
 import S_Oscreen from "../screens/S_Oscreen";
 import S_Cscreen from "../screens/S_Cscreen";
@@ -48,8 +48,8 @@ const RootStackNavigator = DrawerNavigator(
         Log: {
             screen: UserauthScreen
         },
-        Demo: {
-            screen: DummyScreen
+        Feedbacks: {
+            screen: FeedbacksScreen
         },
         //...starting of sub screens.....
         S_Gscreen: {

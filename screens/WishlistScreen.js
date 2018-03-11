@@ -29,7 +29,7 @@ export default class WishlistScreen extends React.Component {
     };
 
     //VIM:ATTENTION: How to listen to the data live when deletion occurs.
-    componentWillMount() {
+    componentDidMount() {
         var update = [];
         var user = firebase.auth().currentUser;
         var uid;
