@@ -18,10 +18,15 @@ export default class ProTile extends React.Component {
     removeOrder = () => () => {
         var orderid = this.props.item.oid;
         var flag = 0;
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/orders/users")
-            .child("user1")
+            .child(uid)
             .child("order")
             .child(orderid)
             .remove(function(error) {
@@ -31,7 +36,7 @@ export default class ProTile extends React.Component {
                     firebase
                         .database()
                         .ref("/orders/user_order_products")
-                        .child("user1")
+                        .child(uid)
                         .child(orderid)
                         .remove(function(error) {
                             if (error) {

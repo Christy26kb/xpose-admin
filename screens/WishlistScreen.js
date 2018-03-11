@@ -28,22 +28,39 @@ export default class WishlistScreen extends React.Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
+    //VIM:ATTENTION: How to listen to the data live when deletion occurs.
     componentWillMount() {
+        var update = [];
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         return (
             firebase
                 .database()
                 //TODO:user1 is actually a dynamic key that need to be fetched from actual user.
-                .ref("/wishlists/user1")
-                .orderByKey()
-                .on("child_added", (data) => {
-                    //console.log("wishlist", data.key);
-                    firebase
-                        .database()
-                        .ref("/products/" + data.key)
-                        .on("value", (dat) => {
-                            this.state.wproducts.push(dat.val());
-                            this.setState({ wproducts: this.state.wproducts });
-                        });
+                .ref("/wishlists")
+                .child(uid)
+                .on("value", (data) => {
+                    data.forEach(function(Snapshot) {
+                        var c = Snapshot.key;
+                        firebase
+                            .database()
+                            .ref("/products/" + c)
+                            .on("value", (dat) => {
+                                var x = dat.val();
+                                update.push(x);
+                                //console.log("productsvalue", update);
+                                //this.state.wproducts.push(dat.val());
+                                /*if (update != undefined) {
+                                    this.setState({ wproducts: update });
+                                } else {
+                                    this.setState({ wproducts: [] });
+                                }*/
+                            });
+                    });
+                    this.setState({ wproducts: update });
                 })
         );
     }

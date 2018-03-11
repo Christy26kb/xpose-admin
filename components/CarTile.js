@@ -42,10 +42,15 @@ export default class CarTile extends React.Component {
             pid: productid
         };
         //Adding new entry to wishlist of 'user1'(it will be dynamic) with finded custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/wishlists")
-            .child("user1")
+            .child(uid)
             .child(wishlistentry.pid)
             .set(wishlistentry, function(error) {
                 if (error) {
@@ -60,10 +65,15 @@ export default class CarTile extends React.Component {
         //console.log("check", this.props.item.pid);
         var rproductid = this.props.item.pid;
         //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/carts")
-            .child("user1")
+            .child(uid)
             .child(rproductid)
             .remove(function(error) {
                 if (error) {

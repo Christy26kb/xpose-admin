@@ -26,11 +26,17 @@ export default class CartScreen extends React.Component {
 
     componentWillMount() {
         var sum = 0;
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         return (
             firebase
                 .database()
                 //TODO:user1 is actually a dynamic key that need to be fetched from actual user.
-                .ref("/carts/user1")
+                .ref("/carts")
+                .child(uid)
                 .orderByKey()
                 .on("child_added", (data) => {
                     //console.log("cart", data.val().quantity);
@@ -77,11 +83,21 @@ export default class CartScreen extends React.Component {
             cartproducts: updatedProducts
         });
 
-        this.test();
+        this.cartTotal();
     }
 
-    test() {
-        console.log("hai");
+    cartTotal() {
+        //console.log("hai");
+        var total = 0;
+        var pdata = this.state.cartproducts;
+        var upddata = {};
+        upddata = pdata.map((product) => {
+            if (product) {
+                total = total + product.quantity * product.price;
+            }
+        });
+
+        this.setState({ carttotal: total });
     }
 
     render() {

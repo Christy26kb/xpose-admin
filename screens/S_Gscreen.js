@@ -21,10 +21,15 @@ export default class S_Gscreen extends Component {
             pid: productid
         };
         //Adding new entry to wishlist of 'user1'(it will be dynamic) with finded custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/wishlists")
-            .child("user1")
+            .child(uid)
             .child(wishlistentry.pid)
             .set(wishlistentry, function(error) {
                 if (error) {
@@ -44,10 +49,15 @@ export default class S_Gscreen extends Component {
             quantity: qua
         };
         //Adding new entry to carts of 'user1'(it will be dynamic) with finded custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/carts")
-            .child("user1")
+            .child(uid)
             .child(cartentry.pid)
             .set(cartentry, function(error) {
                 if (error) {

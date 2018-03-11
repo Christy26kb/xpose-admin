@@ -55,10 +55,15 @@ export default class S_Cscreen extends Component {
         };
 
         //Adding new entry to orders 1st data structure,'user1'(it will be dynamic) with custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/orders/users")
-            .child("user1")
+            .child(uid)
             .child("order")
             .child(orderentry1.oid)
             .set(orderentry1, function(error) {
@@ -68,7 +73,7 @@ export default class S_Cscreen extends Component {
                     firebase
                         .database()
                         .ref("/orders/user_order_products")
-                        .child("user1")
+                        .child(uid)
                         .child(orderentry1.oid)
                         .child(orderentry2.pid)
                         .set(orderentry2, function(error) {

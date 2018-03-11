@@ -24,10 +24,15 @@ export default class S_Oscreen extends Component {
     componentDidMount() {
         var ord = this.props.navigation.state.params;
         //TODO:'User1' will be a dynamic key obtained from user.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         return firebase
             .database()
             .ref("/orders/user_order_products")
-            .child("user1")
+            .child(uid)
             .child(ord.oid)
             .on("child_added", (data) => {
                 firebase

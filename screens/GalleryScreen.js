@@ -41,15 +41,20 @@ export default class GalleryScreen extends React.Component {
         this.navigate(pageName, propsObject);
     };
 
-    componentDidMount() {
+    componentWillMount() {
         return firebase
             .database()
             .ref("/products/")
             .on("value", (data) => {
+                /*data.forEach(function(Snapshot) {
+                    var childkey = Snapshot.key;
+                    console.log("productsvalue", childkey);
+                    // ...
+                });*/
                 this.setState({
                     products: Object.values(data.val())
                 });
-                // console.log("datas", Object.values(data.val()));
+                //console.log("datas", Object.values(data.val()));
             });
     }
 

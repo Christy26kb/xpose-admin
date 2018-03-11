@@ -32,10 +32,15 @@ export default class OrdersScreen extends React.Component {
 
     componentDidMount() {
         //TODO:'User1' will be a dynamic key obtained from user.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         return firebase
             .database()
-            .ref("/orders/users")
-            .child("user1")
+            .ref("/orders")
+            .child(uid)
             .child("order")
             .on("value", (data) => {
                 if (data.val() != undefined) {

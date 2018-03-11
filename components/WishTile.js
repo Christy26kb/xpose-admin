@@ -31,10 +31,15 @@ export default class WishTile extends React.Component {
         //console.log("check", this.props.item.pid);
         var productid = this.props.item.pid;
         //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/wishlists")
-            .child("user1")
+            .child(uid)
             .child(productid)
             .remove(function(error) {
                 if (error) {
@@ -56,10 +61,15 @@ export default class WishTile extends React.Component {
             quantity: "1"
         };
         //Adding new entry to carts of 'user1'(it will be dynamic) with finded custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
         firebase
             .database()
             .ref("/carts")
-            .child("user1")
+            .child(uid)
             .child(cartentry.pid)
             .set(cartentry, function(error) {
                 if (error) {
