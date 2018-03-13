@@ -40,6 +40,7 @@ export default class OrdersScreen extends React.Component {
         return firebase
             .database()
             .ref("/orders")
+            .child("users")
             .child(uid)
             .child("order")
             .on("value", (data) => {
