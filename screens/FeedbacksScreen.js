@@ -1,11 +1,12 @@
 import React from "react";
-import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Container, Header, Content, Right, Left, Body, ListItem, List } from "native-base";
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
+import { Container, Header, Content, ListItem, List, Footer, FooterTab } from "native-base";
 
 import { MonoText } from "../components/StyledText";
 
 import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
+import FeedbackTile from "../components/FeedbackTile";
 
 export default class FeedbacksScreen extends React.Component {
     static navigationOptions = {
@@ -30,7 +31,7 @@ export default class FeedbacksScreen extends React.Component {
                 </Header>
 
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
-                    <Text>Feedbacks screen</Text>
+                    <FeedbackTile />
                 </ScrollView>
             </View>
         );
