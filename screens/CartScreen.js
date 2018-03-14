@@ -100,6 +100,69 @@ export default class CartScreen extends React.Component {
         this.setState({ carttotal: total });
     }
 
+    orderFromCart = () => () => {
+        var upd = {};
+        var cdata = this.state.cartproducts;
+
+        //VIM TODO: use a random unique number generator to generate unique orderid.
+        var orderid = "13" + Math.floor(Math.random());
+        var tot = this.state.carttotal;
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        today = dd + "/" + mm + "/" + yyyy;
+        //1st Data Structure to enter to orders/users/'user1'/order/'orderid' path.
+        var orderentry1 = {
+            oid: orderid,
+            status: "Not Ready",
+            total: tot,
+            date: today
+        };
+
+        //Adding new entry to orders 1st data structure,'user1'(it will be dynamic) with custom key.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
+        firebase
+            .database()
+            .ref("/orders/users")
+            .child(uid)
+            .child("order")
+            .child(orderentry1.oid)
+            .set(orderentry1, function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    upd = cdata.map((product) => {
+                        //2nd Data Structure to enter to orders/user_order_products/'user1'/'orderid'/'productid' path.
+                        var orderentry2 = {
+                            pid: product.pid,
+                            quantity: product.quantity
+                        };
+                        if (product) {
+                            firebase
+                                .database()
+                                .ref("/orders/user_order_products")
+                                .child(uid)
+                                .child(orderentry1.oid)
+                                .child(orderentry2.pid)
+                                .set(orderentry2, function(error) {
+                                    if (error) {
+                                        alert(error);
+                                    }
+                                });
+                        }
+                    });
+
+                    //Success alert for order placement from cart.
+                    alert("Order placed successfully");
+                }
+            });
+    };
+
     render() {
         //console.log("updatedcartproductsstate:", this.state.cartproducts);
         this.navigate = this.props.navigation.navigate;
@@ -134,7 +197,7 @@ export default class CartScreen extends React.Component {
                         </TouchableOpacity>
                     </FooterTab>
                     <FooterTab style={{ backgroundColor: "#FFF" }}>
-                        <TouchableOpacity onPress={this.addressModalState(true).bind()}>
+                        <TouchableOpacity onPress={this.orderFromCart().bind()}>
                             <Text style={{ alignSelf: "center", marginVertical: 10, marginHorizontal: 20, color: "#17B7C7", fontSize: 20, fontWeight: "bold" }}>
                                 ORDER NOW
                             </Text>
