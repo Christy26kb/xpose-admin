@@ -13,13 +13,6 @@ export default class UserauthScreen extends React.Component {
         var user = firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 // User is signed in.
-                try {
-                    AsyncStorage.setItem("log", "true");
-                } catch (error) {
-                    // Error saving data
-                    alert(error);
-                }
-
                 alert("Signed in!");
             } else {
                 // No user is signed in.

@@ -28,12 +28,13 @@ export default class App extends React.Component {
     //TODO:Use componentDidMount or other lifecycle method to solve login state problem,read from async storage there.
 
     render() {
+        var f = 1;
+
         if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
             return <AppLoading startAsync={this._loadResourcesAsync} onError={this._handleLoadingError} onFinish={this._handleFinishLoading} />;
         } else {
-            if (this.state.login) {
-                return <UserauthScreen />;
-            } else {
+            if (f) {
+                // User is signed in.
                 return (
                     <View style={styles.container}>
                         {Platform.OS === "ios" && <StatusBar barStyle="default" />}
@@ -41,6 +42,9 @@ export default class App extends React.Component {
                         <RootNavigation />
                     </View>
                 );
+            } else {
+                // No user is signed in.
+                return <UserauthScreen />;
             }
         }
     }
@@ -68,9 +72,20 @@ export default class App extends React.Component {
                 Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
                 Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
             })
-
-            //.. Load data from asynstorage  for the  login state:{true/false}..
         ]);
+
+        //.. Load data from asynstorage  for the  login state:{true/false}..
+        var user = firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                alert("Signed in!");
+                f = 1;
+            } else {
+                // No user is signed in.
+                alert("Signed out!");
+                f = 0;
+            }
+        });
     };
 
     _handleLoadingError = (error) => {

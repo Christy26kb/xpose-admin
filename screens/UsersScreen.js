@@ -5,11 +5,17 @@ import { WebBrowser } from "expo";
 
 import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
-import Home from "../screens/HomeScreen";
-
-import Gridi from "../components/Gridi";
 
 export default class UsersScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "",
+            email: "",
+            phone: "",
+            address: ""
+        };
+    }
     static navigationOptions = {
         title: "Users"
     };
@@ -21,6 +27,57 @@ export default class UsersScreen extends React.Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
+    componentWillMount() {
+        //TODO:'User1' will be a dynamic key obtained from user.
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+            return firebase
+                .database()
+                .ref("/users")
+                .child(uid)
+                .on("value", (data) => {
+                    if (data.val() != undefined) {
+                        this.setState({
+                            name: data.val().name,
+                            phone: data.val().phone,
+                            email: data.val().email,
+                            address: data.val().address
+                        });
+                    } else {
+                        this.setState({
+                            email: user.email
+                        });
+                    }
+                });
+        }
+    }
+
+    updateUserData = () => () => {
+        var user = firebase.auth().currentUser;
+        var uid;
+        if (user != null) {
+            uid = user.uid;
+        }
+        var userinfo = {
+            name: this.state.name,
+            phone: this.state.phone,
+            email: this.state.email,
+            address: this.state.address
+        };
+        return firebase
+            .database()
+            .ref("/users")
+            .child(uid)
+            .set(userinfo, function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Details Updated successfully");
+                }
+            });
+    };
     render() {
         return (
             <Container>
@@ -28,49 +85,43 @@ export default class UsersScreen extends React.Component {
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
                         <Image source={navback} />
                     </TouchableOpacity>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>User Information</Text>
                 </Header>
                 <Content>
-                    <ScrollView>
-                        <Form>
-                            <Item stackedLabel>
-                                <Label>Username</Label>
-                                <Input disabled autoCorrect={false} autoCapitalize="none" />
-                                <Icon active name="person" />
-                            </Item>
-
-                            <Item stackedLabel>
-                                <Label>Password</Label>
-                                <Input disabled secureTextEntry={true} autoCorrect={false} autoCapitalize="none" />
-                                <Icon active name="lock" />
-                            </Item>
-
-                            <Item stackedLabel>
-                                <Label>Email</Label>
-                                <Input disabled />
-                                <Icon active name="mail" />
-                            </Item>
-
-                            <Item stackedLabel>
-                                <Label>Mobile No</Label>
-                                <Input disabled />
-                                <Icon active name="logo-whatsapp" />
-                            </Item>
-
-                            <Item stackedLabel>
-                                <Label>Address</Label>
-                                <Input />
-                                <Icon active name="logo-whatsapp" />
-                            </Item>
-
-                            <Button
-                                style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#0097A7" }}
-                                full
-                                rounded
-                                success
-                            >
-                                <Text style={{ color: "white" }}>Edit info</Text>
-                            </Button>
-                        </Form>
+                    <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
+                        <Item style={styles.inputstyle} stackedLabel>
+                            <Label>Name</Label>
+                            <Input autoCorrect={false} autoCapitalize="none" onChangeText={(name) => this.setState({ name })} value={this.state.name} />
+                        </Item>
+                        <Item style={styles.inputstyle} stackedLabel>
+                            <Label>Email</Label>
+                            <Input disabled value={this.state.email} />
+                        </Item>
+                        <Item style={styles.inputstyle} stackedLabel>
+                            <Label>Mobile No</Label>
+                            <Input autoCorrect={false} autoCapitalize="none" onChangeText={(phone) => this.setState({ phone })} value={this.state.phone} />
+                        </Item>
+                        <Item style={styles.inputstyle} stackedLabel>
+                            <Label>Address</Label>
+                            <Input
+                                style={{ height: 100 }}
+                                multiline={true}
+                                numberOfLines={30}
+                                autoCorrect={false}
+                                autoCapitalize="none"
+                                onChangeText={(address) => this.setState({ address })}
+                                value={this.state.address}
+                            />
+                        </Item>
+                        <Button
+                            onPress={this.updateUserData().bind()}
+                            style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#0097A7" }}
+                            full
+                            rounded
+                            success
+                        >
+                            <Text style={{ color: "white" }}>Update</Text>
+                        </Button>
                     </ScrollView>
                 </Content>
             </Container>
@@ -96,82 +147,14 @@ const styles = StyleSheet.create({
         lineHeight: 19,
         textAlign: "center"
     },
+    inputstyle: {
+        marginTop: 20,
+        width: 250
+    },
     contentContainer: {
-        paddingTop: 20,
+        padding: 20,
         flex: 1,
         alignItems: "center",
-        paddingRight: 18
-    },
-    welcomeContainer: {
-        alignItems: "center",
-        marginTop: 10,
-        marginBottom: 20
-    },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: "contain",
-        marginTop: 3,
-        marginLeft: -10
-    },
-    getStartedContainer: {
-        alignItems: "center",
-        marginHorizontal: 10
-    },
-    homeScreenFilename: {
-        marginVertical: 7
-    },
-    codeHighlightText: {
-        color: "rgba(96,100,109, 0.8)"
-    },
-    codeHighlightContainer: {
-        backgroundColor: "rgba(0,0,0,0.05)",
-        borderRadius: 3,
-        paddingHorizontal: 4
-    },
-    getStartedText: {
-        fontSize: 17,
-        color: "rgba(96,100,109, 1)",
-        lineHeight: 24,
-        textAlign: "center"
-    },
-    tabBarInfoContainer: {
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        ...Platform.select({
-            ios: {
-                shadowColor: "black",
-                shadowOffset: { height: -3 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3
-            },
-            android: {
-                elevation: 20
-            }
-        }),
-        alignItems: "center",
-        backgroundColor: "#fbfbfb",
-        paddingVertical: 20
-    },
-    tabBarInfoText: {
-        fontSize: 17,
-        color: "rgba(96,100,109, 1)",
-        textAlign: "center"
-    },
-    navigationFilename: {
-        marginTop: 5
-    },
-    helpContainer: {
-        marginTop: 15,
-        alignItems: "center"
-    },
-    helpLink: {
-        paddingVertical: 15
-    },
-    helpLinkText: {
-        fontSize: 14,
-        color: "#2e78b7"
+        paddingTop: 30
     }
 });
