@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Container, Header, Content, Form, Item, Input, Label, Icon, Button } from "native-base";
-import { WebBrowser } from "expo";
+
 
 import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
