@@ -15,7 +15,7 @@ export default class ProTile extends React.Component {
                     </View>
                     <View>
                         <Text style={styles.proinfo}>{this.props.item.name}</Text>
-                        <Text style={styles.priinfo}>${this.props.item.price}</Text>
+                        <Text style={styles.priinfo}>Rs. {this.props.item.price}</Text>
                         <TouchableWithoutFeedback>
                             <Icon active name="hand" style={styles.iconpos} />
                         </TouchableWithoutFeedback>

@@ -16,20 +16,8 @@ import movcart from "../assets/images/movcart.png";
 import rmv from "../assets/images/rmv.png";
 
 export default class WishTile extends React.Component {
-    /*_handleTap = () =>{
-    this.props._handleTileNavigation(this.props.item.name, {});
-  }*/
-
-    //TODO:Need attention for triggering the updation function inside the parent component.
-    /*updateWishlistState(id) {
-        console.log("passed id 1", id);
-        //inform parent's state about the removal  happened here and passes the id.
-        this.props.updateWishlistState(id);
-    }*/
-
     removeFromWishlist = () => () => {
         //console.log("check", this.props.item.pid);
-        var f = 0;
         var productid = this.props.item.pid;
         //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
         var user = firebase.auth().currentUser;
@@ -45,18 +33,11 @@ export default class WishTile extends React.Component {
             .remove(function(error) {
                 if (error) {
                     alert(error);
-                } else {
-                    f = 1;
-                    alert("Removed from wishlist successfully");
-                    //TODO:Force parent component to re-render after removal,from child.
-                    //call function from parent passed via props.
-                    //this.props.updateWishlistState(this.props.item.pid).bind();
                 }
             });
-
-        if (f) {
-            this.fetchStart();
-        }
+        //TODO:Force parent component to re-render after removal,from child.
+        //call function from parent passed via props.
+        this.fetchStart();
     };
 
     _handleTap = () => {
@@ -64,12 +45,10 @@ export default class WishTile extends React.Component {
     };
 
     fetchStart() {
-        console.log("1st level");
         this.props.fetchWishlistData();
     }
 
     addToCart = () => () => {
-        //console.log("check", this.props.navigation.state.params);
         var productid = this.props.item.pid;
         var cartentry = {
             pid: productid,

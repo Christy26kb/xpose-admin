@@ -25,34 +25,38 @@ export default class CartScreen extends React.Component {
     };
 
     componentWillMount() {
+        this.fetchCartData();
+    }
+
+    fetchCartData = () => {
+        var update = [];
         var sum = 0;
         var user = firebase.auth().currentUser;
         var uid;
         if (user != null) {
             uid = user.uid;
         }
-        return (
-            firebase
-                .database()
-                //TODO:user1 is actually a dynamic key that need to be fetched from actual user.
-                .ref("/carts")
-                .child(uid)
-                .orderByKey()
-                .on("child_added", (data) => {
-                    //console.log("cart", data.val().quantity);
+        firebase
+            .database()
+            //TODO:user1 is actually a dynamic key that need to be fetched from actual user.
+            .ref("/carts")
+            .child(uid)
+            .on("value", (data) => {
+                //Logic for iterate data from 1st level before 2nd level process.
+                data.forEach(function(Snapshot) {
+                    var c = Snapshot.key;
                     firebase
                         .database()
-                        .ref("/products/" + data.key)
+                        .ref("/products/" + c)
                         .on("value", (dat) => {
-                            //console.log("dat", dat.val().quantity);
-                            //TODO:Setting quantity which is taken from carts DB.
                             sum = sum + dat.val().price;
-                            this.state.cartproducts.push(dat.val());
-                            this.setState({ cartproducts: this.state.cartproducts, carttotal: sum });
+                            var x = dat.val();
+                            update.push(x);
                         });
-                })
-        );
-    }
+                });
+                this.setState({ cartproducts: update, carttotal: sum });
+            });
+    };
 
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
@@ -186,6 +190,7 @@ export default class CartScreen extends React.Component {
                                     item={item}
                                     updateCartState={this.updateCartState.bind(this)}
                                     _handleTileNavigation={this._handleTileNavigation.bind(this)}
+                                    fetchCartData={this.fetchCartData.bind(this)}
                                 />
                             </ListItem>
                         )}

@@ -26,6 +26,10 @@ export default class CarTile extends React.Component {
         this.props._handleTileNavigation("S_Gscreen", this.props.item);
     };
 
+    fetchStart() {
+        this.props.fetchCartData();
+    }
+
     updateCartState(itemValue, itemIndex) {
         //inform parent's state about the updation happened here
         //VIM:Call to the parent function reporting changes.
@@ -79,13 +83,11 @@ export default class CarTile extends React.Component {
             .remove(function(error) {
                 if (error) {
                     alert(error);
-                } else {
-                    alert("Removed from Cart successfully");
-                    //TODO:Force parent component to re-render after removal,from child.
-                    //call function from parent passed via props.
-                    //this.props.updateWishlistState(this.props.item.pid).bind();
                 }
             });
+        //TODO:Force parent component to re-render after removal,from child.
+        //call function from parent passed via props.
+        this.fetchStart();
     };
 
     render() {

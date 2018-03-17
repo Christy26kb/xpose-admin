@@ -38,7 +38,6 @@ export default class WishlistScreen extends React.Component {
     }
 
     fetchWishlistData = () => {
-        console.log("recieve");
         var update = [];
         var user = firebase.auth().currentUser;
         var uid;
@@ -51,6 +50,7 @@ export default class WishlistScreen extends React.Component {
             .ref("/wishlists")
             .child(uid)
             .on("value", (data) => {
+                //Logic for iterate data from 1st level before 2nd level process.
                 data.forEach(function(Snapshot) {
                     var c = Snapshot.key;
                     firebase
@@ -59,35 +59,14 @@ export default class WishlistScreen extends React.Component {
                         .on("value", (dat) => {
                             var x = dat.val();
                             update.push(x);
-                            //console.log("productsvalue", update);
-                            //this.state.wproducts.push(dat.val());
-                            /*if (update != undefined) {
-                                    this.setState({ wproducts: update });
-                                } else {
-                                    this.setState({ wproducts: [] });
-                                }*/
                         });
                 });
                 this.setState({ wproducts: update });
             });
     };
 
-    //TODO:Need attention for updation of data in state from child.
-    /*updateWishlistState(ProductPid) {
-        console.log("childItemPid", ProductPid);
-        var products = this.state.wproducts;
-        var updatedProducts = products.filter(function(el) {
-            return el.pid !== ProductPid;
-        });
-
-        console.log("updateWishlist:", updatedProducts);
-        /*this.setState({
-            wproducts: updatedProducts
-        });}*/
-
     render() {
         this.navigate = this.props.navigation.navigate;
-        //console.log("state", this.state.wproducts);
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
