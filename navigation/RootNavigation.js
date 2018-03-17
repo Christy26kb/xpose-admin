@@ -5,7 +5,6 @@ import { DrawerNavigator } from "react-navigation";
 import Sidebar from "../components/Sidebar.js";
 import registerForPushNotificationsAsync from "../api/registerForPushNotificationsAsync";
 
-import HomeScreen from "../screens/HomeScreen";
 import GalleryScreen from "../screens/GalleryScreen";
 import SearchScreen from "../screens/SearchScreen";
 import OrdersScreen from "../screens/OrdersScreen";
@@ -24,9 +23,6 @@ const RootStackNavigator = DrawerNavigator(
      * Note to Christy: Any new page you need to add, import on top and then specify it in this below list like I have specified Gallery.
      */
     {
-        Home: {
-            screen: HomeScreen
-        },
         Gallery: {
             screen: GalleryScreen
         },

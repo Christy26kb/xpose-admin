@@ -42,7 +42,6 @@ export default class ProTile extends React.Component {
                             if (error) {
                                 alert(error);
                             } else {
-                                alert("Order Cancelled successfully");
                                 //Need attention here to close the prompt when order is removed.
                                 flag = 1;
                             }

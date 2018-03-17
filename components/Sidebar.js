@@ -26,9 +26,6 @@ export default class SideMenu extends Component {
                     </View>
                     <List>
                         <View style={styles.navSectionStyle}>
-                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Home")}>
-                                <Text style={styles.navItemStyle}>Home</Text>
-                            </ListItem>
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Gallery")}>
                                 <Text style={styles.navItemStyle}>Gallery</Text>
                             </ListItem>

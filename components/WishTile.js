@@ -29,6 +29,7 @@ export default class WishTile extends React.Component {
 
     removeFromWishlist = () => () => {
         //console.log("check", this.props.item.pid);
+        var f = 0;
         var productid = this.props.item.pid;
         //Removing entry from wishlist of 'user1'(it will be dynamic) with finded custom key.
         var user = firebase.auth().currentUser;
@@ -45,13 +46,27 @@ export default class WishTile extends React.Component {
                 if (error) {
                     alert(error);
                 } else {
+                    f = 1;
                     alert("Removed from wishlist successfully");
                     //TODO:Force parent component to re-render after removal,from child.
                     //call function from parent passed via props.
                     //this.props.updateWishlistState(this.props.item.pid).bind();
                 }
             });
+
+        if (f) {
+            this.fetchStart();
+        }
     };
+
+    _handleTap = () => {
+        this.props._handleTileNavigation("S_Gscreen", this.props.item);
+    };
+
+    fetchStart() {
+        console.log("1st level");
+        this.props.fetchWishlistData();
+    }
 
     addToCart = () => () => {
         //console.log("check", this.props.navigation.state.params);
@@ -81,14 +96,15 @@ export default class WishTile extends React.Component {
     };
 
     render() {
+        var prodata = this.props.item;
         return (
             <View style={{ width: 500, height: 200 }}>
                 <View style={{ flexDirection: "row" }}>
-                    <TouchableOpacity>
-                        <Image source={{ uri: this.props.item.imguri }} style={{ width: 125, height: 125 }} />
+                    <TouchableOpacity onPress={this._handleTap}>
+                        <Image source={{ uri: this.props.item.imguri }} style={{ width: 125, height: 125, resizeMode: "contain" }} />
                     </TouchableOpacity>
                     <View style={{ marginVertical: 20, marginHorizontal: 50 }}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this._handleTap}>
                             <Text style={styles.text}>PRODUCT-ID: {this.props.item.pid}</Text>
                             <Text style={styles.text}>NAME: {this.props.item.name}</Text>
                             <Text style={styles.text}>PRICE: ${this.props.item.price}</Text>

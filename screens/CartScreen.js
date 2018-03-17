@@ -40,7 +40,6 @@ export default class CartScreen extends React.Component {
                 .orderByKey()
                 .on("child_added", (data) => {
                     //console.log("cart", data.val().quantity);
-                    //TODO:Use quantity value inside 'dat' and add to 'data' cartproducts quantity and use this inside cartile.
                     firebase
                         .database()
                         .ref("/products/" + data.key)
@@ -105,7 +104,9 @@ export default class CartScreen extends React.Component {
         var cdata = this.state.cartproducts;
 
         //VIM TODO: use a random unique number generator to generate unique orderid.
-        var orderid = "13" + Math.floor(Math.random());
+        var rand1 = require("unique-random")(5001, 10000);
+        var rand2 = require("unique-random")(500, 1000);
+        var orderid = rand1() * rand2();
         var tot = this.state.carttotal;
         var today = new Date();
         var dd = today.getDate();
@@ -181,7 +182,11 @@ export default class CartScreen extends React.Component {
                         initialNumToRender={2}
                         renderItem={({ item }) => (
                             <ListItem>
-                                <CarTile item={item} updateCartState={this.updateCartState.bind(this)} />
+                                <CarTile
+                                    item={item}
+                                    updateCartState={this.updateCartState.bind(this)}
+                                    _handleTileNavigation={this._handleTileNavigation.bind(this)}
+                                />
                             </ListItem>
                         )}
                         keyExtractor={(item) => item.pid}

@@ -36,7 +36,9 @@ export default class FeedbacksScreen extends React.Component {
         var yyyy = today.getFullYear();
         today = dd + "/" + mm + "/" + yyyy;
         //TODO:Use a id generator here.
-        feedid = Math.floor(Math.random() * (2 * 3));
+        var rand1 = require("unique-random")(1, 100);
+        var rand2 = require("unique-random")(101, 200);
+        feedid = rand1() * rand2();
         //Adding new entry to wishlist of 'user1'(it will be dynamic) with finded custom key.
         var user = firebase.auth().currentUser;
         var uid;

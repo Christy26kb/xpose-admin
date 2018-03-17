@@ -3,7 +3,7 @@ import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, 
 
 import { ListItem, List, Header } from "native-base";
 
-import { NavigationActions } from "react-navigation";
+import { NavigationActions, StackNavigator } from "react-navigation";
 import navback from "../assets/images/navback.png";
 import Home from "../screens/HomeScreen";
 
@@ -28,42 +28,50 @@ export default class WishlistScreen extends React.Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
+    _handleTileNavigation = (pageName, propsObject) => {
+        this.navigate(pageName, propsObject);
+    };
+
     //VIM:ATTENTION: How to listen to the data live when deletion occurs.
     componentWillMount() {
+        this.fetchWishlistData();
+    }
+
+    fetchWishlistData = () => {
+        console.log("recieve");
         var update = [];
         var user = firebase.auth().currentUser;
         var uid;
         if (user != null) {
             uid = user.uid;
         }
-        return (
-            firebase
-                .database()
-                //TODO:user1 is actually a dynamic key that need to be fetched from actual user.
-                .ref("/wishlists")
-                .child(uid)
-                .on("value", (data) => {
-                    data.forEach(function(Snapshot) {
-                        var c = Snapshot.key;
-                        firebase
-                            .database()
-                            .ref("/products/" + c)
-                            .on("value", (dat) => {
-                                var x = dat.val();
-                                update.push(x);
-                                //console.log("productsvalue", update);
-                                //this.state.wproducts.push(dat.val());
-                                /*if (update != undefined) {
+        firebase
+            .database()
+            //user1 is actually a dynamic key that need to be fetched from actual user.
+            .ref("/wishlists")
+            .child(uid)
+            .on("value", (data) => {
+                data.forEach(function(Snapshot) {
+                    var c = Snapshot.key;
+                    firebase
+                        .database()
+                        .ref("/products/" + c)
+                        .on("value", (dat) => {
+                            var x = dat.val();
+                            update.push(x);
+                            //console.log("productsvalue", update);
+                            //this.state.wproducts.push(dat.val());
+                            /*if (update != undefined) {
                                     this.setState({ wproducts: update });
                                 } else {
                                     this.setState({ wproducts: [] });
                                 }*/
-                            });
-                    });
-                    this.setState({ wproducts: update });
-                })
-        );
-    }
+                        });
+                });
+                this.setState({ wproducts: update });
+            });
+    };
+
     //TODO:Need attention for updation of data in state from child.
     /*updateWishlistState(ProductPid) {
         console.log("childItemPid", ProductPid);
@@ -78,6 +86,7 @@ export default class WishlistScreen extends React.Component {
         });}*/
 
     render() {
+        this.navigate = this.props.navigation.navigate;
         //console.log("state", this.state.wproducts);
         return (
             <View style={styles.container}>
@@ -94,7 +103,11 @@ export default class WishlistScreen extends React.Component {
                         initialNumToRender={2}
                         renderItem={({ item }) => (
                             <ListItem>
-                                <WishTile item={item} /*updateWishlistState={this.updateWishlistState.bind(this)}*/ />
+                                <WishTile
+                                    item={item}
+                                    _handleTileNavigation={this._handleTileNavigation.bind(this)}
+                                    fetchWishlistData={this.fetchWishlistData.bind(this)}
+                                />
                             </ListItem>
                         )}
                         keyExtractor={(item) => item.pid}
@@ -123,8 +136,7 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     contentContainer: {
-        paddingTop: 20,
-        alignItems: "center"
+        paddingTop: 20
     },
     welcomeContainer: {
         alignItems: "center",

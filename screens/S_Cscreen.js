@@ -34,7 +34,9 @@ export default class S_Cscreen extends Component {
         var productid = buydata[0].pid;
 
         //VIM TODO: use a random unique number generator to generate unique orderid.
-        var orderid = "11" + Math.floor(Math.random() * productid);
+        var rand1 = require("unique-random")(1000, 5000);
+        var rand2 = require("unique-random")(300, 800);
+        var orderid = rand1() * rand2();
         var tot = buydata[0].price * buydata[0].quantity;
         var today = new Date();
         var dd = today.getDate();

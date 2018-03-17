@@ -21,9 +21,10 @@ export default class CarTile extends React.Component {
         super(props);
         this.state = { quantity: "1" };
     }
-    /*_handleTap = () =>{
-    this.props._handleTileNavigation(this.props.item.name, {});
-  }*/
+
+    _handleTap = () => {
+        this.props._handleTileNavigation("S_Gscreen", this.props.item);
+    };
 
     updateCartState(itemValue, itemIndex) {
         //inform parent's state about the updation happened here
@@ -91,7 +92,7 @@ export default class CarTile extends React.Component {
         return (
             <View style={{ width: 500, height: 200 }}>
                 <View style={{ flexDirection: "row" }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this._handleTap}>
                         <Image source={{ uri: this.props.item.imguri }} style={{ width: 125, height: 125, marginTop: 10 }} />
                     </TouchableOpacity>
                     <View style={{ marginVertical: 20, marginHorizontal: 50 }}>
