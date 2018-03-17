@@ -4,7 +4,7 @@ import { NavigationActions } from "react-navigation";
 import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
 import { List, ListItem } from "native-base";
 
-export default class SideMenu extends Component {
+export default class SideBar extends Component {
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
@@ -32,11 +32,11 @@ export default class SideMenu extends Component {
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Wishlist")}>
                                 <Text style={styles.navItemStyle}>Wishlist</Text>
                             </ListItem>
-                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Orders")}>
-                                <Text style={styles.navItemStyle}>Orders</Text>
-                            </ListItem>
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Cart")}>
                                 <Text style={styles.navItemStyle}>Cart</Text>
+                            </ListItem>
+                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Orders")}>
+                                <Text style={styles.navItemStyle}>Orders</Text>
                             </ListItem>
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Log")}>
                                 <Text style={styles.navItemStyle}>Log</Text>
@@ -52,7 +52,7 @@ export default class SideMenu extends Component {
     }
 }
 
-SideMenu.propTypes = {
+SideBar.propTypes = {
     navigation: PropTypes.object
 };
 

@@ -67,6 +67,7 @@ export default class WishlistScreen extends React.Component {
 
     render() {
         this.navigate = this.props.navigation.navigate;
+        //console.log("empty check", Object.values(this.state.wproducts[0]));
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
