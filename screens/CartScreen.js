@@ -175,7 +175,7 @@ export default class CartScreen extends React.Component {
             <View style={styles.container}>
                 <Header style={styles.headeri}>
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
-                        <Image source={navback} />
+                        <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                     <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>My Cart</Text>
                 </Header>

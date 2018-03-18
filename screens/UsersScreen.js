@@ -2,7 +2,6 @@ import React from "react";
 import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Container, Header, Content, Form, Item, Input, Label, Icon, Button } from "native-base";
 
-
 import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
 
@@ -83,7 +82,7 @@ export default class UsersScreen extends React.Component {
             <Container>
                 <Header style={styles.headeri}>
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
-                        <Image source={navback} />
+                        <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                     <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>User Information</Text>
                 </Header>

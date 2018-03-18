@@ -65,13 +65,13 @@ export default class GalleryScreen extends React.Component {
             <View style={styles.container}>
                 <Header style={styles.headeri}>
                     <TouchableOpacity onPress={this.navigateToScreen("DrawerOpen")}>
-                        <Image source={menu} />
+                        <Image source={menu} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.searchModalState(true).bind()}>
-                        <Image source={searchw} style={{ marginHorizontal: width / 4 }} />
+                        <Image source={searchw} style={{ height: 35, width: 35, marginHorizontal: width / 4 }} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.sortModalState(true).bind()}>
-                        <Image source={sorte} style={{}} />
+                        <Image source={sorte} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                 </Header>
 

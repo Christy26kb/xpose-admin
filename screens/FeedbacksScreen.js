@@ -78,6 +78,8 @@ export default class FeedbacksScreen extends React.Component {
                         this.setState({
                             fproducts: Object.values(data.val())
                         });
+                    } else {
+                        this.setState({ fproducts: [] });
                     }
 
                     //console.log("datas", Object.values(data.val()));

@@ -95,7 +95,7 @@ export default class S_Cscreen extends Component {
             <View style={styles.container}>
                 <Header style={styles.headeri}>
                     <TouchableOpacity onPress={this.navigateToScreen("S_Gscreen")}>
-                        <Image source={navback} />
+                        <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                     <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Buy Now</Text>
                 </Header>
