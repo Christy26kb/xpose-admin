@@ -21,6 +21,10 @@ export default class S_Oscreen extends Component {
         this.props.navigation.dispatch(navigateAction);
     };
 
+    _handleTileNavigation = (pageName, propsObject) => {
+        this.navigate(pageName, propsObject);
+    };
+
     componentDidMount() {
         var ord = this.props.navigation.state.params;
         //TODO:'User1' will be a dynamic key obtained from user.
@@ -48,6 +52,7 @@ export default class S_Oscreen extends Component {
     render() {
         //->Recieving data sent from OrdersScreen.
         const r_data = this.props.navigation.state.params;
+        this.navigate = this.props.navigation.navigate;
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
@@ -63,7 +68,7 @@ export default class S_Oscreen extends Component {
                         initialNumToRender={2}
                         renderItem={({ item }) => (
                             <ListItem>
-                                <DetailOrderTile item={item} />
+                                <DetailOrderTile item={item} _handleTileNavigation={this._handleTileNavigation.bind(this)} />
                             </ListItem>
                         )}
                         keyExtractor={(item) => item.pid}
