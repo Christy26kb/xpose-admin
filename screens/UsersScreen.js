@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
 import { Container, Header, Content, Form, Item, Input, Label, Icon, Button } from "native-base";
 
 import { NavigationActions } from "react-navigation";
@@ -112,6 +112,7 @@ export default class UsersScreen extends React.Component {
                                 value={this.state.address}
                             />
                         </Item>
+
                         <Button
                             onPress={this.updateUserData().bind()}
                             style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#0097A7" }}
