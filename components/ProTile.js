@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, View, TouchableOpacity, Alert, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback } from "react-native";
 import { Container, Header, Content, Card, CardItem, Body, Icon, H3, H2, H1 } from "native-base";
+import rmvc from "../assets/images/rmvc.png";
 
 export default class ProTile extends React.Component {
     _handleTap = () => {
@@ -8,8 +9,11 @@ export default class ProTile extends React.Component {
     };
     render() {
         return (
-            <TouchableOpacity onPress={this._handleTap}>
-                <View>
+            <View>
+                <TouchableOpacity>
+                    <Image source={rmvc} style={{ height: 25, width: 25, marginBottom: 5 }} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this._handleTap}>
                     <View style={{ flex: 1 }}>
                         <Image source={{ uri: this.props.item.imguri }} style={{ width: 125, height: 125, resizeMode: "contain" }} />
                     </View>
@@ -20,8 +24,8 @@ export default class ProTile extends React.Component {
                             <Icon active name="hand" style={styles.iconpos} />
                         </TouchableWithoutFeedback>
                     </View>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         );
     }
 }

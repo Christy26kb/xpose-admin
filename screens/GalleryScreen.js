@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, FlatList, Modal, Button, Dimensions } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, FlatList, Modal, Button, ActivityIndicator, Dimensions } from "react-native";
 
 import { Container, Header, Content, Right, Left, Body, ListItem, List, Icon } from "native-base";
 //library for creating grid layouts..
@@ -7,7 +7,7 @@ import { NavigationActions, StackNavigator } from "react-navigation";
 import * as firebase from "firebase";
 import menu from "../assets/images/menu.png";
 import searchw from "../assets/images/searchw.png";
-import sorte from "../assets/images/sort.png";
+import add from "../assets/images/add.png";
 
 import { MonoText } from "../components/StyledText";
 import ProTile from "../components/ProTile";
@@ -16,15 +16,12 @@ export default class GalleryScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sortmodalv: false,
             searchmodalv: false,
-            products: []
+            products: [],
+            isLoading: true,
+            isEmpty: false
         };
     }
-
-    sortModalState = (val) => () => {
-        this.setState({ sortmodalv: val });
-    };
 
     searchModalState = (val) => () => {
         this.setState({ searchmodalv: val });
@@ -51,16 +48,40 @@ export default class GalleryScreen extends React.Component {
                     console.log("productsvalue", childkey);
                     // ...
                 });*/
-                this.setState({
-                    products: Object.values(data.val())
-                });
-                //console.log("datas", Object.values(data.val()));
+                if (data.val() != undefined) {
+                    this.setState({
+                        products: Object.values(data.val()),
+                        isLoading: false
+                        //console.log("datas", Object.values(data.val()));
+                    });
+                } else {
+                    this.setState({ products: [], isEmpty: true });
+                }
             });
     }
 
     render() {
         this.navigate = this.props.navigation.navigate;
         const width = Dimensions.get("window").width;
+        const height = Dimensions.get("window").height;
+        const loader = <ActivityIndicator size="large" color="#0097A7" />;
+        const dataview = (
+            <FlatList
+                data={this.state.products}
+                horizontal={false}
+                numColumns={2}
+                initialNumToRender={1}
+                renderItem={({ item }) => (
+                    <ListItem>
+                        <ProTile item={item} _handleTileNavigation={this._handleTileNavigation.bind(this)} />
+                    </ListItem>
+                )}
+                keyExtractor={(item) => item.pid}
+            />
+        );
+        const empty = <Text style={{ marginHorizontal: width / 3.5, marginVertical: height / 4, fontSize: 16, color: "grey" }}>No Products on Showcase!</Text>;
+        const networkerror = <Text>Check your internet connection</Text>;
+
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
@@ -70,25 +91,10 @@ export default class GalleryScreen extends React.Component {
                     <TouchableOpacity onPress={this.searchModalState(true).bind()}>
                         <Image source={searchw} style={{ height: 35, width: 35, marginHorizontal: width / 4 }} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.sortModalState(true).bind()}>
-                        <Image source={sorte} style={{ height: 35, width: 35 }} />
+                    <TouchableOpacity>
+                        <Image source={add} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                 </Header>
-
-                <Modal
-                    visible={this.state.sortmodalv}
-                    animationType={"fade"}
-                    onRequestClose={this.sortModalState(false).bind()}
-                    transparent={true}
-                    hardwareAccelerated={true}
-                >
-                    <View style={styles.modalContainer}>
-                        <View style={styles.innerContainer}>
-                            <Text>This is content inside of Sort modal component</Text>
-                            <Button onPress={this.sortModalState(false).bind()} title="Close modal" />
-                        </View>
-                    </View>
-                </Modal>
 
                 <Modal
                     visible={this.state.searchmodalv}
@@ -105,19 +111,10 @@ export default class GalleryScreen extends React.Component {
                     </View>
                 </Modal>
 
+                <Text style={{ marginHorizontal: width / 2.5, marginVertical: 10, fontSize: 14, color: "grey" }}>My Stock</Text>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
-                    <FlatList
-                        data={this.state.products}
-                        horizontal={false}
-                        numColumns={2}
-                        initialNumToRender={1}
-                        renderItem={({ item }) => (
-                            <ListItem>
-                                <ProTile item={item} _handleTileNavigation={this._handleTileNavigation.bind(this)} />
-                            </ListItem>
-                        )}
-                        keyExtractor={(item) => item.pid}
-                    />
+                    {this.state.isLoading ? loader : dataview}
+                    {this.state.isEmpty ? empty : null}
                 </ScrollView>
             </View>
         );
