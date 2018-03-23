@@ -5,17 +5,22 @@ import { Container, Header, Footer, FooterTab, Content, Body, ListItem, Button, 
 
 import { NavigationActions, StackNavigator } from "react-navigation";
 import navback from "../assets/images/navback.png";
-export default class S_Gscreen extends Component {
+export default class stockEntryScreen extends Component {
     constructor(props) {
         super(props);
+        //VIM TODO: use a random unique number generator to generate unique orderid.
+        var rand1 = require("unique-random")(6000, 8000);
+        var rand2 = require("unique-random")(300, 800);
+        var productid = rand1() * rand2();
+
         this.state = {
-            id: "",
+            id: productid,
             imguri: "",
             name: "",
             price: "",
             category: "",
-            stock: "",
-            desc: ""
+            stock: "true",
+            desc: "Good product with decent quality and an affordable price range."
         };
     }
 
@@ -30,20 +35,6 @@ export default class S_Gscreen extends Component {
         this.navigate(pageName, propsObject);
     };
 
-    componentWillMount() {
-        const productdata = this.props.navigation.state.params;
-
-        this.setState({
-            id: productdata.pid,
-            imguri: productdata.imguri,
-            name: productdata.name,
-            price: productdata.price,
-            category: productdata.category,
-            stock: productdata.instock,
-            desc: productdata.description
-        });
-    }
-
     //TODO:Replace image in view with image slider component.
 
     render() {
@@ -56,12 +47,15 @@ export default class S_Gscreen extends Component {
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
                         <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Edit Product Details</Text>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Stock Entry</Text>
                 </Header>
 
                 <ScrollView contentContainerStyle={styles.baseContainer}>
                     <View style={{ flex: 2 }}>
-                        <Image source={{ uri: this.state.imguri }} style={{ width: 300, height: 223, resizeMode: "contain" }} />
+                        <Image
+                            source={{ uri: "https://content.adidas.co.in/static/Product-DB0591/Men_RUNNING_SHOES_LOW_DB0591_1.jpg.plp" }}
+                            style={{ width: 300, height: 223, resizeMode: "contain" }}
+                        />
                     </View>
 
                     <View style={{ flexWrap: "nowrap", padding: 20 }}>
@@ -69,6 +63,7 @@ export default class S_Gscreen extends Component {
                         <TextInput
                             underlineColorAndroid="transparent"
                             editable={false}
+                            onChangeText={(id) => this.setState({ id })}
                             style={{ marginTop: 10, width: 250, height: 35, borderColor: "grey", borderWidth: 0.8 }}
                             value={this.state.id.toString()}
                         />
@@ -87,7 +82,7 @@ export default class S_Gscreen extends Component {
                             keyboardType="numeric"
                             underlineColorAndroid="transparent"
                             style={{ marginTop: 10, width: 250, height: 35, borderColor: "grey", borderWidth: 0.8 }}
-                            value={this.state.price.toString()}
+                            value={this.state.price}
                             onChangeText={(price) => this.setState({ price })}
                         />
                         <Label style={{ fontSize: 16, color: "grey", marginTop: 20 }}>Category</Label>
@@ -105,7 +100,7 @@ export default class S_Gscreen extends Component {
                                 style={{ width: 80, height: 30, backgroundColor: "#EFF1F2", marginLeft: 20 }}
                                 mode="dropdown"
                                 itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
-                                selectedValue={this.state.stock ? "true" : "false"}
+                                selectedValue={this.state.stock}
                                 enabled={true}
                                 onValueChange={(itemValue, itemIndex) => this.setState({ stock: itemValue })}
                             >
@@ -122,7 +117,7 @@ export default class S_Gscreen extends Component {
                         />
                     </View>
                     <Button style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#0097A7" }} full rounded success>
-                        <Text style={{ color: "white" }}>Update</Text>
+                        <Text style={{ color: "white" }}>Add</Text>
                     </Button>
                 </ScrollView>
             </Container>

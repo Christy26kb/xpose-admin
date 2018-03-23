@@ -1,16 +1,27 @@
 import React from "react";
-import { Image, View, TouchableOpacity, Alert, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback } from "react-native";
-import { Container, Header, Content, Card, CardItem, Body, Icon, H3, H2, H1 } from "native-base";
+import { Image, View, TouchableOpacity, Alert, StyleSheet, Text, TouchableHighlight, Modal, TouchableWithoutFeedback } from "react-native";
+import { Container, Header, Content, Card, CardItem, Body, Icon, Button, H3, H2, H1 } from "native-base";
 import rmvc from "../assets/images/rmvc.png";
 
 export default class ProTile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            prompt: false
+        };
+    }
+
+    promptState = (val) => () => {
+        this.setState({ prompt: val });
+    };
+
     _handleTap = () => {
         this.props._handleTileNavigation("S_Gscreen", this.props.item);
     };
     render() {
         return (
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.promptState(true).bind()}>
                     <Image source={rmvc} style={{ height: 25, width: 25, marginBottom: 5 }} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this._handleTap}>
@@ -25,6 +36,28 @@ export default class ProTile extends React.Component {
                         </TouchableWithoutFeedback>
                     </View>
                 </TouchableOpacity>
+
+                <Modal
+                    visible={this.state.prompt}
+                    animationType={"fade"}
+                    onRequestClose={this.promptState(false).bind()}
+                    transparent={true}
+                    hardwareAccelerated={true}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.innerContainer}>
+                            <Text style={{ color: "white", fontSize: 15 }}>Are you sure to remove the product!</Text>
+                            <View style={{ flexDirection: "row", marginTop: 20 }}>
+                                <Button style={styles.but}>
+                                    <Text style={{ marginHorizontal: 18 }}>Yes</Text>
+                                </Button>
+                                <Button style={styles.but} onPress={this.promptState(false).bind()}>
+                                    <Text style={{ marginHorizontal: 18 }}>No</Text>
+                                </Button>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         );
     }
@@ -44,6 +77,23 @@ const styles = StyleSheet.create({
     text: {
         fontWeight: "bold",
         marginTop: 10
+    },
+    but: {
+        backgroundColor: "white",
+        width: 60,
+        height: 35,
+        marginTop: 10,
+        marginHorizontal: 30,
+        marginBottom: 10
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    innerContainer: {
+        alignItems: "center",
+        backgroundColor: "#0097A7",
+        marginHorizontal: 30
     },
     base: {
         flex: 1,

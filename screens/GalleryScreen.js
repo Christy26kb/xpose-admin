@@ -91,7 +91,7 @@ export default class GalleryScreen extends React.Component {
                     <TouchableOpacity onPress={this.searchModalState(true).bind()}>
                         <Image source={searchw} style={{ height: 35, width: 35, marginHorizontal: width / 4 }} />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.navigateToScreen("Entry")}>
                         <Image source={add} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                 </Header>
@@ -110,7 +110,6 @@ export default class GalleryScreen extends React.Component {
                         </View>
                     </View>
                 </Modal>
-
                 <Text style={{ marginHorizontal: width / 2.5, marginVertical: 10, fontSize: 14, color: "grey" }}>My Stock</Text>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}

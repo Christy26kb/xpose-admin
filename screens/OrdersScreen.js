@@ -32,16 +32,12 @@ export default class OrdersScreen extends React.Component {
     };
     componentWillMount() {
         //TODO:'User1' will be a dynamic key obtained from user.
-        var user = firebase.auth().currentUser;
-        var uid;
-        if (user != null) {
-            uid = user.uid;
-        }
+        var user = this.props.navigation.state.params;
         return firebase
             .database()
             .ref("/orders")
             .child("users")
-            .child(uid)
+            .child(user.uid)
             .child("order")
             .on("value", (data) => {
                 if (data.val() != undefined) {
@@ -77,12 +73,11 @@ export default class OrdersScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
-                    <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
+                    <TouchableOpacity onPress={this.navigateToScreen("S_Uscreen")}>
                         <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>My Orders</Text>
                 </Header>
-
+                <Text style={{ marginHorizontal: width - 220, marginVertical: 10, fontSize: 14, color: "grey" }}> User's orders list</Text>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}
                     {this.state.isEmpty ? empty : null}
