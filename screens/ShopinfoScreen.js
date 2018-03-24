@@ -5,7 +5,7 @@ import { Container, Header, Content, Form, Item, Input, Label, Icon, Button } fr
 import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
 
-export default class UsersScreen extends React.Component {
+export default class ShopinfoScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,8 +34,7 @@ export default class UsersScreen extends React.Component {
             uid = user.uid;
             return firebase
                 .database()
-                .ref("/users")
-                .child(uid)
+                .ref("/shop")
                 .on("value", (data) => {
                     if (data.val() != undefined) {
                         this.setState({
@@ -54,12 +53,7 @@ export default class UsersScreen extends React.Component {
     }
 
     updateUserData = () => () => {
-        var user = firebase.auth().currentUser;
-        var uid;
-        if (user != null) {
-            uid = user.uid;
-        }
-        var userinfo = {
+        var shopinfo = {
             name: this.state.name,
             phone: this.state.phone,
             email: this.state.email,
@@ -67,9 +61,8 @@ export default class UsersScreen extends React.Component {
         };
         return firebase
             .database()
-            .ref("/users")
-            .child(uid)
-            .set(userinfo, function(error) {
+            .ref("/shop")
+            .set(shopinfo, function(error) {
                 if (error) {
                     alert(error);
                 } else {
@@ -84,12 +77,12 @@ export default class UsersScreen extends React.Component {
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
                         <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>User Information</Text>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Shop Information</Text>
                 </Header>
                 <Content>
                     <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                         <Item style={styles.inputstyle} stackedLabel>
-                            <Label>Name</Label>
+                            <Label>Shop Name</Label>
                             <Input autoCorrect={false} autoCapitalize="none" onChangeText={(name) => this.setState({ name })} value={this.state.name} />
                         </Item>
                         <Item style={styles.inputstyle} stackedLabel>
@@ -98,7 +91,13 @@ export default class UsersScreen extends React.Component {
                         </Item>
                         <Item style={styles.inputstyle} stackedLabel>
                             <Label>Mobile No</Label>
-                            <Input autoCorrect={false} autoCapitalize="none" onChangeText={(phone) => this.setState({ phone })} value={this.state.phone} />
+                            <Input
+                                keyboardType="numeric"
+                                autoCorrect={false}
+                                autoCapitalize="none"
+                                onChangeText={(phone) => this.setState({ phone })}
+                                value={this.state.phone}
+                            />
                         </Item>
                         <Item style={styles.inputstyle} stackedLabel>
                             <Label>Address</Label>

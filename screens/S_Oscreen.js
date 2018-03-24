@@ -27,18 +27,13 @@ export default class S_Oscreen extends Component {
     };
 
     componentDidMount() {
-        var ord = this.props.navigation.state.params;
-        //TODO:'User1' will be a dynamic key obtained from user.
-        var user = firebase.auth().currentUser;
-        var uid;
-        if (user != null) {
-            uid = user.uid;
-        }
+        var para = this.props.navigation.state.params;
+        //TODO:'Userid' will be a dynamic key obtained from S_Uscreen/OrdersScreen/S_Oscreen.
         return firebase
             .database()
             .ref("/orders/user_order_products")
-            .child(uid)
-            .child(ord.oid)
+            .child(para.user.uid)
+            .child(para.order.oid)
             .on("child_added", (data) => {
                 firebase
                     .database()
@@ -73,7 +68,7 @@ export default class S_Oscreen extends Component {
                     <TouchableOpacity onPress={this.navigateToScreen("Orders")}>
                         <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Orderid/{r_data.oid}</Text>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Orderid/{r_data.order.oid}</Text>
                 </Header>
 
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>

@@ -17,7 +17,7 @@ export default class SideBar extends Component {
             <View style={styles.container}>
                 <ScrollView>
                     <View>
-                        <TouchableOpacity onPress={this.navigateToScreen("Users")}>
+                        <TouchableOpacity onPress={this.navigateToScreen("Shop")}>
                             <Image
                                 source={{ uri: "https://t4.ftcdn.net/jpg/01/16/06/45/240_F_116064582_KlXENacGmdt4xl8H6fQRYfSZLntLNKSX.jpg" }}
                                 style={{ width: 150, height: 150, marginHorizontal: 40 }}
@@ -35,17 +35,17 @@ export default class SideBar extends Component {
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("S_Uscreen")}>
                                 <Text style={styles.navItemStyle}>Orders</Text>
                             </ListItem>
+                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Feedbacks")}>
+                                <Text style={styles.navItemStyle}>Feedbacks</Text>
+                            </ListItem>
+                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Log")}>
+                                <Text style={styles.navItemStyle}>Log</Text>
+                            </ListItem>
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Wishlist")}>
                                 <Text style={styles.navItemStyle}>Wishlist</Text>
                             </ListItem>
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Cart")}>
                                 <Text style={styles.navItemStyle}>Cart</Text>
-                            </ListItem>
-                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Log")}>
-                                <Text style={styles.navItemStyle}>Log</Text>
-                            </ListItem>
-                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Feedbacks")}>
-                                <Text style={styles.navItemStyle}>Feedbacks</Text>
                             </ListItem>
                         </View>
                     </List>

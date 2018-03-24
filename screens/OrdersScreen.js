@@ -21,7 +21,9 @@ export default class OrdersScreen extends React.Component {
     };
 
     _handleTileNavigation = (pageName, propsObject) => {
-        this.navigate(pageName, propsObject);
+        //passing multiple params using navigate.
+        var userid = this.props.navigation.state.params;
+        this.navigate(pageName, { order: propsObject, user: userid });
     };
 
     navigateToScreen = (route) => () => {
@@ -31,7 +33,7 @@ export default class OrdersScreen extends React.Component {
         this.props.navigation.dispatch(navigateAction);
     };
     componentWillMount() {
-        //TODO:'User1' will be a dynamic key obtained from user.
+        //TODO:'Userid' will be a dynamic key obtained from S_Uscreen.
         var user = this.props.navigation.state.params;
         return firebase
             .database()
@@ -52,6 +54,7 @@ export default class OrdersScreen extends React.Component {
     }
 
     render() {
+        const userdata = this.props.navigation.state.params;
         this.navigate = this.props.navigation.navigate;
         const width = Dimensions.get("window").width;
         const height = Dimensions.get("window").height;
@@ -61,7 +64,7 @@ export default class OrdersScreen extends React.Component {
                 initialNumToRender={2}
                 renderItem={({ item }) => (
                     <ListItem>
-                        <OrdTile item={item} _handleTileNavigation={this._handleTileNavigation.bind(this)} />
+                        <OrdTile item={item} userdata={userdata} _handleTileNavigation={this._handleTileNavigation.bind(this)} />
                     </ListItem>
                 )}
                 keyExtractor={(item) => item.oid}

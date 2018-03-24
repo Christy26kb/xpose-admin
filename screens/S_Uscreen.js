@@ -11,7 +11,6 @@ export default class S_Uscreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stack: [],
             usersdat: [],
             isLoading: true,
             isEmpty: false
@@ -31,7 +30,9 @@ export default class S_Uscreen extends React.Component {
         });
         this.props.navigation.dispatch(navigateAction);
     };
-    componentWillMount() {
+
+    fetchUsersData = () => {
+        var f = 0;
         var update = [];
         return firebase
             .database()
@@ -51,14 +52,20 @@ export default class S_Uscreen extends React.Component {
                                 }
                             });
                     });
+
                     this.setState({ usersdat: update, isLoading: false });
                 } else {
                     this.setState({ usersdat: [], isEmpty: true, isLoading: false });
                 }
             });
+    };
+
+    componentDidMount() {
+        this.fetchUsersData();
     }
 
     render() {
+        //console.log("usersdata3", this.state.usersdat);
         this.navigate = this.props.navigation.navigate;
         const width = Dimensions.get("window").width;
         const height = Dimensions.get("window").height;

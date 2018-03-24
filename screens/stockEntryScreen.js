@@ -9,7 +9,7 @@ export default class stockEntryScreen extends Component {
     constructor(props) {
         super(props);
         //VIM TODO: use a random unique number generator to generate unique orderid.
-        var rand1 = require("unique-random")(6000, 8000);
+        var rand1 = require("unique-random")(6000, 10000);
         var rand2 = require("unique-random")(300, 800);
         var productid = rand1() * rand2();
 

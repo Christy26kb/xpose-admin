@@ -10,7 +10,7 @@ import SearchScreen from "../screens/SearchScreen";
 import OrdersScreen from "../screens/OrdersScreen";
 import CartScreen from "../screens/CartScreen";
 import WishlistScreen from "../screens/WishlistScreen";
-import UsersScreen from "../screens/UsersScreen";
+import ShopinfoScreen from "../screens/ShopinfoScreen";
 import UserauthScreen from "../screens/UserauthScreen";
 import FeedbacksScreen from "../screens/FeedbacksScreen";
 import stockEntryScreen from "../screens/stockEntryScreen";
@@ -42,8 +42,8 @@ const RootStackNavigator = DrawerNavigator(
         Wishlist: {
             screen: WishlistScreen
         },
-        Users: {
-            screen: UsersScreen
+        Shop: {
+            screen: ShopinfoScreen
         },
         Log: {
             screen: UserauthScreen
