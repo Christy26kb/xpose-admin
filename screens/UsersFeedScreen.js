@@ -90,9 +90,9 @@ export default class UsersFeedScreen extends React.Component {
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
                         <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>My Orders</Text>
+                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }} />
                 </Header>
-                <Text style={{ marginHorizontal: width - 250, marginVertical: 10, fontSize: 14, color: "grey" }}>Currently ordered users list</Text>
+                <Text style={{ marginHorizontal: width - 230, marginVertical: 10, fontSize: 14, color: "grey" }}>User's feedbacks list</Text>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}
                     {this.state.isEmpty ? empty : null}

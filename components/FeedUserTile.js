@@ -13,7 +13,7 @@ export default class FeedUserTile extends React.Component {
 
     render() {
         return (
-            <View style={{ width: 300, height: 150 }}>
+            <View style={{ width: 300, height: 110 }}>
                 <TouchableOpacity onPress={this._handleTap}>
                     <View>
                         <Text style={styles.text}>Name: {this.props.item.name}</Text>
