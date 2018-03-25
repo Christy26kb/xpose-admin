@@ -38,6 +38,13 @@ export default class GalleryScreen extends React.Component {
         this.navigate(pageName, propsObject);
     };
 
+    searchProducts = () => () => {
+        const data = this.state.products;
+        var updated = [];
+        updated = data.filter((product) => product.price < 500);
+        console.log("filtered data", updated);
+    };
+
     componentWillMount() {
         return firebase
             .database()
@@ -88,7 +95,7 @@ export default class GalleryScreen extends React.Component {
                     <TouchableOpacity onPress={this.navigateToScreen("DrawerOpen")}>
                         <Image source={menu} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.searchModalState(true).bind()}>
+                    <TouchableOpacity onPress={this.searchProducts().bind()}>
                         <Image source={searchw} style={{ height: 35, width: 35, marginHorizontal: width / 4 }} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.navigateToScreen("Entry")}>
