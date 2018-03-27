@@ -1,9 +1,10 @@
 import React from "react";
-import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions, TextInput } from "react-native";
 import { Container, Header, Content, Form, Item, Input, Label, Icon, Button } from "native-base";
 
 import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
+import options from "../assets/images/options.png";
 
 export default class ShopinfoScreen extends React.Component {
     constructor(props) {
@@ -71,13 +72,17 @@ export default class ShopinfoScreen extends React.Component {
             });
     };
     render() {
+        const width = Dimensions.get("window").width;
         return (
             <Container>
                 <Header style={styles.headeri}>
                     <TouchableOpacity onPress={this.navigateToScreen("Gallery")}>
                         <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Shop Information</Text>
+                    <Text style={{ marginHorizontal: width / 5.5, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>Shop Information</Text>
+                    <TouchableOpacity>
+                        <Image source={options} style={{ height: 35, width: 35 }} />
+                    </TouchableOpacity>
                 </Header>
                 <Content>
                     <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
@@ -136,7 +141,6 @@ const styles = StyleSheet.create({
     headeri: {
         backgroundColor: "#0097A7",
         flexDirection: "row",
-        justifyContent: "flex-start",
         alignItems: "center"
     },
     developmentModeText: {
