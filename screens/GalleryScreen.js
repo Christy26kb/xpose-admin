@@ -56,7 +56,7 @@ export default class GalleryScreen extends React.Component {
     };
 
     searchProducts = (p1) => () => {
-        const data = this.state.products;
+        const data = this.state.orgproducts;
         var updated = [];
         updated = data.filter(function(product) {
             let s1 = product.name.toLowerCase();
@@ -96,7 +96,7 @@ export default class GalleryScreen extends React.Component {
         this.navigate = this.props.navigation.navigate;
         const width = Dimensions.get("window").width;
         const height = Dimensions.get("window").height;
-        const loader = <ActivityIndicator size="large" color="#0097A7" />;
+        const loader = <ActivityIndicator size="large" color="#009688" />;
         const dataview = (
             <FlatList
                 data={this.state.products}
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     headeri: {
-        backgroundColor: "#0097A7",
+        backgroundColor: "#009688",
         flexDirection: "row",
         //make it to the specific element which need to be positioned.
         alignItems: "center"

@@ -116,7 +116,7 @@ export default class stockEntryScreen extends Component {
                             onChangeText={(desc) => this.setState({ desc })}
                         />
                     </View>
-                    <Button style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#0097A7" }} full rounded success>
+                    <Button style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#009688" }} full rounded success>
                         <Text style={{ color: "white" }}>Add</Text>
                     </Button>
                 </ScrollView>
@@ -127,7 +127,7 @@ export default class stockEntryScreen extends Component {
 
 const styles = StyleSheet.create({
     headeri: {
-        backgroundColor: "#0097A7",
+        backgroundColor: "#009688",
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center"

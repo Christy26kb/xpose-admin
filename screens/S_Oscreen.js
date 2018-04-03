@@ -61,7 +61,7 @@ export default class S_Oscreen extends Component {
                 keyExtractor={(item) => item.pid}
             />
         );
-        const loader = <ActivityIndicator size="large" color="#0097A7" />;
+        const loader = <ActivityIndicator size="large" color="#009688" />;
         return (
             <View style={styles.container}>
                 <Header style={styles.headeri}>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     headeri: {
-        backgroundColor: "#0097A7",
+        backgroundColor: "#009688",
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center"

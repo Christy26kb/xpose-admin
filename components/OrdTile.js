@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         alignItems: "center",
-        backgroundColor: "#0097A7",
+        backgroundColor: "#009688",
         marginHorizontal: 40
     },
     text: {

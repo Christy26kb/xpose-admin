@@ -81,7 +81,7 @@ export default class S_Uscreen extends React.Component {
                 keyExtractor={(item) => item.uid}
             />
         );
-        const loader = <ActivityIndicator size="large" color="#0097A7" />;
+        const loader = <ActivityIndicator size="large" color="#009688" />;
         const empty = <Text style={{ marginHorizontal: width / 4, marginVertical: height / 4, fontSize: 16, color: "grey" }}>Currently no orders!</Text>;
         const networkerror = <Text>Check your internet connection</Text>;
         return (
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     headeri: {
-        backgroundColor: "#0097A7",
+        backgroundColor: "#009688",
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center"

@@ -70,7 +70,7 @@ export default class OrdersScreen extends React.Component {
                 keyExtractor={(item) => item.oid}
             />
         );
-        const loader = <ActivityIndicator size="large" color="#0097A7" />;
+        const loader = <ActivityIndicator size="large" color="#009688" />;
         const empty = <Text style={{ marginHorizontal: width / 4, marginVertical: height / 4, fontSize: 16, color: "grey" }}>Currently no orders!</Text>;
         const networkerror = <Text>Check your internet connection</Text>;
         return (
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     headeri: {
-        backgroundColor: "#0097A7",
+        backgroundColor: "#009688",
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center"
@@ -103,31 +103,5 @@ const styles = StyleSheet.create({
     contentContainer: {
         paddingTop: 20,
         alignItems: "center"
-    },
-    welcomeContainer: {
-        alignItems: "center",
-        marginTop: 10,
-        marginBottom: 20
-    },
-
-    tabBarInfoContainer: {
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        ...Platform.select({
-            ios: {
-                shadowColor: "black",
-                shadowOffset: { height: -3 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3
-            },
-            android: {
-                elevation: 20
-            }
-        }),
-        alignItems: "center",
-        backgroundColor: "#fbfbfb",
-        paddingVertical: 20
     }
 });

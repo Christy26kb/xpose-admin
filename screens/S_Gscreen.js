@@ -14,7 +14,7 @@ export default class S_Gscreen extends Component {
             name: "",
             price: "",
             category: "",
-            stock: "",
+            stock: "true",
             desc: ""
         };
     }
@@ -39,7 +39,7 @@ export default class S_Gscreen extends Component {
             name: productdata.name,
             price: productdata.price,
             category: productdata.category,
-            stock: productdata.instock,
+            stock: productdata.instock == true ? "true" : "false",
             desc: productdata.description
         });
     }
@@ -102,10 +102,10 @@ export default class S_Gscreen extends Component {
                         <View style={{ flexDirection: "row", marginTop: 30 }}>
                             <Text style={{ fontSize: 16, color: "grey" }}>Available :</Text>
                             <Picker
-                                style={{ width: 80, height: 30, backgroundColor: "#EFF1F2", marginLeft: 20 }}
+                                style={{ width: 120, height: 30, backgroundColor: "#EFF1F2", marginLeft: 20 }}
                                 mode="dropdown"
                                 itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
-                                selectedValue={this.state.stock ? "true" : "false"}
+                                selectedValue={this.state.stock}
                                 enabled={true}
                                 onValueChange={(itemValue, itemIndex) => this.setState({ stock: itemValue })}
                             >
@@ -121,7 +121,7 @@ export default class S_Gscreen extends Component {
                             onChangeText={(desc) => this.setState({ desc })}
                         />
                     </View>
-                    <Button style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#0097A7" }} full rounded success>
+                    <Button style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#009688" }} full rounded success>
                         <Text style={{ color: "white" }}>Update</Text>
                     </Button>
                 </ScrollView>
@@ -132,7 +132,7 @@ export default class S_Gscreen extends Component {
 
 const styles = StyleSheet.create({
     headeri: {
-        backgroundColor: "#0097A7",
+        backgroundColor: "#009688",
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center"

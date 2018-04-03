@@ -55,20 +55,6 @@ class LoginScreen extends Component {
             });
     };
 
-    signoutuser = () => () => {
-        firebase
-            .auth()
-            .signOut()
-            .then(function() {
-                // Sign-out successful.
-                alert("Signed out");
-            })
-            .catch(function(error) {
-                // An error happened.
-                alert(error);
-            });
-    };
-
     render() {
         return (
             <Container style={{ padding: 20 }}>
@@ -92,7 +78,7 @@ class LoginScreen extends Component {
 
                         <Button
                             onPress={this.signInuser(this.state.email, this.state.password)}
-                            style={{ marginTop: 50, marginLeft: 20, marginRight: 20, backgroundColor: "#0097A7" }}
+                            style={{ marginTop: 50, marginLeft: 20, marginRight: 20, backgroundColor: "#009688" }}
                             full
                             rounded
                             success
@@ -176,7 +162,7 @@ class SignupScreen extends Component {
 
                         <Button
                             onPress={this.signUpuser(this.state.email, this.state.password)}
-                            style={{ marginTop: 50, marginLeft: 20, marginRight: 20, backgroundColor: "#0097A7" }}
+                            style={{ marginTop: 50, marginLeft: 20, marginRight: 20, backgroundColor: "#009688" }}
                             full
                             rounded
                             success
@@ -205,7 +191,7 @@ const LStabnav = TabNavigator(
         animationEnabled: true,
         tabBarOptions: {
             style: {
-                backgroundColor: "#0097A7"
+                backgroundColor: "#009688"
             },
             indicatorStyle: {
                 backgroundColor: "#ffffff"
