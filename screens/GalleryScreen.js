@@ -12,7 +12,9 @@ import {
     Modal,
     Button,
     ActivityIndicator,
-    Dimensions
+    Dimensions,
+    Slider,
+    Picker
 } from "react-native";
 
 import { Container, Header, Content, Right, Left, Body, ListItem, List, Icon } from "native-base";
@@ -24,6 +26,7 @@ import searchw from "../assets/images/searchw.png";
 import add from "../assets/images/add.png";
 import searchback from "../assets/images/searchback.png";
 import searchclear from "../assets/images/searchclear.png";
+import filter from "../assets/images/filter.png";
 import { MonoText } from "../components/StyledText";
 import ProTile from "../components/ProTile";
 
@@ -32,13 +35,20 @@ export default class GalleryScreen extends React.Component {
         super(props);
         this.state = {
             searchmodalv: false,
+            sortmodalv: false,
             products: [],
             orgproducts: [],
             isLoading: true,
             isEmpty: false,
-            searchText: ""
+            searchText: "",
+            priceSlider: 1,
+            stock: "true"
         };
     }
+
+    sortModalState = (val) => () => {
+        this.setState({ sortmodalv: val });
+    };
 
     searchModalState = (val) => () => {
         this.setState({ searchmodalv: val });
@@ -68,6 +78,21 @@ export default class GalleryScreen extends React.Component {
         this.setState({ products: updated });
         //console.log("filtered data", updated);
     };
+
+    priceFilter(f1) {
+        const data = this.state.orgproducts;
+        var update = [];
+        update = data.filter((product) => product.price < f1);
+        this.setState({ products: update });
+    }
+
+    stockFilter(value) {
+        this.setState({ stock: value });
+        const data = this.state.orgproducts;
+        var upd = [];
+        upd = data.filter((product) => (value == "true" ? product.instock == true : product.instock == false));
+        this.setState({ products: upd });
+    }
 
     componentWillMount() {
         return firebase
@@ -153,7 +178,55 @@ export default class GalleryScreen extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </Header>
+                    <View style={{ marginRight: 15, flexDirection: "row", marginTop: 20, justifyContent: "flex-end" }}>
+                        <Text style={{ color: "grey", fontSize: 12, marginTop: 5 }}>FILTERS</Text>
+                        <TouchableOpacity onPress={() => this.setState({ sortmodalv: true, searchmodalv: false })}>
+                            <Image source={filter} style={{ marginLeft: 10, height: 35, width: 35 }} />
+                        </TouchableOpacity>
+                    </View>
                 </Modal>
+
+                <Modal
+                    visible={this.state.sortmodalv}
+                    animationType={"fade"}
+                    onRequestClose={this.sortModalState(false).bind()}
+                    transparent={true}
+                    hardwareAccelerated={true}
+                >
+                    <View style={{ height: height, backgroundColor: "#FAFAFA" }}>
+                        <Text style={{ marginLeft: 20, marginTop: 50, fontSize: 20, color: "grey" }}>Filters</Text>
+                        <Slider
+                            style={{ marginTop: 50, height: 40, width: 300 }}
+                            step={1}
+                            minimumValue={10}
+                            maximumValue={1000}
+                            thumbTintColor="#009688"
+                            minimumTrackTintColor="#009688"
+                            value={this.state.priceSlider}
+                            onValueChange={(val) => this.setState({ priceSlider: val })}
+                            onSlidingComplete={(value) => this.priceFilter(value)}
+                        />
+                        <Text style={{ marginTop: 30, marginLeft: 20, color: "grey" }}>Price Below: {this.state.priceSlider}</Text>
+
+                        <View style={{ flexDirection: "row", marginTop: 50, marginLeft: 20 }}>
+                            <Text style={{ color: "grey", fontSize: 16 }}>Availability:</Text>
+                            <Picker
+                                style={{ width: 120, height: 25, backgroundColor: "#EFF1F2", marginLeft: 20 }}
+                                mode="dropdown"
+                                itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
+                                selectedValue={this.state.stock}
+                                onValueChange={(itemValue, itemIndex) => this.stockFilter(itemValue)}
+                            >
+                                <Picker.Item label="In-stock" value="true" />
+                                <Picker.Item label="Out of stock" value="false" />
+                            </Picker>
+                        </View>
+                        <TouchableOpacity onPress={() => this.setState({ priceSlider: 1, stock: "true", products: this.state.orgproducts })}>
+                            <Text style={{ marginLeft: 20, marginTop: 80, color: "grey" }}>CLEAR FILTERS</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+
                 <Text style={{ marginHorizontal: width / 2.5, marginVertical: 10, fontSize: 14, color: "grey" }}>My Stock</Text>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}
