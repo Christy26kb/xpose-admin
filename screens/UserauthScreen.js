@@ -5,7 +5,6 @@ import { Container, Header, Content, Form, Item, Input, Label, Icon, Button, Toa
 
 import { TabNavigator, NavigationActions } from "react-navigation";
 import { MonoText } from "../components/StyledText";
-import Home from "../screens/HomeScreen";
 
 export default class UserauthScreen extends React.Component {
     render() {

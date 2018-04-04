@@ -1,7 +1,6 @@
 import React from "react";
 import { Image, View, TouchableOpacity, Alert, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, Dimensions } from "react-native";
 import { Icon, Button } from "native-base";
-import rmv from "../assets/images/rmv.png";
 import feedback from "../assets/images/feedback.png";
 
 export default class FeedbackTile extends React.Component {

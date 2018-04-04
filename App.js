@@ -52,21 +52,10 @@ export default class App extends React.Component {
     _loadResourcesAsync = async () => {
         return Promise.all([
             Asset.loadAsync([
-                require("./assets/images/gallery.png"),
-                require("./assets/images/search.png"),
-                require("./assets/images/search2.png"),
-                require("./assets/images/cart.png"),
-                require("./assets/images/users.png"),
-                require("./assets/images/orders.png"),
                 require("./assets/images/menu.png"),
                 require("./assets/images/navback.png"),
                 require("./assets/images/searchw.png"),
-                require("./assets/images/movbag.png"),
-                require("./assets/images/movcart.png"),
-                require("./assets/images/rmv.png"),
-                require("./assets/images/sort.png"),
                 require("./assets/images/feedback.png"),
-                require("./assets/images/send.png"),
                 require("./assets/images/add.png"),
                 require("./assets/images/rmvc.png"),
                 require("./assets/images/searchback.png"),

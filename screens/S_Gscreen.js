@@ -44,6 +44,29 @@ export default class S_Gscreen extends Component {
         });
     }
 
+    updateProductDetails = () => () => {
+        var editproduct = {
+            pid: this.state.id,
+            imguri: this.state.imguri,
+            name: this.state.name,
+            price: this.state.price,
+            category: this.state.category,
+            instock: this.state.stock == "true" ? true : false,
+            description: this.state.desc
+        };
+        return firebase
+            .database()
+            .ref("/products")
+            .child(this.state.id)
+            .set(editproduct, function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Details Updated successfully");
+                }
+            });
+    };
+
     //TODO:Replace image in view with image slider component.
 
     render() {
@@ -77,7 +100,7 @@ export default class S_Gscreen extends Component {
                             underlineColorAndroid="transparent"
                             style={{ marginTop: 10, width: 250, height: 35, borderColor: "grey", borderWidth: 0.8 }}
                             autoCorrect={false}
-                            autoCapitalize="none"
+                            autoCapitalize="words"
                             onChangeText={(name) => this.setState({ name })}
                             value={this.state.name}
                         />
@@ -95,7 +118,7 @@ export default class S_Gscreen extends Component {
                             underlineColorAndroid="transparent"
                             style={{ marginTop: 10, width: 250, height: 35, borderColor: "grey", borderWidth: 0.8 }}
                             autoCorrect={false}
-                            autoCapitalize="none"
+                            autoCapitalize="words"
                             onChangeText={(category) => this.setState({ category })}
                             value={this.state.category}
                         />
@@ -121,7 +144,13 @@ export default class S_Gscreen extends Component {
                             onChangeText={(desc) => this.setState({ desc })}
                         />
                     </View>
-                    <Button style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#009688" }} full rounded success>
+                    <Button
+                        onPress={this.updateProductDetails().bind()}
+                        style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#009688" }}
+                        full
+                        rounded
+                        success
+                    >
                         <Text style={{ color: "white" }}>Update</Text>
                     </Button>
                 </ScrollView>

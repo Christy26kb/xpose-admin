@@ -97,7 +97,7 @@ export default class stockEntryScreen extends Component {
                         <View style={{ flexDirection: "row", marginTop: 30 }}>
                             <Text style={{ fontSize: 16, color: "grey" }}>Available :</Text>
                             <Picker
-                                style={{ width: 80, height: 30, backgroundColor: "#EFF1F2", marginLeft: 20 }}
+                                style={{ width: 120, height: 30, backgroundColor: "#EFF1F2", marginLeft: 20 }}
                                 mode="dropdown"
                                 itemStyle={{ backgroundColor: "grey", height: 10, width: 20 }}
                                 selectedValue={this.state.stock}

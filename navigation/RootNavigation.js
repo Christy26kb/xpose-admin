@@ -6,10 +6,7 @@ import Sidebar from "../components/Sidebar.js";
 import registerForPushNotificationsAsync from "../api/registerForPushNotificationsAsync";
 
 import GalleryScreen from "../screens/GalleryScreen";
-import SearchScreen from "../screens/SearchScreen";
 import OrdersScreen from "../screens/OrdersScreen";
-import CartScreen from "../screens/CartScreen";
-import WishlistScreen from "../screens/WishlistScreen";
 import ShopinfoScreen from "../screens/ShopinfoScreen";
 import UserauthScreen from "../screens/UserauthScreen";
 import FeedbacksScreen from "../screens/FeedbacksScreen";
@@ -17,7 +14,6 @@ import UsersFeedScreen from "../screens/UsersFeedScreen";
 import stockEntryScreen from "../screens/stockEntryScreen";
 import S_Gscreen from "../screens/S_Gscreen";
 import S_Oscreen from "../screens/S_Oscreen";
-import S_Cscreen from "../screens/S_Cscreen";
 import S_Uscreen from "../screens/S_Uscreen";
 
 const RootStackNavigator = DrawerNavigator(
@@ -28,20 +24,11 @@ const RootStackNavigator = DrawerNavigator(
         Gallery: {
             screen: GalleryScreen
         },
-        Search: {
-            screen: SearchScreen
-        },
         Orders: {
             screen: OrdersScreen
         },
         Entry: {
             screen: stockEntryScreen
-        },
-        Cart: {
-            screen: CartScreen
-        },
-        Wishlist: {
-            screen: WishlistScreen
         },
         Shop: {
             screen: ShopinfoScreen
@@ -61,9 +48,6 @@ const RootStackNavigator = DrawerNavigator(
         },
         S_Oscreen: {
             screen: S_Oscreen
-        },
-        S_Cscreen: {
-            screen: S_Cscreen
         },
         S_Uscreen: {
             screen: S_Uscreen

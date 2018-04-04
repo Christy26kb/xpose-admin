@@ -7,7 +7,6 @@ import { MonoText } from "../components/StyledText";
 import { NavigationActions } from "react-navigation";
 import navback from "../assets/images/navback.png";
 import FeedbackTile from "../components/FeedbackTile";
-import send from "../assets/images/send.png";
 
 export default class FeedbacksScreen extends React.Component {
     constructor(props) {

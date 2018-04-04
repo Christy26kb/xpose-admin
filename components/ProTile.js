@@ -18,6 +18,23 @@ export default class ProTile extends React.Component {
     _handleTap = () => {
         this.props._handleTileNavigation("S_Gscreen", this.props.item);
     };
+
+    removeProducts = () => () => {
+        firebase
+            .database()
+            .ref("/products")
+            .child(this.props.item.id)
+            .remove(function(error) {
+                if (error) {
+                    alert(error);
+                } else {
+                    alert("Product removed successfully");
+                }
+            });
+
+        this.setState({ prompt: false });
+    };
+
     render() {
         return (
             <View>

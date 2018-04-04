@@ -199,7 +199,7 @@ export default class GalleryScreen extends React.Component {
                             style={{ marginTop: 50, height: 40, width: 300 }}
                             step={1}
                             minimumValue={10}
-                            maximumValue={1000}
+                            maximumValue={3000}
                             thumbTintColor="#009688"
                             minimumTrackTintColor="#009688"
                             value={this.state.priceSlider}

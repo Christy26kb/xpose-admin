@@ -58,7 +58,6 @@ export default class OrdTile extends React.Component {
 
     setOrderStatus = () => () => {
         var orderid = this.props.item.oid;
-        var flag = 0;
         //data sent from orderscreen through props.
         var uid = this.props.userdata.uid;
         var statusw = this.state.stat;
@@ -74,7 +73,6 @@ export default class OrdTile extends React.Component {
             });
 
         this.setState({ statusprompt: false });
-        console.log("ind", flag);
     };
     render() {
         return (
