@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, TextInput, FlatList, Picker } from "react-native";
-
-import { Container, Header, Footer, FooterTab, Content, Body, ListItem, Button, List, Icon, Textarea, Label, H3 } from "native-base";
-
+import { ImagePicker } from "expo";
+import { Container, Header, Content, Body, ListItem, Button, List, Icon, Textarea, Label, H3 } from "native-base";
 import { NavigationActions, StackNavigator } from "react-navigation";
 import navback from "../assets/images/navback.png";
 export default class stockEntryScreen extends Component {
@@ -14,6 +13,7 @@ export default class stockEntryScreen extends Component {
         var productid = rand1() * rand2();
 
         this.state = {
+            imgbase64: null,
             id: productid,
             imguri: "",
             name: "",
@@ -37,6 +37,81 @@ export default class stockEntryScreen extends Component {
 
     //TODO:Replace image in view with image slider component.
 
+    _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: "Images",
+            allowsEditing: false,
+            base64: true
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            this.setState({ imguri: result.uri, imgbase64: result.base64 });
+        }
+    };
+
+    _uploadProductData = () => () => {
+        //Encoded image data base64.
+        var imagedata = this.state.imgbase64;
+        //Data for product details entry.
+        var pid = this.state.id;
+        var name = this.state.name;
+        var price = this.state.price;
+        var category = this.state.category;
+        var instock = this.state.stock == "true" ? true : false;
+        var description = this.state.desc;
+
+        //Validation check if all fields are filled.
+        if (pid && name && price && category && description && imagedata) {
+            let base64Img = `data:image/jpg;base64,${imagedata}`;
+            //Add your cloud name
+            let apiUrl = "https://api.cloudinary.com/v1_1/duxoefybk/image/upload";
+            let data = {
+                file: base64Img,
+                upload_preset: "zcl3dtbz"
+            };
+            fetch(apiUrl, {
+                body: JSON.stringify(data),
+                headers: {
+                    "content-type": "application/json"
+                },
+                method: "POST"
+            })
+                .then((r) => {
+                    let data = r._bodyText;
+                    let downloaduri = JSON.parse(data).secure_url;
+
+                    //Structuring the data need to be uploaded.
+                    var productentry = {
+                        pid: pid,
+                        imguri: downloaduri,
+                        name: name,
+                        price: price,
+                        category: category,
+                        instock: instock,
+                        description: description
+                    };
+
+                    //Uploading whole data to firebase.
+                    firebase
+                        .database()
+                        .ref("/products")
+                        .child(pid)
+                        .set(productentry, function(error) {
+                            if (error) {
+                                alert(error);
+                            } else {
+                                alert("Product entered successfully");
+                            }
+                        });
+                })
+                .catch((err) => console.log(err));
+        } else {
+            alert("Empty fields!");
+        }
+    };
+
     render() {
         this.navigate = this.props.navigation.navigate;
         //Recieving selected product data from GalleryScreen.
@@ -52,13 +127,13 @@ export default class stockEntryScreen extends Component {
 
                 <ScrollView contentContainerStyle={styles.baseContainer}>
                     <View style={{ flex: 2 }}>
-                        <Image
-                            source={{ uri: "https://content.adidas.co.in/static/Product-DB0591/Men_RUNNING_SHOES_LOW_DB0591_1.jpg.plp" }}
-                            style={{ width: 300, height: 223, resizeMode: "contain" }}
-                        />
+                        {this.state.imguri ? <Image source={{ uri: this.state.imguri }} style={{ width: 300, height: 223, resizeMode: "contain" }} /> : null}
                     </View>
 
                     <View style={{ flexWrap: "nowrap", padding: 20 }}>
+                        <Button style={{ height: 30, width: 220, backgroundColor: "#009688" }} onPress={this._pickImage}>
+                            <Text style={{ color: "white", marginHorizontal: 10 }}>Pick an image from camera roll</Text>
+                        </Button>
                         <Label style={{ fontSize: 16, color: "grey", marginTop: 20 }}>ID</Label>
                         <TextInput
                             underlineColorAndroid="transparent"
@@ -72,7 +147,7 @@ export default class stockEntryScreen extends Component {
                             underlineColorAndroid="transparent"
                             style={{ marginTop: 10, width: 250, height: 35, borderColor: "grey", borderWidth: 0.8 }}
                             autoCorrect={false}
-                            autoCapitalize="none"
+                            autoCapitalize="words"
                             onChangeText={(name) => this.setState({ name })}
                             value={this.state.name}
                         />
@@ -90,7 +165,7 @@ export default class stockEntryScreen extends Component {
                             underlineColorAndroid="transparent"
                             style={{ marginTop: 10, width: 250, height: 35, borderColor: "grey", borderWidth: 0.8 }}
                             autoCorrect={false}
-                            autoCapitalize="none"
+                            autoCapitalize="words"
                             onChangeText={(category) => this.setState({ category })}
                             value={this.state.category}
                         />
@@ -116,7 +191,13 @@ export default class stockEntryScreen extends Component {
                             onChangeText={(desc) => this.setState({ desc })}
                         />
                     </View>
-                    <Button style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#009688" }} full rounded success>
+                    <Button
+                        onPress={this._uploadProductData().bind()}
+                        style={{ marginTop: 30, marginLeft: 20, marginRight: 20, marginBottom: 20, backgroundColor: "#009688" }}
+                        full
+                        rounded
+                        success
+                    >
                         <Text style={{ color: "white" }}>Add</Text>
                     </Button>
                 </ScrollView>

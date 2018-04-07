@@ -20,10 +20,11 @@ export default class ProTile extends React.Component {
     };
 
     removeProducts = () => () => {
+        let proid = this.props.item.pid;
         firebase
             .database()
             .ref("/products")
-            .child(this.props.item.id)
+            .child(proid)
             .remove(function(error) {
                 if (error) {
                     alert(error);
@@ -65,7 +66,7 @@ export default class ProTile extends React.Component {
                         <View style={styles.innerContainer}>
                             <Text style={{ color: "white", fontSize: 15 }}>Are you sure to remove the product!</Text>
                             <View style={{ flexDirection: "row", marginTop: 20 }}>
-                                <Button style={styles.but}>
+                                <Button onPress={this.removeProducts().bind()} style={styles.but}>
                                     <Text style={{ marginHorizontal: 18 }}>Yes</Text>
                                 </Button>
                                 <Button style={styles.but} onPress={this.promptState(false).bind()}>
