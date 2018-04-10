@@ -14,7 +14,8 @@ import {
     ActivityIndicator,
     Dimensions,
     Slider,
-    Picker
+    Picker,
+    BackHandler
 } from "react-native";
 
 import { Container, Header, Content, Right, Left, Body, ListItem, List, Icon } from "native-base";
@@ -33,6 +34,7 @@ import ProTile from "../components/ProTile";
 export default class GalleryScreen extends React.Component {
     constructor(props) {
         super(props);
+        this._fetchData();
         this.state = {
             searchmodalv: false,
             sortmodalv: false,
@@ -45,7 +47,13 @@ export default class GalleryScreen extends React.Component {
             stock: "true"
         };
     }
+    componentDidMount() {
+        BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPressAndroid);
+    }
 
+    onBackButtonPressAndroid = () => {
+        return true;
+    };
     sortModalState = (val) => () => {
         this.setState({ sortmodalv: val });
     };
@@ -94,16 +102,16 @@ export default class GalleryScreen extends React.Component {
         this.setState({ products: upd });
     }
 
-    componentWillMount() {
+    _fetchData = () => {
         return firebase
             .database()
             .ref("/products/")
             .on("value", (data) => {
                 /*data.forEach(function(Snapshot) {
-                    var childkey = Snapshot.key;
-                    console.log("productsvalue", childkey);
-                    // ...
-                });*/
+                var childkey = Snapshot.key;
+                console.log("productsvalue", childkey);
+                // ...
+            });*/
                 if (data.val() != undefined) {
                     this.setState({
                         products: Object.values(data.val()),
@@ -115,6 +123,9 @@ export default class GalleryScreen extends React.Component {
                     this.setState({ products: [], orgproducts: [], isEmpty: true });
                 }
             });
+    };
+    componentWillMount() {
+        this._fetchData();
     }
 
     render() {

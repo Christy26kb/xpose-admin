@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, TextInput, FlatList, Picker } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text,BackHandler, TextInput, FlatList, Picker } from "react-native";
 import { ImagePicker } from "expo";
 import { Container, Header, Content, Body, ListItem, Button, List, Icon, Textarea, Label, H3 } from "native-base";
 import { NavigationActions, StackNavigator } from "react-navigation";
@@ -24,6 +24,14 @@ export default class stockEntryScreen extends Component {
         };
     }
 
+    componentDidMount() {
+        BackHandler.addEventListener("hardwareBackPress", this.onBackButtonPressAndroid);
+    }
+
+    onBackButtonPressAndroid = () => {
+        return true;
+    };
+
     navigateToScreen = (route) => () => {
         const navigateAction = NavigationActions.navigate({
             routeName: route
@@ -44,7 +52,6 @@ export default class stockEntryScreen extends Component {
             base64: true
         });
 
-        console.log(result);
 
         if (!result.cancelled) {
             this.setState({ imguri: result.uri, imgbase64: result.base64 });

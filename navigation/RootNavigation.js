@@ -1,6 +1,7 @@
 import { Notifications } from "expo";
-import React from "react";
-import { DrawerNavigator } from "react-navigation";
+import React, { Component } from "react";
+import AsyncStorage from "react-native";
+import { DrawerNavigator, NavigationAction } from "react-navigation";
 
 import Sidebar from "../components/Sidebar.js";
 import registerForPushNotificationsAsync from "../api/registerForPushNotificationsAsync";
@@ -8,10 +9,11 @@ import registerForPushNotificationsAsync from "../api/registerForPushNotificatio
 import GalleryScreen from "../screens/GalleryScreen";
 import OrdersScreen from "../screens/OrdersScreen";
 import ShopinfoScreen from "../screens/ShopinfoScreen";
-import UserauthScreen from "../screens/UserauthScreen";
 import FeedbacksScreen from "../screens/FeedbacksScreen";
 import UsersFeedScreen from "../screens/UsersFeedScreen";
 import stockEntryScreen from "../screens/stockEntryScreen";
+import LoginScreen from "../screens/LoginScreen";
+import SignupScreen from "../screens/SignupScreen";
 import S_Gscreen from "../screens/S_Gscreen";
 import S_Oscreen from "../screens/S_Oscreen";
 import S_Uscreen from "../screens/S_Uscreen";
@@ -33,16 +35,20 @@ const RootStackNavigator = DrawerNavigator(
         Shop: {
             screen: ShopinfoScreen
         },
-        Log: {
-            screen: UserauthScreen
-        },
         Feedbacks: {
             screen: FeedbacksScreen
         },
         UsersFeedScreen: {
             screen: UsersFeedScreen
         },
+        Login: {
+            screen: LoginScreen
+        },
+        Signup: {
+            screen: SignupScreen
+        },
         //...starting of sub screens.....
+
         S_Gscreen: {
             screen: S_Gscreen
         },

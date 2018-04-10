@@ -38,9 +38,6 @@ export default class SideBar extends Component {
                             <ListItem style={styles.listitemi} onPress={this.navigateToScreen("UsersFeedScreen")}>
                                 <Text style={styles.navItemStyle}>Feedbacks</Text>
                             </ListItem>
-                            <ListItem style={styles.listitemi} onPress={this.navigateToScreen("Log")}>
-                                <Text style={styles.navItemStyle}>Log</Text>
-                            </ListItem>
                         </View>
                     </List>
                 </ScrollView>
