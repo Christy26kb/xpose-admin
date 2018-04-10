@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text,BackHandler, TextInput, FlatList, Picker } from "react-native";
+import { Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View, Text, BackHandler, TextInput, FlatList, Picker } from "react-native";
 import { ImagePicker } from "expo";
 import { Container, Header, Content, Body, ListItem, Button, List, Icon, Textarea, Label, H3 } from "native-base";
 import { NavigationActions, StackNavigator } from "react-navigation";
@@ -61,13 +61,15 @@ export default class stockEntryScreen extends Component {
     _uploadProductData = () => () => {
         //Encoded image data base64.
         var imagedata = this.state.imgbase64;
+        var pricee = parseInt(this.state.price);
         //Data for product details entry.
         var pid = this.state.id;
         var name = this.state.name;
-        var price = this.state.price;
+        var price = pricee;
         var category = this.state.category;
         var instock = this.state.stock == "true" ? true : false;
         var description = this.state.desc;
+        var quantity = 1;
 
         //Validation check if all fields are filled.
         if (pid && name && price && category && description && imagedata) {
@@ -94,10 +96,11 @@ export default class stockEntryScreen extends Component {
                         pid: pid,
                         imguri: downloaduri,
                         name: name,
-                        price: price,
+                        price: pricee,
                         category: category,
                         instock: instock,
-                        description: description
+                        description: description,
+                        quantity: quantity
                     };
 
                     //Uploading whole data to firebase.
@@ -105,7 +108,7 @@ export default class stockEntryScreen extends Component {
                         .database()
                         .ref("/products")
                         .child(pid)
-                        .set(productentry, function(error) {
+                        .set(productentry, function (error) {
                             if (error) {
                                 alert(error);
                             } else {

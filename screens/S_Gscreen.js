@@ -32,12 +32,12 @@ export default class S_Gscreen extends Component {
 
     componentWillMount() {
         const productdata = this.props.navigation.state.params;
-
+        var pr = productdata.price.toString();
         this.setState({
             id: productdata.pid,
             imguri: productdata.imguri,
             name: productdata.name,
-            price: productdata.price,
+            price: pr,
             category: productdata.category,
             stock: productdata.instock == true ? "true" : "false",
             desc: productdata.description
@@ -45,20 +45,22 @@ export default class S_Gscreen extends Component {
     }
 
     updateProductDetails = () => () => {
+        var pricee = parseInt(this.state.price);
         var editproduct = {
             pid: this.state.id,
             imguri: this.state.imguri,
             name: this.state.name,
-            price: this.state.price,
+            price: pricee,
             category: this.state.category,
             instock: this.state.stock == "true" ? true : false,
-            description: this.state.desc
+            description: this.state.desc,
+            quantity: 1
         };
         return firebase
             .database()
             .ref("/products")
             .child(this.state.id)
-            .set(editproduct, function(error) {
+            .set(editproduct, function (error) {
                 if (error) {
                     alert(error);
                 } else {
