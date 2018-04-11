@@ -12,33 +12,7 @@ export default class SignupScreen extends Component {
         };
     }
 
-    signInuser = (email, password) => () => {
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .catch(function(error) {
-                // Handle Errors here.
-                var errorcode = error.code;
-                var errorMessage = error.message;
-                if (errorcode == "auth/invalid-email") {
-                    alert("Inavlid email entered!");
-                } else if (errorcode == "auth/wrong-password") {
-                    alert("Wrong password!");
-                } else if (errorcode == "auth/user-not-found") {
-                    alert("No users found for this email address");
-                } else if (errorcode == "auth/user-disabled") {
-                    alert("User is disabled for this email address");
-                } else {
-                    alert(errorMessage);
-                }
-            });
-
-        //Calling async function to set persistent storage,if user is signed in.
-        this._signInAsync();
-    };
-
     signUpuser = (email, password) => () => {
-        var issuccess = true;
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (reg.test(email) === false) {
             alert("Enter a valid email address!");
@@ -53,12 +27,8 @@ export default class SignupScreen extends Component {
         firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
-            .then(function(user) {
-                alert("Signed up successfully");
-            })
             .catch(function(error) {
                 // Handle Errors here.
-                issuccess = false;
                 var errorcode = error.code;
                 var errorMessage = error.message;
                 if (errorcode == "auth/email-already-in-use") {
@@ -73,9 +43,6 @@ export default class SignupScreen extends Component {
             });
 
         //Calling async function to set persistent storage,if user is signed in.
-        if (issuccess) {
-            this._signInAsync();
-        }
     };
 
     _signInAsync = async () => {

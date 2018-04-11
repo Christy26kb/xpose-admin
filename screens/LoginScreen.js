@@ -6,47 +6,45 @@ import { NavigationActions } from "react-navigation";
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
+        this._initializeAuth();
         this.state = {
             email: "",
             password: ""
         };
     }
 
+    _initializeAuth = async () => {
+        await firebase.auth().onAuthStateChanged((user) => {
+            if (user == null) {
+                // TODO: start sign-in flow
+            } else {
+                // TODO: start actual work
+                alert("Signed on");
+                this._signInAsync();
+            }
+        });
+    };
+
     signInuser = (email, password) => () => {
-        var issuccess = true;
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then(function(user) {
-                alert("signed in");
-            })
             .catch(function(error) {
                 // Handle Errors here.
-                issuccess = false;
                 var errorcode = error.code;
                 var errorMessage = error.message;
                 if (errorcode == "auth/invalid-email") {
                     alert("Inavlid email entered!");
-                    return;
                 } else if (errorcode == "auth/wrong-password") {
                     alert("Wrong password!");
-                    return;
                 } else if (errorcode == "auth/user-not-found") {
                     alert("No users found for this email address");
-                    return;
                 } else if (errorcode == "auth/user-disabled") {
                     alert("User is disabled for this email address");
-                    return;
                 } else {
                     alert(errorMessage);
-                    return;
                 }
             });
-
-        //Calling async function to set persistent storage,if user is signed in.
-        if (issuccess) {
-            this._signInAsync();
-        }
     };
 
     _signInAsync = async () => {
