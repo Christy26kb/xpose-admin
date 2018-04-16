@@ -1,18 +1,21 @@
 {
   "expo": {
-    "name": "xpose",
+    "name": "Xpose Admin",
     "description": "A very interesting project.",
-    "slug": "xpose",
+    "slug": "xpose-admin",
     "privacy": "public",
     "sdkVersion": "25.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#009688"
     },
     "ios": {
       "supportsTablet": true
