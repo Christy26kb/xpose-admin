@@ -88,7 +88,9 @@ export default class OrdersScreen extends React.Component {
                         <Image source={navback} style={{ height: 35, width: 35 }} />
                     </TouchableOpacity>
                 </Header>
-                <Text style={{ marginHorizontal: width - 220, marginVertical: 10, fontSize: 14, color: "grey" }}> User's orders list</Text>
+                <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                    <Text style={{ marginHorizontal: width - 220, marginVertical: 10, fontSize: 14, color: "grey" }}> User's orders list</Text>
+                </View>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}
                     {this.state.isEmpty ? empty : null}

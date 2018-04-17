@@ -238,7 +238,9 @@ export default class GalleryScreen extends React.Component {
                     </View>
                 </Modal>
 
-                <Text style={{ marginHorizontal: width / 2.5, marginVertical: 10, fontSize: 14, color: "grey" }}>My Stock</Text>
+                <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                    <Text style={{ fontSize: 14, color: "grey" }}>My Stock</Text>
+                </View>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}
                     {this.state.isEmpty ? empty : null}

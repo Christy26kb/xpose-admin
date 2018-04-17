@@ -92,7 +92,9 @@ export default class S_Uscreen extends React.Component {
                     </TouchableOpacity>
                     <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }}>My Orders</Text>
                 </Header>
-                <Text style={{ marginHorizontal: width - 250, marginVertical: 10, fontSize: 14, color: "grey" }}>Currently ordered users list</Text>
+                <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                    <Text style={{ fontSize: 14, color: "grey" }}>Currently ordered users list</Text>
+                </View>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}
                     {this.state.isEmpty ? empty : null}

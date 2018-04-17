@@ -100,7 +100,9 @@ export default class UsersFeedScreen extends React.Component {
                     </TouchableOpacity>
                     <Text style={{ marginHorizontal: 60, color: "#FFF", fontSize: 16, fontWeight: "bold" }} />
                 </Header>
-                <Text style={{ marginHorizontal: width - 230, marginVertical: 10, fontSize: 14, color: "grey" }}>User's feedbacks list</Text>
+                <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                    <Text style={{ fontSize: 14, color: "grey" }}>User's feedbacks list</Text>
+                </View>
                 <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
                     {this.state.isLoading ? loader : dataview}
                     {this.state.isEmpty ? empty : null}
